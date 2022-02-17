@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 void main() {
-  runApp(const TicTacToe());
+  runApp(const SlidePuzzle());
 }
 
-class TicTacToe extends StatelessWidget {
-  const TicTacToe({Key? key}) : super(key: key);
+class SlidePuzzle extends StatelessWidget {
+  const SlidePuzzle({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'TicTacToe',
+      title: 'SlidePuzzle',
       theme: ThemeData(
           // This is the theme of your application.
           //
@@ -28,13 +29,13 @@ class TicTacToe extends StatelessWidget {
           ),
           ),
             
-      home: const TicTacToePage(title: 'Slide Puzzle'),
+      home: const SlidePuzzlePage(title: 'Slide Puzzle'),
     );
   }
 }
 
-class TicTacToePage extends StatefulWidget {
-  const TicTacToePage({Key? key, required this.title}) : super(key: key);
+class SlidePuzzlePage extends StatefulWidget {
+  const SlidePuzzlePage({Key? key, required this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -48,23 +49,52 @@ class TicTacToePage extends StatefulWidget {
   final String title;
 
   @override
-  State<TicTacToePage> createState() => _TicTacToePageState();
+  State<SlidePuzzlePage> createState() => _SlidePuzzlePageState();
 }
 
-class _TicTacToePageState extends State<TicTacToePage> {
+class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
+  
     return Scaffold(
         appBar: AppBar(
-          // Here we take the value from the TicTacToe object that was created by
+          // Here we take the value from the SlidePuzzle object that was created by
           // the App.build method, and use it to set our appbar title.
-          title: Text(widget.title),
+          leading: 
+            IconButton(
+              icon: FaIcon(FontAwesomeIcons.puzzlePiece,color: Colors.blue[900]),
+              onPressed:(){}
+            ),
+          title: Text(widget.title,
+            style: TextStyle(color : Colors.blue[900],fontWeight: FontWeight.bold)),
+          actions:<Widget>[
+            IconButton(
+              icon : FaIcon(FontAwesomeIcons.play),
+              tooltip : "Start Game",
+              onPressed:(){},
+            ),
+            IconButton(
+              icon : FaIcon(FontAwesomeIcons.questionCircle),
+              tooltip : "How to Play",
+              onPressed:() => showDialog<String>(
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                    title: const Text('How to Play'),
+                    content: const Text('Game Story Description'),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () => Navigator.pop(context, 'Cancel'),
+                        child: const Text('Cancel',style: TextStyle(color: Colors.black)),
+                      ),
+                      TextButton(
+                        onPressed: () => Navigator.pop(context, 'OK'),
+                        child: const Text('OK',style: TextStyle(color: Colors.black)),
+                      ),
+                    ],
+                  ),
+                ),
+            )
+          ]
         ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,

@@ -13,7 +13,7 @@ import 'package:slide_puzzle_dev/main.dart';
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const TicTacToe());
+    await tester.pumpWidget(const SlidePuzzle());
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);
