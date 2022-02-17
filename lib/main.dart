@@ -76,8 +76,7 @@ class _TicTacToePageState extends State<TicTacToePage> {
                 return Container(
                     padding: const EdgeInsets.all(1.0), // 加入padding，產生留白處
                     child: TextButton(
-                      child: const Text(
-                        "X",
+                      child: const Text("X",
                         style: TextStyle(
                             fontSize: 50.0,
                             color: Colors.white,),
@@ -90,11 +89,11 @@ class _TicTacToePageState extends State<TicTacToePage> {
             ),
             Center(
                 child: SizedBox(
-                    width: 200,
-                    height: 80,
+                    width: 100,
+                    height: 50,
                     child: ElevatedButton(
                         onPressed: null,
-                        child: const Text('Start'),
+                        child: const Text('Play'),
                         style:
                             ButtonStyle(
                               backgroundColor:MaterialStateProperty.all(Colors.blue)
