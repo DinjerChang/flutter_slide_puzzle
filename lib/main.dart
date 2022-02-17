@@ -28,7 +28,7 @@ class TicTacToe extends StatelessWidget {
           ),
           ),
             
-      home: const TicTacToePage(title: 'TicTacToe'),
+      home: const TicTacToePage(title: 'Slide Puzzle'),
     );
   }
 }
