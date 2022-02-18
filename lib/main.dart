@@ -29,7 +29,7 @@ class SlidePuzzle extends StatelessWidget {
           ),
           ),
             
-      home: const SlidePuzzlePage(title: 'Slide Puzzle'),
+      home: const SlidePuzzlePage(title: 'Ancient Slide Puzzle'),
     );
   }
 }
@@ -69,12 +69,29 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
             style: TextStyle(color : Colors.blue[900],fontWeight: FontWeight.bold)),
           actions:<Widget>[
             IconButton(
-              icon : FaIcon(FontAwesomeIcons.play),
+              icon : FaIcon(FontAwesomeIcons.pause, color: Colors.blue[900]),
               tooltip : "Start Game",
-              onPressed:(){},
+              onPressed:()=> showDialog<String>(
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                    title: const Text('Game is Paused',
+                                      textAlign: TextAlign.center,),
+                    //content: const Text('Game Story Description'),
+                  actions: <Widget>[
+                    Center(
+                      child : TextButton(
+                        onPressed: () => Navigator.pop(context, 'Resume'),
+                        child: const Text('Resume',
+                          style: TextStyle(color: Colors.black)),
+                        style:ButtonStyle(backgroundColor:MaterialStateProperty.all(Colors.yellow))
+                        ),
+                      )
+                    ],
+                  ),
+                ),
             ),
             IconButton(
-              icon : FaIcon(FontAwesomeIcons.questionCircle),
+              icon : FaIcon(FontAwesomeIcons.questionCircle,color: Colors.blue[900]),
               tooltip : "How to Play",
               onPressed:() => showDialog<String>(
                   context: context,
