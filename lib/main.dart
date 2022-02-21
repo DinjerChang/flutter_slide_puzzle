@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_slide_puzzle/game-board.dart';
+import 'package:flutter_slide_puzzle/controller.dart';
 
 void main() {
   runApp(const SlidePuzzle());
@@ -124,8 +125,11 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
         body: SingleChildScrollView(child:Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
+            Player1(),
             GameBoard(),
-          ],
+            Player2(),
+            Restart(),
+            ],
         )
         ) 
 );

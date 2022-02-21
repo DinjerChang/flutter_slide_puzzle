@@ -74,8 +74,8 @@ class _GameBoardState extends State<GameBoard> {
   // State<MyHomePage> createState() => _MyHomePageState();
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 1000,
-      height: 1000,
+      width: 360,
+      height: 390,
       child: Stack(
         children: <Widget>[
           AnimatedPositioned(
