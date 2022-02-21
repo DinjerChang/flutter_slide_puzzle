@@ -1,4 +1,4 @@
-# slide_puzzle_dev
+# flutter_slide_puzzle
 
 A new Flutter project.
 
