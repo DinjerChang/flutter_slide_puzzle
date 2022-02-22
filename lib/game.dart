@@ -37,7 +37,7 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
     // Output : player1_win: false
     // 這邊就可以直接抓到 player1_win，因為我有 import win-modal.dart，可以直接讀到這個變數。證明初始值為 false
 
-    player2_win = true;
+    // player2_win = true;
     // 這行測試用我先寫死，所以我傳給你的 demo 影片，一跳轉到 game page 就會跳出贏家提示。測完我就註解掉了
 
     if (player1_win == true) {
