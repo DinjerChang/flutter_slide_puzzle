@@ -23,10 +23,10 @@ bool player2_win = false;
 
 class _GameBoardState extends State<GameBoard> {
   final x_coordin = List<dynamic>.generate(
-      25, (int index) => (index % 5) * 60.0 + 40.0,
+      25, (int index) => (index % 5) * 70.0 + 20.0,
       growable: false);
   final y_coordin = List<dynamic>.generate(
-      25, (int index) => (index ~/ 5) * 60.0 + 20.0,
+      25, (int index) => (index ~/ 5) * 70.0 + 20.0,
       growable: false);
 
   final List<int> order = [
@@ -62,26 +62,21 @@ class _GameBoardState extends State<GameBoard> {
   //     order.add(i);
   //   }
   // }
-  final _margin = 5.0;
+  final _margin = 1.0;
   dynamic _color = 0xFFFFCCCC;
-  final _width = 50.0;
-  final _height = 50.0;
+  final _width = 65.0;
+  final _height = 65.0;
   final _interval = 10.0;
-  final _circle_width = 45.0;
-  final _circle_height = 45.0;
+  final _circle_width = 60.0;
+  final _circle_height = 60.0;
   final _starting_top = 10.0;
   final _starting_left = 10.0;
-  static const duration = 300;
+  static const duration = 500;
   dynamic selected1 = 1.0;
   bool selected2 = false;
   bool enable = true;
-  dynamic pos1 = 50.0;
-  dynamic pos2 = 110.0;
-  dynamic pos3 = 170.0;
-  dynamic pos4 = 230.0;
-  dynamic pos5 = 290.0;
-  dynamic selected_pos1_x = 40.0;
-  dynamic selected_pos1_y = 20.0;
+  dynamic selected_pos1_x = 290.0;
+  dynamic selected_pos1_y = 0.0;
   dynamic selected_pos2_x = 0.0;
   dynamic selected_pos2_y = 0.0;
 
