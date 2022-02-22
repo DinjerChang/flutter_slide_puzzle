@@ -44,6 +44,7 @@ class _StartPageState extends State<StartPage> {
             )
           ]),
       body: StartPageCustomForm(),
+      // Below code is deprecated, unused
       // floatingActionButton: FloatingActionButton.extended(
       //   label: Text('Let\'s Play'),
       //   onPressed: () {
@@ -123,8 +124,8 @@ class _StartPageCustomForm extends State<StartPageCustomForm> {
         ),
         Container(
             width: 20,
-            margin: EdgeInsets.only(top: 300),
-            child: SizedBox(
+            margin: EdgeInsets.only(top: 250),
+            child: SizedBox( //不知道為什麼這裡 SizeBox沒效，要修一下 
                 height: 30,
                 width: 20,
                 child: ElevatedButton(

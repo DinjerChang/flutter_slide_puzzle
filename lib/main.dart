@@ -13,12 +13,14 @@ class SlidePuzzle extends StatelessWidget {
     return MaterialApp(
       title: 'Ancient Slide Puzzle',
       theme: ThemeData(
-        primarySwatch: Colors.yellow,
+        primarySwatch: Colors.green,
       ),
       home: const StartPage(),
       routes: <String, WidgetBuilder>{
-        '/game': (_) => SlidePuzzlePage(title: 'Ancient Slide Puzzle')
+        '/game': (_) => SlidePuzzlePage(title: 'Ancient Slide Puzzle'),
+        '/start': (_) => StartPage(),
       },
     );
   }
 }
+ 

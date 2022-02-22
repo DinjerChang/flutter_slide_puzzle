@@ -18,6 +18,9 @@ class GameBoard extends StatefulWidget {
   State<GameBoard> createState() => _GameBoardState();
 }
 
+bool player1_win = false; // 先在遊戲開始之前宣告，之後隨著遊戲狀態改變
+bool player2_win = false;
+
 class _GameBoardState extends State<GameBoard> {
   // const MyHomePage({Key? key, required this.title}) : super(key: key);
 
