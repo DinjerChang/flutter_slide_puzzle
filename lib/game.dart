@@ -119,7 +119,7 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           Player1(playername: player1),
-          GameBoard(),
+          new GameBoard(),
           Player2(playername: player2),
         ],
       )),

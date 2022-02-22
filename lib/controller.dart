@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Player1 extends StatefulWidget {
-  const Player1({Key? key,required this.playername}) : super(key: key);
+  const Player1({Key? key, required this.playername}) : super(key: key);
   final String playername;
   @override
   State<Player1> createState() => _Player1State();
@@ -104,8 +104,6 @@ class Restart extends StatefulWidget {
 class _RestartState extends State<Restart> {
   Widget build(BuildContext context) {
     final String text_string = 'Restart';
-    return FaIcon(
-      FontAwesomeIcons.starAndCrescent
-    );
+    return FaIcon(FontAwesomeIcons.starAndCrescent);
   }
 }
