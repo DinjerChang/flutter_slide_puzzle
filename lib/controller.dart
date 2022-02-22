@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Player1 extends StatefulWidget {
-  const Player1({Key? key}) : super(key: key);
-
+  const Player1({Key? key,required this.playername}) : super(key: key);
+  final String playername;
   @override
   State<Player1> createState() => _Player1State();
 }
@@ -11,7 +11,7 @@ class Player1 extends StatefulWidget {
 class _Player1State extends State<Player1> {
   // define future varibale here
   final double _playerMargin = 20.0;
-  String _player1_name = "Player 1";
+  // String _player1_name = "Player 1";
   Widget build(BuildContext context) {
     return Container(
         margin: EdgeInsets.all(_playerMargin),
@@ -39,7 +39,7 @@ class _Player1State extends State<Player1> {
                 // )
               ),
               //             <--- BoxDecoration here
-              child: Text(_player1_name,
+              child: Text(widget.playername,
                   textAlign: TextAlign.end,
                   style: TextStyle(fontWeight: FontWeight.bold)))
         ]) //這裡之後應該要改成 Image Widget
@@ -48,8 +48,8 @@ class _Player1State extends State<Player1> {
 }
 
 class Player2 extends StatefulWidget {
-  const Player2({Key? key}) : super(key: key);
-
+  const Player2({Key? key, required this.playername}) : super(key: key);
+  final String playername;
   @override
   State<Player2> createState() => _Player2State();
 }
@@ -57,7 +57,6 @@ class Player2 extends StatefulWidget {
 class _Player2State extends State<Player2> {
   // define future varibale here
   final double _playerMargin = 20.0;
-  String _player2_name = "Player 2";
   Widget build(BuildContext context) {
     return Row(mainAxisAlignment: MainAxisAlignment.end, children: <Widget>[
       Container(
@@ -86,7 +85,7 @@ class _Player2State extends State<Player2> {
                   // )
                 ),
                 //             <--- BoxDecoration here
-                child: Text(_player2_name,
+                child: Text(widget.playername,
                     textAlign: TextAlign.end,
                     style: TextStyle(fontWeight: FontWeight.bold)))
           ]) //這裡之後應該要改成 Image Widget
@@ -105,18 +104,8 @@ class Restart extends StatefulWidget {
 class _RestartState extends State<Restart> {
   Widget build(BuildContext context) {
     final String text_string = 'Restart';
-    final double _ButtonMargin = 20.0;
-    return Container(
-      margin:  EdgeInsets.all(_ButtonMargin),
-      child:Center(
-        child: TextButton(
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(Colors.blueAccent
-            )),
-            onPressed: null,
-            child: Text('Restart')
-          )
-      )
+    return FaIcon(
+      FontAwesomeIcons.starAndCrescent
     );
   }
 }
