@@ -22,7 +22,7 @@ class _Player1State extends State<Player1> {
               child: Padding(
                   padding: const EdgeInsets.all(1.0),
                   child: ClipOval(
-                      child: Image.asset('assets/images/feet.png',
+                      child: Image.asset('assets/images/drawer.png',
                           height: 50, width: 50, fit: BoxFit.fill)))),
           Container(
               // margin: const EdgeInsets.all(30.0),
@@ -68,7 +68,7 @@ class _Player2State extends State<Player2> {
                 child: Padding(
                     padding: const EdgeInsets.all(1.0),
                     child: ClipOval(
-                        child: Image.asset('assets/images/slipper.png',
+                        child: Image.asset('assets/images/feet.png',
                             height: 50, width: 50, fit: BoxFit.fill)))),
             Container(
                 // margin: const EdgeInsets.all(30.0),
