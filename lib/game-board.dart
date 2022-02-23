@@ -23,7 +23,7 @@ bool player2_win = false;
 
 class _GameBoardState extends State<GameBoard> {
   final x_coordin = List<dynamic>.generate(
-      25, (int index) => (index % 5) * 70.0 + 20.0,
+      25, (int index) => (index % 5) * 70.0 + 10.0,
       growable: false);
   final y_coordin = List<dynamic>.generate(
       25, (int index) => (index ~/ 5) * 70.0 + 20.0,
@@ -71,16 +71,17 @@ class _GameBoardState extends State<GameBoard> {
   final _circle_height = 60.0;
   final _starting_top = 10.0;
   final _starting_left = 10.0;
-  static const duration = 500;
+  static const duration = 200;
   dynamic selected1 = 1.0;
   bool selected2 = false;
   bool enable = true;
-  dynamic selected_pos1_x = 290.0;
-  dynamic selected_pos1_y = 0.0;
+  dynamic selected_pos1_x = 10.0;
+  dynamic selected_pos1_y = 20.0;
   dynamic selected_pos2_x = 0.0;
   dynamic selected_pos2_y = 0.0;
 
   void _onEnd1() async {
+    await Future.delayed(const Duration(milliseconds: 100));
     setState(() {
       selected2 = false;
     });
@@ -91,11 +92,12 @@ class _GameBoardState extends State<GameBoard> {
       selected1 = 2;
       selected_pos1_x = x_coordin[4];
       selected_pos1_y = y_coordin[4];
-      enable = true;
+      // enable = true;
     });
   }
 
   void _onEnd2() async {
+    await Future.delayed(const Duration(milliseconds: 100));
     setState(() {
       selected2 = false;
     });
@@ -106,8 +108,14 @@ class _GameBoardState extends State<GameBoard> {
       selected1 = 1;
       selected_pos1_x = x_coordin[0];
       selected_pos1_y = y_coordin[0];
-      enable = true;
+      // enable = true;
     });
+    if (x_coordin[4] == x_coordin[22] && y_coordin[4] == y_coordin[22]) {
+      setState(() {
+        player2_win = !player2_win;
+      });
+    }
+    print(player2_win);
   }
 
   Widget buildPiece(int index) {
@@ -131,34 +139,29 @@ class _GameBoardState extends State<GameBoard> {
       duration: const Duration(milliseconds: duration),
       curve: Curves.fastOutSlowIn,
       child: GestureDetector(
-        onTap: enable
-            ? () {
-                if (selected2 ||
-                    (selected1 == 0 && !selected2) ||
-                    (x_coordin[index] - selected_pos1_x).abs() +
-                            (y_coordin[index] - selected_pos1_y).abs() ==
-                        60) {
-                  setState(() {
-                    selected_pos2_x = x_coordin[index];
-                    selected_pos2_y = y_coordin[index];
-                    selected2 = !selected2;
-                    enable = false;
-                  });
-                }
-              }
-            : null,
+        onTap: () {
+          if (selected2 ||
+              (selected1 == 0 && !selected2) ||
+              (x_coordin[index] - selected_pos1_x).abs() +
+                      (y_coordin[index] - selected_pos1_y).abs() ==
+                  70) {
+            setState(() {
+              selected_pos2_x = x_coordin[index];
+              selected_pos2_y = y_coordin[index];
+              selected2 = !selected2;
+              // enable = false;
+            });
+          }
+        },
         child: Container(
             margin: EdgeInsets.all(_margin),
-            // color: (!selected2 ||
-            //         (selected_pos2_x != x_coordin[index] ||
-            //             selected_pos2_y != y_coordin[index]))
-            //     ? Color(0xFFFFCCCC)
-            //     : Color.fromARGB(255, 255, 251, 0),
             width: _width,
             height: _height,
             decoration: new BoxDecoration(
               image: new DecorationImage(
-                image: ExactAssetImage('assets/images/${index % 5 + 1}.png'),
+                image: index == 22
+                    ? ExactAssetImage('assets/images/slipper.png')
+                    : ExactAssetImage('assets/images/${index % 5 + 1}.png'),
                 fit: BoxFit.fitHeight,
               ),
             )),
@@ -169,8 +172,8 @@ class _GameBoardState extends State<GameBoard> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 1000,
-      height: 1000,
+      width: 360,
+      height: 390,
       child: Stack(
         children: <Widget>[
           AnimatedPositioned(
@@ -186,20 +189,36 @@ class _GameBoardState extends State<GameBoard> {
               onTap: () {},
               child: Container(
                 margin: EdgeInsets.all(_margin),
-                color: (selected1 != 1)
-                    ? Color(0xFFFFCCCC)
-                    : Color.fromARGB(255, 255, 251, 0),
+                // color: (selected1 != 1)
+                //     ? Color(0xFFFFCCCC)
+                //     : Color.fromARGB(255, 255, 251, 0),
                 width: _width,
                 height: _height,
                 child: Center(
                   child: Container(
-                      width: _circle_width,
-                      height: _circle_height,
+                      width: _width,
+                      height: _height,
                       decoration: new BoxDecoration(
                         image: new DecorationImage(
                           image: ExactAssetImage('assets/images/drawer.png'),
                           fit: BoxFit.fitHeight,
                         ),
+                        border: (selected1 != 1)
+                            ? null
+                            : Border(
+                                top: BorderSide(
+                                    color: Color.fromARGB(255, 255, 251, 0),
+                                    width: 3.0),
+                                right: BorderSide(
+                                    color: Color.fromARGB(255, 255, 251, 0),
+                                    width: 3.0),
+                                bottom: BorderSide(
+                                    color: Color.fromARGB(255, 255, 251, 0),
+                                    width: 3.0),
+                                left: BorderSide(
+                                    color: Color.fromARGB(255, 255, 251, 0),
+                                    width: 3.0),
+                              ),
                       )),
                 ),
               ),
@@ -220,18 +239,36 @@ class _GameBoardState extends State<GameBoard> {
               onTap: () {},
               child: Container(
                 margin: EdgeInsets.all(_margin),
-                color: (selected1 != 2) ? Color(0xFFFFCCCC) : Color(0xFFFF0000),
-                width: _width,
+                // color: (selected1 != 2)
+                //     ? Color(0xFFFFCCCC)
+                //     : Color.fromARGB(255, 255, 251, 0),
+                // width: _width,
                 height: _height,
                 child: Center(
                   child: Container(
-                      width: _circle_width,
-                      height: _circle_height,
+                      width: _width,
+                      height: _height,
                       decoration: new BoxDecoration(
                         image: new DecorationImage(
                           image: ExactAssetImage('assets/images/feet.png'),
                           fit: BoxFit.fill,
                         ),
+                        border: (selected1 != 2)
+                            ? null
+                            : Border(
+                                top: BorderSide(
+                                    color: Color.fromARGB(255, 255, 251, 0),
+                                    width: 3.0),
+                                right: BorderSide(
+                                    color: Color.fromARGB(255, 255, 251, 0),
+                                    width: 3.0),
+                                bottom: BorderSide(
+                                    color: Color.fromARGB(255, 255, 251, 0),
+                                    width: 3.0),
+                                left: BorderSide(
+                                    color: Color.fromARGB(255, 255, 251, 0),
+                                    width: 3.0),
+                              ),
                       )),
                 ),
               ),
