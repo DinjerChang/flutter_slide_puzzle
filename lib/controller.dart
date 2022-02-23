@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Player1 extends StatefulWidget {
-  const Player1({Key? key,required this.playername}) : super(key: key);
+  const Player1({Key? key, required this.playername}) : super(key: key);
   final String playername;
   @override
   State<Player1> createState() => _Player1State();
@@ -22,7 +22,7 @@ class _Player1State extends State<Player1> {
               child: Padding(
                   padding: const EdgeInsets.all(1.0),
                   child: ClipOval(
-                      child: Image.asset('assets/images/feet.png',
+                      child: Image.asset('assets/images/drawer.png',
                           height: 50, width: 50, fit: BoxFit.fill)))),
           Container(
               // margin: const EdgeInsets.all(30.0),
@@ -68,7 +68,7 @@ class _Player2State extends State<Player2> {
                 child: Padding(
                     padding: const EdgeInsets.all(1.0),
                     child: ClipOval(
-                        child: Image.asset('assets/images/slipper.png',
+                        child: Image.asset('assets/images/feet.png',
                             height: 50, width: 50, fit: BoxFit.fill)))),
             Container(
                 // margin: const EdgeInsets.all(30.0),
@@ -104,8 +104,6 @@ class Restart extends StatefulWidget {
 class _RestartState extends State<Restart> {
   Widget build(BuildContext context) {
     final String text_string = 'Restart';
-    return FaIcon(
-      FontAwesomeIcons.starAndCrescent
-    );
+    return FaIcon(FontAwesomeIcons.starAndCrescent);
   }
 }

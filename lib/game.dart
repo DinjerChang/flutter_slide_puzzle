@@ -4,6 +4,7 @@ import 'package:flutter_slide_puzzle/game-board.dart';
 import 'package:flutter_slide_puzzle/controller.dart';
 import 'package:flutter_slide_puzzle/win-modal.dart';
 
+
 class SlidePuzzlePage extends StatefulWidget {
   const SlidePuzzlePage({Key? key, required this.title}) : super(key: key);
 
@@ -40,18 +41,20 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
     // player2_win = true;
     // 這行測試用我先寫死，所以我傳給你的 demo 影片，一跳轉到 game page 就會跳出贏家提示。測完我就註解掉了
 
-    if (player1_win == true) {
-      //這裡就是根據布林值，帶入不同使用者的名字，並去呼叫 Winner 函示 (在 win-modal.dart)
-      WidgetsBinding.instance?.addPostFrameCallback((_) {
-        Winner(context, player1);
-      });
-    }
+    // if (player1_win == true) {
+    //   //這裡就是根據布林值，帶入不同使用者的名字，並去呼叫 Winner 函示 (在 win-modal.dart)
+    //   WidgetsBinding.instance?.addPostFrameCallback((_) {
+    //     Winner(context, player1);
+    //   });
+    // }
 
-    if (player2_win == true) {
-      WidgetsBinding.instance?.addPostFrameCallback((_) {
-        Winner(context, player2);
-      });
-    }
+    // if (player2_win == true) {
+    //   WidgetsBinding.instance?.addPostFrameCallback((_) {
+    //     Winner(context, player2);
+    //   });
+    // }
+    player1_win = false;
+    player2_win = false;
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -119,7 +122,7 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           Player1(playername: player1),
-          GameBoard(),
+          GameBoard(player1name: player1, player2name: player2),
           Player2(playername: player2),
         ],
       )),
