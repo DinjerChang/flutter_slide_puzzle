@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slide_puzzle/game.dart';
+import 'package:flutter_slide_puzzle/win-modal.dart';
 import 'dart:async';
 // class GameBoard extends StatefulWidget {
 //   const GameBoard({Key? key}) : super(key: key);
@@ -12,8 +14,9 @@ import 'dart:async';
 // import 'dart:html';
 
 class GameBoard extends StatefulWidget {
-  const GameBoard({Key? key}) : super(key: key);
-
+  const GameBoard({Key? key, required this.player1name, required this.player2name}) : super(key: key);
+  final String player1name;
+  final String player2name;
   @override
   State<GameBoard> createState() => _GameBoardState();
 }
@@ -81,7 +84,7 @@ class _GameBoardState extends State<GameBoard> {
   dynamic selected_pos2_y = 0.0;
 
   void _onEnd1() async {
-    await Future.delayed(const Duration(milliseconds: 100));
+    await Future.delayed(const Duration(milliseconds: 10));
     setState(() {
       selected2 = false;
     });
@@ -97,10 +100,16 @@ class _GameBoardState extends State<GameBoard> {
   }
 
   void _onEnd2() async {
-    await Future.delayed(const Duration(milliseconds: 100));
+    await Future.delayed(const Duration(milliseconds: 10));
     setState(() {
       selected2 = false;
     });
+    await Future.delayed(const Duration(milliseconds: 10));
+    if (x_coordin[4] == x_coordin[22] && y_coordin[4] == y_coordin[22]) {
+      setState(() {
+        player2_win = true;
+      });
+    }
     await Future.delayed(const Duration(milliseconds: 10));
     setState(() {
       x_coordin[4] = selected_pos2_x;
@@ -110,12 +119,12 @@ class _GameBoardState extends State<GameBoard> {
       selected_pos1_y = y_coordin[0];
       // enable = true;
     });
-    if (x_coordin[4] == x_coordin[22] && y_coordin[4] == y_coordin[22]) {
-      setState(() {
-        player2_win = !player2_win;
-      });
-    }
-    print(player2_win);
+    // if (x_coordin[4] == x_coordin[22] && y_coordin[4] == y_coordin[22]) {
+    //   setState(() {
+    //     player2_win = !player2_win;
+    //   });
+    // }
+    // print(player2_win);
   }
 
   Widget buildPiece(int index) {
@@ -171,6 +180,19 @@ class _GameBoardState extends State<GameBoard> {
 
   @override
   Widget build(BuildContext context) {
+    if (player1_win == true) {
+      //這裡就是根據布林值，帶入不同使用者的名字，並去呼叫 Winner 函示 (在 win-modal.dart)
+      WidgetsBinding.instance?.addPostFrameCallback((_) {
+        Winner(context, widget.player1name);
+      });
+    }
+
+    if (player2_win == true) {
+      WidgetsBinding.instance?.addPostFrameCallback((_) {
+        Winner(context, widget.player2name);
+      });
+    }
+
     return SizedBox(
       width: 360,
       height: 390,
