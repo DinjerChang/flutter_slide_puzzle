@@ -140,8 +140,8 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
             // setState((){
             //   reload = !reload;
             // });
-            // Navigator.pop(context);
-            widget.refresh();
+            Navigator.pop(context);
+            // widget.refresh();
           }),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
