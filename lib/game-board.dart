@@ -14,9 +14,10 @@ import 'dart:async';
 // import 'dart:html';
 
 class GameBoard extends StatefulWidget {
-  const GameBoard({Key? key, required this.player1name, required this.player2name}) : super(key: key);
+  const GameBoard({Key? key, required this.player1name, required this.player2name, required this.reload}) : super(key: key);
   final String player1name;
   final String player2name;
+  final bool reload;
   @override
   State<GameBoard> createState() => _GameBoardState();
 }
@@ -77,48 +78,77 @@ class _GameBoardState extends State<GameBoard> {
   static const duration = 200;
   dynamic selected1 = 1.0;
   bool selected2 = false;
+  bool selected3 = false;
   bool enable = true;
   dynamic selected_pos1_x = 10.0;
   dynamic selected_pos1_y = 20.0;
   dynamic selected_pos2_x = 0.0;
   dynamic selected_pos2_y = 0.0;
+  final p1_index = 0;
+  final p2_index = 4;
 
   void _onEnd1() async {
-    await Future.delayed(const Duration(milliseconds: 10));
-    setState(() {
-      selected2 = false;
-    });
-    await Future.delayed(const Duration(milliseconds: 10));
-    setState(() {
-      x_coordin[0] = selected_pos2_x;
-      y_coordin[0] = selected_pos2_y;
-      selected1 = 2;
-      selected_pos1_x = x_coordin[4];
-      selected_pos1_y = y_coordin[4];
-      // enable = true;
-    });
+    if(selected3 && selected1 == 2) {
+      setState(() {
+        x_coordin[p1_index] = selected_pos1_x;
+        y_coordin[p1_index] = selected_pos1_y;
+        selected2 = false;
+        selected3 = false;
+        player1_win = true;
+      });
+      // print("1");
+    }
+    else {
+      await Future.delayed(const Duration(milliseconds: 10));
+      setState(() {
+        selected2 = false;
+      });
+      await Future.delayed(const Duration(milliseconds: 10));
+      setState(() {
+        x_coordin[p1_index] = selected_pos2_x;
+        y_coordin[p1_index] = selected_pos2_y;
+        selected1 = 2;
+        selected_pos1_x = x_coordin[p2_index];
+        selected_pos1_y = y_coordin[p2_index];
+        selected3 = false;
+        // enable = true;
+      });
+    }
   }
 
   void _onEnd2() async {
-    await Future.delayed(const Duration(milliseconds: 10));
-    setState(() {
-      selected2 = false;
-    });
-    await Future.delayed(const Duration(milliseconds: 10));
-    if (x_coordin[4] == x_coordin[22] && y_coordin[4] == y_coordin[22]) {
+    if(selected3 && selected1 == 1) {
       setState(() {
-        player2_win = true;
+        x_coordin[p2_index] = selected_pos1_x;
+        y_coordin[p2_index] = selected_pos1_y;
+        selected2 = false;
+        selected3 = false;
+        player1_win = true;
+      });
+      // print("2");
+    }
+    else {
+      await Future.delayed(const Duration(milliseconds: 10));
+      setState(() {
+        selected2 = false;
+      });
+      await Future.delayed(const Duration(milliseconds: 10));
+      if (x_coordin[p2_index] == x_coordin[22] && y_coordin[p2_index] == y_coordin[22]) {
+        setState(() {
+          player2_win = true;
+        });
+      }
+      await Future.delayed(const Duration(milliseconds: 10));
+      setState(() {
+        x_coordin[p2_index] = selected_pos2_x;
+        y_coordin[p2_index] = selected_pos2_y;
+        selected1 = 1;
+        selected_pos1_x = x_coordin[p1_index];
+        selected_pos1_y = y_coordin[p1_index];
+        // selected3 = false;
+        // enable = true;
       });
     }
-    await Future.delayed(const Duration(milliseconds: 10));
-    setState(() {
-      x_coordin[4] = selected_pos2_x;
-      y_coordin[4] = selected_pos2_y;
-      selected1 = 1;
-      selected_pos1_x = x_coordin[0];
-      selected_pos1_y = y_coordin[0];
-      // enable = true;
-    });
     // if (x_coordin[4] == x_coordin[22] && y_coordin[4] == y_coordin[22]) {
     //   setState(() {
     //     player2_win = !player2_win;
@@ -202,13 +232,22 @@ class _GameBoardState extends State<GameBoard> {
             onEnd: () {
               _onEnd1();
             },
-            left:
-                (selected1 == 1) && selected2 ? selected_pos2_x : x_coordin[0],
-            top: (selected1 == 1) && selected2 ? selected_pos2_y : y_coordin[0],
+            left: selected3 || (selected1 == 1) && selected2 ? (selected3 ? x_coordin[p2_index] : selected_pos2_x) : x_coordin[p1_index],
+            top:  selected3 || (selected1 == 1) && selected2 ? (selected3 ? y_coordin[p2_index] : selected_pos2_y) : y_coordin[p1_index],
             duration: const Duration(milliseconds: duration),
             curve: Curves.fastOutSlowIn,
             child: GestureDetector(
-              onTap: () {},
+              onTap: () {
+                if((x_coordin[p1_index] - selected_pos1_x).abs() + (y_coordin[p1_index] - selected_pos1_y).abs() == 70) {
+                  setState(() {
+                    selected_pos2_x = x_coordin[p1_index];
+                    selected_pos2_y = y_coordin[p1_index];
+                    selected2 = !selected2;
+                    selected3 = !selected3;
+                    // enable = false;
+                  });
+                }
+              },
               child: Container(
                 margin: EdgeInsets.all(_margin),
                 // color: (selected1 != 1)
@@ -252,13 +291,22 @@ class _GameBoardState extends State<GameBoard> {
                 _onEnd2();
               });
             },
-            left:
-                (selected1 == 2) && selected2 ? selected_pos2_x : x_coordin[4],
-            top: (selected1 == 2) && selected2 ? selected_pos2_y : y_coordin[4],
+            left: selected3 || ((selected1 == 2) && selected2) ? (selected3 ? x_coordin[p1_index] : selected_pos2_x) : x_coordin[p2_index],
+            top:  selected3 || ((selected1 == 2) && selected2) ? (selected3 ? y_coordin[p1_index] : selected_pos2_y) : y_coordin[p2_index],
             duration: const Duration(milliseconds: duration),
             curve: Curves.fastOutSlowIn,
             child: GestureDetector(
-              onTap: () {},
+              onTap: () {
+                if((x_coordin[p2_index] - selected_pos1_x).abs() + (y_coordin[p2_index] - selected_pos1_y).abs() == 70) {
+                  setState(() {
+                    selected_pos2_x = x_coordin[p2_index];
+                    selected_pos2_y = y_coordin[p2_index];
+                    selected2 = !selected2;
+                    selected3 = !selected3;
+                    // enable = false;
+                  });
+                }
+              },
               child: Container(
                 margin: EdgeInsets.all(_margin),
                 // color: (selected1 != 2)

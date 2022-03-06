@@ -26,6 +26,7 @@ class SlidePuzzlePage extends StatefulWidget {
 class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
   String player1 = "player1";
   String player2 = "player2";
+  bool reload = false;
   @override
   Widget build(BuildContext context) {
     final arguments = ModalRoute.of(context)?.settings.arguments as Map;
@@ -122,7 +123,7 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           Player1(playername: player1),
-          GameBoard(player1name: player1, player2name: player2),
+          GameBoard(player1name: player1, player2name: player2, reload: reload),
           Player2(playername: player2),
         ],
       )),
@@ -136,6 +137,11 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
             //     MaterialPageRoute(
             //         builder: (BuildContext context) => super.widget));
             // ;
+            // setState((){
+            //   reload = !reload;
+            // });
+            Navigator.pop(context);
+            // widget.refresh();
           }),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
