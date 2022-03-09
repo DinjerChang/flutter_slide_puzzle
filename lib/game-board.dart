@@ -86,6 +86,7 @@ class _GameBoardState extends State<GameBoard> {
   dynamic selected_pos2_y = 0.0;
   final p1_index = 0;
   final p2_index = 4;
+  dynamic switch_times = 3;
 
   void _onEnd1() async {
     if(selected3 && selected1 == 2) {
@@ -180,16 +181,28 @@ class _GameBoardState extends State<GameBoard> {
       child: GestureDetector(
         onTap: () {
           if (selected2 ||
-              (selected1 == 0 && !selected2) ||
-              (x_coordin[index] - selected_pos1_x).abs() +
-                      (y_coordin[index] - selected_pos1_y).abs() ==
-                  70) {
-            setState(() {
-              selected_pos2_x = x_coordin[index];
-              selected_pos2_y = y_coordin[index];
-              selected2 = !selected2;
-              // enable = false;
-            });
+            (selected1 == 0 && !selected2) ||
+            (x_coordin[index] - selected_pos1_x).abs() +
+            (y_coordin[index] - selected_pos1_y).abs() == 70) {
+            if(index == 22 && selected1 == 1) {
+              if(switch_times > 0) {
+                setState(() {
+                  selected_pos2_x = x_coordin[index];
+                  selected_pos2_y = y_coordin[index];
+                  selected2 = !selected2;
+                  // enable = false;
+                });
+                switch_times--;
+              }
+            }
+            else {
+              setState(() {
+                selected_pos2_x = x_coordin[index];
+                selected_pos2_y = y_coordin[index];
+                selected2 = !selected2;
+                // enable = false;
+              });
+            }
           }
         },
         child: Container(
@@ -223,130 +236,152 @@ class _GameBoardState extends State<GameBoard> {
       });
     }
 
-    return SizedBox(
-      width: 360,
-      height: 390,
-      child: Stack(
-        children: <Widget>[
-          AnimatedPositioned(
-            onEnd: () {
-              _onEnd1();
-            },
-            left: selected3 || (selected1 == 1) && selected2 ? (selected3 ? x_coordin[p2_index] : selected_pos2_x) : x_coordin[p1_index],
-            top:  selected3 || (selected1 == 1) && selected2 ? (selected3 ? y_coordin[p2_index] : selected_pos2_y) : y_coordin[p1_index],
-            duration: const Duration(milliseconds: duration),
-            curve: Curves.fastOutSlowIn,
-            child: GestureDetector(
-              onTap: () {
-                if((x_coordin[p1_index] - selected_pos1_x).abs() + (y_coordin[p1_index] - selected_pos1_y).abs() == 70) {
-                  setState(() {
-                    selected_pos2_x = x_coordin[p1_index];
-                    selected_pos2_y = y_coordin[p1_index];
-                    selected2 = !selected2;
-                    selected3 = !selected3;
-                    // enable = false;
-                  });
-                }
-              },
-              child: Container(
-                margin: EdgeInsets.all(_margin),
-                // color: (selected1 != 1)
-                //     ? Color(0xFFFFCCCC)
-                //     : Color.fromARGB(255, 255, 251, 0),
-                width: _width,
-                height: _height,
-                child: Center(
+    return Stack(
+      // child: Text(
+      //   'SIGN UP',
+      // ),
+      children: <Widget>[
+        Container(
+          padding: EdgeInsets.only(left: 10.0),
+          child: Text(
+            'remaining switch times: ' + switch_times.toString(),
+            style: TextStyle(
+              fontFamily: 'Arial',
+              fontSize: 18,
+              color: Colors.black,
+              height: 1,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+        Container(
+          padding: EdgeInsets.only(top: 10.0),
+          child: SizedBox(
+          width: 360,
+          height: 390,
+          child: Stack(
+            children: <Widget>[
+              AnimatedPositioned(
+                onEnd: () {
+                  _onEnd1();
+                },
+                left: selected3 || (selected1 == 1) && selected2 ? (selected3 ? x_coordin[p2_index] : selected_pos2_x) : x_coordin[p1_index],
+                top:  selected3 || (selected1 == 1) && selected2 ? (selected3 ? y_coordin[p2_index] : selected_pos2_y) : y_coordin[p1_index],
+                duration: const Duration(milliseconds: duration),
+                curve: Curves.fastOutSlowIn,
+                child: GestureDetector(
+                  onTap: () {
+                    if((x_coordin[p1_index] - selected_pos1_x).abs() + (y_coordin[p1_index] - selected_pos1_y).abs() == 70) {
+                      setState(() {
+                        selected_pos2_x = x_coordin[p1_index];
+                        selected_pos2_y = y_coordin[p1_index];
+                        selected2 = !selected2;
+                        selected3 = !selected3;
+                        // enable = false;
+                      });
+                    }
+                  },
                   child: Container(
-                      width: _width,
-                      height: _height,
-                      decoration: new BoxDecoration(
-                        image: new DecorationImage(
-                          image: ExactAssetImage('assets/images/drawer.png'),
-                          fit: BoxFit.fitHeight,
-                        ),
-                        border: (selected1 != 1)
-                            ? null
-                            : Border(
-                                top: BorderSide(
-                                    color: Color.fromARGB(255, 255, 251, 0),
-                                    width: 3.0),
-                                right: BorderSide(
-                                    color: Color.fromARGB(255, 255, 251, 0),
-                                    width: 3.0),
-                                bottom: BorderSide(
-                                    color: Color.fromARGB(255, 255, 251, 0),
-                                    width: 3.0),
-                                left: BorderSide(
-                                    color: Color.fromARGB(255, 255, 251, 0),
-                                    width: 3.0),
-                              ),
-                      )),
+                    margin: EdgeInsets.all(_margin),
+                    // color: (selected1 != 1)
+                    //     ? Color(0xFFFFCCCC)
+                    //     : Color.fromARGB(255, 255, 251, 0),
+                    width: _width,
+                    height: _height,
+                    child: Center(
+                      child: Container(
+                          width: _width,
+                          height: _height,
+                          decoration: new BoxDecoration(
+                            image: new DecorationImage(
+                              image: ExactAssetImage('assets/images/drawer.png'),
+                              fit: BoxFit.fitHeight,
+                            ),
+                            border: (selected1 != 1)
+                                ? null
+                                : Border(
+                                    top: BorderSide(
+                                        color: Color.fromARGB(255, 255, 251, 0),
+                                        width: 3.0),
+                                    right: BorderSide(
+                                        color: Color.fromARGB(255, 255, 251, 0),
+                                        width: 3.0),
+                                    bottom: BorderSide(
+                                        color: Color.fromARGB(255, 255, 251, 0),
+                                        width: 3.0),
+                                    left: BorderSide(
+                                        color: Color.fromARGB(255, 255, 251, 0),
+                                        width: 3.0),
+                                  ),
+                          )),
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ),
-          AnimatedPositioned(
-            onEnd: () {
-              setState(() {
-                _onEnd2();
-              });
-            },
-            left: selected3 || ((selected1 == 2) && selected2) ? (selected3 ? x_coordin[p1_index] : selected_pos2_x) : x_coordin[p2_index],
-            top:  selected3 || ((selected1 == 2) && selected2) ? (selected3 ? y_coordin[p1_index] : selected_pos2_y) : y_coordin[p2_index],
-            duration: const Duration(milliseconds: duration),
-            curve: Curves.fastOutSlowIn,
-            child: GestureDetector(
-              onTap: () {
-                if((x_coordin[p2_index] - selected_pos1_x).abs() + (y_coordin[p2_index] - selected_pos1_y).abs() == 70) {
+              AnimatedPositioned(
+                onEnd: () {
                   setState(() {
-                    selected_pos2_x = x_coordin[p2_index];
-                    selected_pos2_y = y_coordin[p2_index];
-                    selected2 = !selected2;
-                    selected3 = !selected3;
-                    // enable = false;
+                    _onEnd2();
                   });
-                }
-              },
-              child: Container(
-                margin: EdgeInsets.all(_margin),
-                // color: (selected1 != 2)
-                //     ? Color(0xFFFFCCCC)
-                //     : Color.fromARGB(255, 255, 251, 0),
-                // width: _width,
-                height: _height,
-                child: Center(
+                },
+                left: selected3 || ((selected1 == 2) && selected2) ? (selected3 ? x_coordin[p1_index] : selected_pos2_x) : x_coordin[p2_index],
+                top:  selected3 || ((selected1 == 2) && selected2) ? (selected3 ? y_coordin[p1_index] : selected_pos2_y) : y_coordin[p2_index],
+                duration: const Duration(milliseconds: duration),
+                curve: Curves.fastOutSlowIn,
+                child: GestureDetector(
+                  onTap: () {
+                    if((x_coordin[p2_index] - selected_pos1_x).abs() + (y_coordin[p2_index] - selected_pos1_y).abs() == 70) {
+                      setState(() {
+                        selected_pos2_x = x_coordin[p2_index];
+                        selected_pos2_y = y_coordin[p2_index];
+                        selected2 = !selected2;
+                        selected3 = !selected3;
+                        // enable = false;
+                      });
+                    }
+                  },
                   child: Container(
-                      width: _width,
-                      height: _height,
-                      decoration: new BoxDecoration(
-                        image: new DecorationImage(
-                          image: ExactAssetImage('assets/images/feet.png'),
-                          fit: BoxFit.fill,
-                        ),
-                        border: (selected1 != 2)
-                            ? null
-                            : Border(
-                                top: BorderSide(
-                                    color: Color.fromARGB(255, 255, 251, 0),
-                                    width: 3.0),
-                                right: BorderSide(
-                                    color: Color.fromARGB(255, 255, 251, 0),
-                                    width: 3.0),
-                                bottom: BorderSide(
-                                    color: Color.fromARGB(255, 255, 251, 0),
-                                    width: 3.0),
-                                left: BorderSide(
-                                    color: Color.fromARGB(255, 255, 251, 0),
-                                    width: 3.0),
-                              ),
-                      )),
+                    margin: EdgeInsets.all(_margin),
+                    // color: (selected1 != 2)
+                    //     ? Color(0xFFFFCCCC)
+                    //     : Color.fromARGB(255, 255, 251, 0),
+                    // width: _width,
+                    height: _height,
+                    child: Center(
+                      child: Container(
+                          width: _width,
+                          height: _height,
+                          decoration: new BoxDecoration(
+                            image: new DecorationImage(
+                              image: ExactAssetImage('assets/images/feet.png'),
+                              fit: BoxFit.fill,
+                            ),
+                            border: (selected1 != 2)
+                                ? null
+                                : Border(
+                                    top: BorderSide(
+                                        color: Color.fromARGB(255, 255, 251, 0),
+                                        width: 3.0),
+                                    right: BorderSide(
+                                        color: Color.fromARGB(255, 255, 251, 0),
+                                        width: 3.0),
+                                    bottom: BorderSide(
+                                        color: Color.fromARGB(255, 255, 251, 0),
+                                        width: 3.0),
+                                    left: BorderSide(
+                                        color: Color.fromARGB(255, 255, 251, 0),
+                                        width: 3.0),
+                                  ),
+                          )),
+                    ),
+                  ),
                 ),
               ),
-            ),
+              for (int item in order) buildPiece(item)
+            ],
           ),
-          for (int item in order) buildPiece(item)
-        ],
-      ),
+        )
+      )],
     );
   }
 }
