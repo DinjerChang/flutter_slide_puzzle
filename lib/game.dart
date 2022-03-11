@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_slide_puzzle/game-board.dart';
 import 'package:flutter_slide_puzzle/controller.dart';
 import 'package:flutter_slide_puzzle/win-modal.dart';
-
+import 'dart:math';
 
 class SlidePuzzlePage extends StatefulWidget {
   const SlidePuzzlePage({Key? key, required this.title}) : super(key: key);
@@ -27,6 +27,7 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
   String player1 = "player1";
   String player2 = "player2";
   bool reload = false;
+  dynamic obstacle_index;
   @override
   Widget build(BuildContext context) {
     final arguments = ModalRoute.of(context)?.settings.arguments as Map;
@@ -56,6 +57,15 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
     // }
     player1_win = false;
     player2_win = false;
+
+    var random = Random();
+    while(true) {
+      obstacle_index = random.nextInt(24);
+      print("obstacle_index = " + obstacle_index.toString());
+      if(obstacle_index != 0 && obstacle_index != 4 && obstacle_index != 22) {
+        break;
+      }
+    }
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -123,7 +133,7 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           Player1(playername: player1),
-          GameBoard(player1name: player1, player2name: player2, reload: reload),
+          GameBoard(player1name: player1, player2name: player2, obstacle_index: obstacle_index, reload: reload),
           Player2(playername: player2),
         ],
       )),
