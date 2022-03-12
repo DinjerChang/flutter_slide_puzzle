@@ -2,28 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slide_puzzle/game.dart';
 import 'package:flutter_slide_puzzle/win-modal.dart';
 import 'dart:async';
-// class GameBoard extends StatefulWidget {
-//   const GameBoard({Key? key}) : super(key: key);
-
-//   @override
-//   State<GameBoard> createState() => _GameBoardState();
-// }
-
-// class _GameBoardState extends State<GameBoard> {}
-
-// import 'dart:html';
+import 'dart:math';
 
 class GameBoard extends StatefulWidget {
-  const GameBoard({Key? key, required this.player1name, required this.player2name, required this.reload}) : super(key: key);
+  const GameBoard(
+      {Key? key,
+      required this.player1name,
+      required this.player2name,
+      required this.obstacle_index_1,
+      required this.obstacle_index_2,
+      required this.obstacle_index_3,
+      required this.reload})
+      : super(key: key);
   final String player1name;
   final String player2name;
   final bool reload;
+  final int obstacle_index_1;
+  final int obstacle_index_2;
+  final int obstacle_index_3;
   @override
   State<GameBoard> createState() => _GameBoardState();
 }
 
 bool player1_win = false; // 先在遊戲開始之前宣告，之後隨著遊戲狀態改變
 bool player2_win = false;
+var randomINT = Random();
 
 class _GameBoardState extends State<GameBoard> {
   final x_coordin = List<dynamic>.generate(
@@ -86,9 +89,24 @@ class _GameBoardState extends State<GameBoard> {
   dynamic selected_pos2_y = 0.0;
   final p1_index = 0;
   final p2_index = 4;
+  dynamic switch_times = 3;
+  // dynamic obstacle_index = 1;
+  dynamic round = 0;
+
+  // var random = Random();
+  // while(true) {
+  //   obstacle_index = random.nextInt(24);
+  //   print("obstacle_index = " + obstacle_index.toString());
+  //   if(obstacle_index != 0 && obstacle_index != 4 && obstacle_index != 22) {
+  //     break;
+  //   }
+  // }
+
+  final bg_index = List<int>.generate(25, (int index) => randomINT.nextInt(5),
+      growable: false);
 
   void _onEnd1() async {
-    if(selected3 && selected1 == 2) {
+    if (selected3 && selected1 == 2) {
       setState(() {
         x_coordin[p1_index] = selected_pos1_x;
         y_coordin[p1_index] = selected_pos1_y;
@@ -97,8 +115,7 @@ class _GameBoardState extends State<GameBoard> {
         player1_win = true;
       });
       // print("1");
-    }
-    else {
+    } else {
       await Future.delayed(const Duration(milliseconds: 10));
       setState(() {
         selected2 = false;
@@ -117,7 +134,7 @@ class _GameBoardState extends State<GameBoard> {
   }
 
   void _onEnd2() async {
-    if(selected3 && selected1 == 1) {
+    if (selected3 && selected1 == 1) {
       setState(() {
         x_coordin[p2_index] = selected_pos1_x;
         y_coordin[p2_index] = selected_pos1_y;
@@ -126,14 +143,14 @@ class _GameBoardState extends State<GameBoard> {
         player1_win = true;
       });
       // print("2");
-    }
-    else {
+    } else {
       await Future.delayed(const Duration(milliseconds: 10));
       setState(() {
         selected2 = false;
       });
       await Future.delayed(const Duration(milliseconds: 10));
-      if (x_coordin[p2_index] == x_coordin[22] && y_coordin[p2_index] == y_coordin[22]) {
+      if (x_coordin[p2_index] == x_coordin[22] &&
+          y_coordin[p2_index] == y_coordin[22]) {
         setState(() {
           player2_win = true;
         });
@@ -163,7 +180,9 @@ class _GameBoardState extends State<GameBoard> {
         setState(() {
           x_coordin[index] = selected_pos1_x;
           y_coordin[index] = selected_pos1_y;
+          round = round + 1;
         });
+        print(bg_index);
       },
       left: (selected1 != 0 && selected2) &&
               (selected_pos2_x == x_coordin[index] &&
@@ -184,12 +203,28 @@ class _GameBoardState extends State<GameBoard> {
               (x_coordin[index] - selected_pos1_x).abs() +
                       (y_coordin[index] - selected_pos1_y).abs() ==
                   70) {
-            setState(() {
-              selected_pos2_x = x_coordin[index];
-              selected_pos2_y = y_coordin[index];
-              selected2 = !selected2;
-              // enable = false;
-            });
+            if ((index != widget.obstacle_index_1 || round < 6) 
+            && (index != widget.obstacle_index_2 || round < 12)
+            && (index != widget.obstacle_index_3 || round < 18)) {
+              if (index == 22 && selected1 == 1) {
+                if (switch_times > 0) {
+                  setState(() {
+                    selected_pos2_x = x_coordin[index];
+                    selected_pos2_y = y_coordin[index];
+                    selected2 = !selected2;
+                    // enable = false;
+                  });
+                  switch_times--;
+                }
+              } else {
+                setState(() {
+                  selected_pos2_x = x_coordin[index];
+                  selected_pos2_y = y_coordin[index];
+                  selected2 = !selected2;
+                  // enable = false;
+                });
+              }
+            }
           }
         },
         child: Container(
@@ -199,8 +234,13 @@ class _GameBoardState extends State<GameBoard> {
             decoration: new BoxDecoration(
               image: new DecorationImage(
                 image: index == 22
-                    ? ExactAssetImage('assets/images/slipper.png')
-                    : ExactAssetImage('assets/images/${index % 5 + 1}.png'),
+                    ? ExactAssetImage('assets/images/SLIPPER-DEFAULT.png')
+                    : ((index == widget.obstacle_index_1 && round >= 6) 
+                    || (index == widget.obstacle_index_2 && round >= 12) 
+                    || (index == widget.obstacle_index_3 && round >= 18))
+                        ? ExactAssetImage('assets/images/obstacle.png')
+                        : ExactAssetImage(
+                            'assets/images/${bg_index[index] + 1}.png'),
                 fit: BoxFit.fitHeight,
               ),
             )),
@@ -223,197 +263,149 @@ class _GameBoardState extends State<GameBoard> {
       });
     }
 
-    return SizedBox(
-      width: 360,
-      height: 390,
-      child: Stack(
-        children: <Widget>[
-          AnimatedPositioned(
-            onEnd: () {
-              _onEnd1();
-            },
-            left: selected3 || (selected1 == 1) && selected2 ? (selected3 ? x_coordin[p2_index] : selected_pos2_x) : x_coordin[p1_index],
-            top:  selected3 || (selected1 == 1) && selected2 ? (selected3 ? y_coordin[p2_index] : selected_pos2_y) : y_coordin[p1_index],
-            duration: const Duration(milliseconds: duration),
-            curve: Curves.fastOutSlowIn,
-            child: GestureDetector(
-              onTap: () {
-                if((x_coordin[p1_index] - selected_pos1_x).abs() + (y_coordin[p1_index] - selected_pos1_y).abs() == 70) {
-                  setState(() {
-                    selected_pos2_x = x_coordin[p1_index];
-                    selected_pos2_y = y_coordin[p1_index];
-                    selected2 = !selected2;
-                    selected3 = !selected3;
-                    // enable = false;
-                  });
-                }
-              },
-              child: Container(
-                margin: EdgeInsets.all(_margin),
-                // color: (selected1 != 1)
-                //     ? Color(0xFFFFCCCC)
-                //     : Color.fromARGB(255, 255, 251, 0),
-                width: _width,
-                height: _height,
-                child: Center(
-                  child: Container(
-                      width: _width,
-                      height: _height,
-                      decoration: new BoxDecoration(
-                        image: new DecorationImage(
-                          image: ExactAssetImage('assets/images/drawer.png'),
-                          fit: BoxFit.fitHeight,
-                        ),
-                        border: (selected1 != 1)
-                            ? null
-                            : Border(
-                                top: BorderSide(
-                                    color: Color.fromARGB(255, 255, 251, 0),
-                                    width: 3.0),
-                                right: BorderSide(
-                                    color: Color.fromARGB(255, 255, 251, 0),
-                                    width: 3.0),
-                                bottom: BorderSide(
-                                    color: Color.fromARGB(255, 255, 251, 0),
-                                    width: 3.0),
-                                left: BorderSide(
-                                    color: Color.fromARGB(255, 255, 251, 0),
-                                    width: 3.0),
-                              ),
-                      )),
-                ),
-              ),
+    // var random = Random();
+    // while(true) {
+    //   obstacle_index = random.nextInt(24);
+    //   print("obstacle_index = " + obstacle_index.toString());
+    //   if(obstacle_index != 0 && obstacle_index != 4 && obstacle_index != 22) {
+    //     break;
+    //   }
+    // }
+
+    return Stack(
+      // child: Text(
+      //   'SIGN UP',
+      // ),
+      children: <Widget>[
+        Container(
+          padding: EdgeInsets.only(left: 10.0),
+          child: Text(
+            'remaining switch times: ' + switch_times.toString(),
+            style: TextStyle(
+              fontFamily: 'Arial',
+              fontSize: 18,
+              color: Color.fromARGB(255, 255, 255, 255),
+              height: 1,
             ),
+            textAlign: TextAlign.center,
           ),
-          AnimatedPositioned(
-            onEnd: () {
-              setState(() {
-                _onEnd2();
-              });
-            },
-            left: selected3 || ((selected1 == 2) && selected2) ? (selected3 ? x_coordin[p1_index] : selected_pos2_x) : x_coordin[p2_index],
-            top:  selected3 || ((selected1 == 2) && selected2) ? (selected3 ? y_coordin[p1_index] : selected_pos2_y) : y_coordin[p2_index],
-            duration: const Duration(milliseconds: duration),
-            curve: Curves.fastOutSlowIn,
-            child: GestureDetector(
-              onTap: () {
-                if((x_coordin[p2_index] - selected_pos1_x).abs() + (y_coordin[p2_index] - selected_pos1_y).abs() == 70) {
-                  setState(() {
-                    selected_pos2_x = x_coordin[p2_index];
-                    selected_pos2_y = y_coordin[p2_index];
-                    selected2 = !selected2;
-                    selected3 = !selected3;
-                    // enable = false;
-                  });
-                }
-              },
-              child: Container(
-                margin: EdgeInsets.all(_margin),
-                // color: (selected1 != 2)
-                //     ? Color(0xFFFFCCCC)
-                //     : Color.fromARGB(255, 255, 251, 0),
-                // width: _width,
-                height: _height,
-                child: Center(
-                  child: Container(
-                      width: _width,
-                      height: _height,
-                      decoration: new BoxDecoration(
-                        image: new DecorationImage(
-                          image: ExactAssetImage('assets/images/feet.png'),
-                          fit: BoxFit.fill,
+        ),
+        Container(
+            padding: EdgeInsets.only(top: 10.0),
+            child: SizedBox(
+              width: 360,
+              height: 390,
+              child: Stack(
+                children: <Widget>[
+                  AnimatedPositioned(
+                    onEnd: () {
+                      _onEnd1();
+                    },
+                    left: selected3 || (selected1 == 1) && selected2
+                        ? (selected3 ? x_coordin[p2_index] : selected_pos2_x)
+                        : x_coordin[p1_index],
+                    top: selected3 || (selected1 == 1) && selected2
+                        ? (selected3 ? y_coordin[p2_index] : selected_pos2_y)
+                        : y_coordin[p1_index],
+                    duration: const Duration(milliseconds: duration),
+                    curve: Curves.fastOutSlowIn,
+                    child: GestureDetector(
+                      onTap: () {
+                        if ((x_coordin[p1_index] - selected_pos1_x).abs() +
+                                (y_coordin[p1_index] - selected_pos1_y).abs() ==
+                            70) {
+                          setState(() {
+                            selected_pos2_x = x_coordin[p1_index];
+                            selected_pos2_y = y_coordin[p1_index];
+                            selected2 = !selected2;
+                            selected3 = !selected3;
+                            // enable = false;
+                          });
+                        }
+                      },
+                      child: Container(
+                        margin: EdgeInsets.all(_margin),
+                        // color: (selected1 != 1)
+                        //     ? Color(0xFFFFCCCC)
+                        //     : Color.fromARGB(255, 255, 251, 0),
+                        width: _width,
+                        height: _height,
+                        child: Center(
+                          child: Container(
+                              width: _width,
+                              height: _height,
+                              decoration: new BoxDecoration(
+                                image: new DecorationImage(
+                                  image: (selected1 != 1)
+                                      ? ExactAssetImage(
+                                          'assets/images/DOG-DEFAULT.png')
+                                      : ExactAssetImage(
+                                          'assets/images/DOG-ACTIVE.png'),
+                                  fit: BoxFit.fitHeight,
+                                ),
+                              )),
                         ),
-                        border: (selected1 != 2)
-                            ? null
-                            : Border(
-                                top: BorderSide(
-                                    color: Color.fromARGB(255, 255, 251, 0),
-                                    width: 3.0),
-                                right: BorderSide(
-                                    color: Color.fromARGB(255, 255, 251, 0),
-                                    width: 3.0),
-                                bottom: BorderSide(
-                                    color: Color.fromARGB(255, 255, 251, 0),
-                                    width: 3.0),
-                                left: BorderSide(
-                                    color: Color.fromARGB(255, 255, 251, 0),
-                                    width: 3.0),
-                              ),
-                      )),
-                ),
+                      ),
+                    ),
+                  ),
+                  AnimatedPositioned(
+                    onEnd: () {
+                      setState(() {
+                        _onEnd2();
+                      });
+                    },
+                    left: selected3 || ((selected1 == 2) && selected2)
+                        ? (selected3 ? x_coordin[p1_index] : selected_pos2_x)
+                        : x_coordin[p2_index],
+                    top: selected3 || ((selected1 == 2) && selected2)
+                        ? (selected3 ? y_coordin[p1_index] : selected_pos2_y)
+                        : y_coordin[p2_index],
+                    duration: const Duration(milliseconds: duration),
+                    curve: Curves.fastOutSlowIn,
+                    child: GestureDetector(
+                      onTap: () {
+                        if ((x_coordin[p2_index] - selected_pos1_x).abs() +
+                                (y_coordin[p2_index] - selected_pos1_y).abs() ==
+                            70) {
+                          setState(() {
+                            selected_pos2_x = x_coordin[p2_index];
+                            selected_pos2_y = y_coordin[p2_index];
+                            selected2 = !selected2;
+                            selected3 = !selected3;
+                            // enable = false;
+                          });
+                        }
+                      },
+                      child: Container(
+                        margin: EdgeInsets.all(_margin),
+                        // color: (selected1 != 2)
+                        //     ? Color(0xFFFFCCCC)
+                        //     : Color.fromARGB(255, 255, 251, 0),
+                        // width: _width,
+                        height: _height,
+                        child: Center(
+                          child: Container(
+                              width: _width,
+                              height: _height,
+                              decoration: new BoxDecoration(
+                                image: new DecorationImage(
+                                  image: (selected1 != 2)
+                                      ? ExactAssetImage(
+                                          'assets/images/FEET-DEFAULT.png')
+                                      : ExactAssetImage(
+                                          'assets/images/FEET-ACTIVE.png'),
+                                  fit: BoxFit.fill,
+                                ),
+                              )),
+                        ),
+                      ),
+                    ),
+                  ),
+                  for (int item in order) buildPiece(item)
+                ],
               ),
-            ),
-          ),
-          for (int item in order) buildPiece(item)
-        ],
-      ),
+            ))
+      ],
     );
   }
 }
-
-// class _MyHomePageState extends State<MyHomePage> {
-//   int _counter = 0;
-
-//   void _incrementCounter() {
-//     setState(() {
-//       // This call to setState tells the Flutter framework that something has
-//       // changed in this State, which causes it to rerun the build method below
-//       // so that the display can reflect the updated values. If we changed
-//       // _counter without calling setState(), then the build method would not be
-//       // called again, and so nothing would appear to happen.
-//       _counter++;
-//     });
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     // This method is rerun every time setState is called, for instance as done
-//     // by the _incrementCounter method above.
-//     //
-//     // The Flutter framework has been optimized to make rerunning build methods
-//     // fast, so that you can just rebuild anything that needs updating rather
-//     // than having to individually change instances of widgets.
-//     return Scaffold(
-//       appBar: AppBar(
-//         // Here we take the value from the MyHomePage object that was created by
-//         // the App.build method, and use it to set our appbar title.
-//         title: Text(widget.title),
-//       ),
-//       body: Center(
-//         // Center is a layout widget. It takes a single child and positions it
-//         // in the middle of the parent.
-//         child: Column(
-//           // Column is also a layout widget. It takes a list of children and
-//           // arranges them vertically. By default, it sizes itself to fit its
-//           // children horizontally, and tries to be as tall as its parent.
-//           //
-//           // Invoke "debug painting" (press "p" in the console, choose the
-//           // "Toggle Debug Paint" action from the Flutter Inspector in Android
-//           // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-//           // to see the wireframe for each widget.
-//           //
-//           // Column has various properties to control how it sizes itself and
-//           // how it positions its children. Here we use mainAxisAlignment to
-//           // center the children vertically; the main axis here is the vertical
-//           // axis because Columns are vertical (the cross axis would be
-//           // horizontal).
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: <Widget>[
-//             const Text(
-//               'You have pushed the button this many times:',
-//             ),
-//             Text(
-//               '$_counter',
-//               style: Theme.of(context).textTheme.headline4,
-//             ),
-//           ],
-//         ),
-//       ),
-//       floatingActionButton: FloatingActionButton(
-//         onPressed: _incrementCounter,
-//         tooltip: 'Increment',
-//         child: const Icon(Icons.add),
-//       ), // This trailing comma makes auto-formatting nicer for build methods.
-//     );
-//   }
-// }

@@ -3,19 +3,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_slide_puzzle/game-board.dart';
 import 'package:flutter_slide_puzzle/controller.dart';
 import 'package:flutter_slide_puzzle/win-modal.dart';
-
+import 'package:flutter_slide_puzzle/carousel.dart';
+import 'dart:math';
 
 class SlidePuzzlePage extends StatefulWidget {
   const SlidePuzzlePage({Key? key, required this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
 
   final String title;
 
@@ -27,6 +19,9 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
   String player1 = "player1";
   String player2 = "player2";
   bool reload = false;
+  dynamic obstacle_index_1;
+  dynamic obstacle_index_2;
+  dynamic obstacle_index_3;
   @override
   Widget build(BuildContext context) {
     final arguments = ModalRoute.of(context)?.settings.arguments as Map;
@@ -35,43 +30,50 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
     final String player1 = arguments['Player1'];
     final String player2 = arguments['Player2'];
 
-    // print("player1_win: " + player1_win.toString());
-    // Output : player1_win: false
-    // 這邊就可以直接抓到 player1_win，因為我有 import win-modal.dart，可以直接讀到這個變數。證明初始值為 false
-
-    // player2_win = true;
-    // 這行測試用我先寫死，所以我傳給你的 demo 影片，一跳轉到 game page 就會跳出贏家提示。測完我就註解掉了
-
-    // if (player1_win == true) {
-    //   //這裡就是根據布林值，帶入不同使用者的名字，並去呼叫 Winner 函示 (在 win-modal.dart)
-    //   WidgetsBinding.instance?.addPostFrameCallback((_) {
-    //     Winner(context, player1);
-    //   });
-    // }
-
-    // if (player2_win == true) {
-    //   WidgetsBinding.instance?.addPostFrameCallback((_) {
-    //     Winner(context, player2);
-    //   });
-    // }
     player1_win = false;
     player2_win = false;
+
+    var random = Random();
+    while (true) {
+      obstacle_index_1 = random.nextInt(25);
+
+      // print("obstacle_index = " + obstacle_index.toString());
+      if (obstacle_index_1 != 0 && obstacle_index_1 != 4 && obstacle_index_1 != 22) {
+        break;
+      }
+    }
+    while (true) {
+      obstacle_index_2 = random.nextInt(25);
+      if (obstacle_index_2 != 0 && obstacle_index_2 != 4 && obstacle_index_2 != 22 
+      && obstacle_index_2 != obstacle_index_1) {
+        break;
+      }
+    }
+    while (true) {
+      obstacle_index_3 = random.nextInt(25);
+      if (obstacle_index_3 != 0 && obstacle_index_3 != 4 && obstacle_index_3 != 22 
+      && obstacle_index_3 != obstacle_index_1 && obstacle_index_3 != obstacle_index_2) {
+        break;
+      }
+    }
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
           // Here we take the value from the SlidePuzzle object that was created by
           // the App.build method, and use it to set our appbar title.
+          backgroundColor: Color(0xfffeb34c),
           leading: IconButton(
-              icon:
-                  FaIcon(FontAwesomeIcons.puzzlePiece, color: Colors.blue[900]),
+              icon: Image.asset('assets/images/game_small_logo.png'),
               onPressed: () {}),
-          title: Text(widget.title,
+          title: Text('Pharaoh\'s bedroom',
               style: TextStyle(
-                  color: Colors.blue[900], fontWeight: FontWeight.bold)),
+                  color: Color.fromARGB(255, 0, 0, 0),
+                  fontWeight: FontWeight.bold)),
           actions: <Widget>[
             IconButton(
-              icon: FaIcon(FontAwesomeIcons.pause, color: Colors.blue[900]),
+              icon: FaIcon(FontAwesomeIcons.pause,
+                  color: Color.fromARGB(255, 0, 0, 0)),
               tooltip: "Pause Game",
               onPressed: () => showDialog<String>(
                 context: context,
@@ -96,54 +98,65 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
               ),
             ),
             IconButton(
-              icon: FaIcon(FontAwesomeIcons.questionCircle,
-                  color: Colors.blue[900]),
-              tooltip: "How to Play",
-              onPressed: () => showDialog<String>(
-                context: context,
-                builder: (BuildContext context) => AlertDialog(
-                  title: const Text(
-                    'How to Play',
-                    textAlign: TextAlign.center,
-                  ),
-                  content: const Text('Game Story Description'),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, 'OK'),
-                      child: const Text('OK',
-                          style: TextStyle(color: Colors.black)),
-                    ),
-                  ],
-                ),
-              ),
-            )
+                icon: Image.asset('assets/images/Bar_key.png'),
+                tooltip: "How to Play",
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) {
+                      return Carousel();
+                    }),
+                  );
+                })
           ]),
-      body: SingleChildScrollView(
+      // body: SingleChildScrollView(
+      body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/mobile-bg.png"),
+              fit: BoxFit.cover,
+            ),
+          ),
+          alignment: Alignment.center,
           child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          Player1(playername: player1),
-          GameBoard(player1name: player1, player2name: player2, reload: reload),
-          Player2(playername: player2),
-        ],
-      )),
-      floatingActionButton: FloatingActionButton.extended(
-          icon: Restart(),
-          label: Text('Restart'),
-          onPressed: () {
-            // 這裡我來不及研究怎麼只 refresh GameBoard() Widget，Sorry ;)
-            // Navigator.pushReplacement(
-            //     context,
-            //     MaterialPageRoute(
-            //         builder: (BuildContext context) => super.widget));
-            // ;
-            // setState((){
-            //   reload = !reload;
-            // });
-            Navigator.pop(context);
-            // widget.refresh();
-          }),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Player1(playername: player1),
+              GameBoard(
+                  player1name: player1,
+                  player2name: player2,
+                  obstacle_index_1: obstacle_index_1,
+                  obstacle_index_2: obstacle_index_2,
+                  obstacle_index_3: obstacle_index_3,
+                  reload: reload),
+              Player2(playername: player2),
+              FloatingActionButton.extended(
+                  icon: Image.asset("assets/images/restart_logo.png"),
+                  backgroundColor: Color(0xfffacb5a),
+                  // extendedTextStyle: TextStyle(color: Color(0xff21325E)),\
+                  label: Text('Restart'),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  }),
+            ],
+          )),
+      // floatingActionButton: FloatingActionButton.extended(
+      //     icon: Restart(),
+      //     label: Text('Restart'),
+      //     onPressed: () {
+      //       // 這裡我來不及研究怎麼只 refresh GameBoard() Widget，Sorry ;)
+      //       // Navigator.pushReplacement(
+      //       //     context,
+      //       //     MaterialPageRoute(
+      //       //         builder: (BuildContext context) => super.widget));
+      //       // ;
+      //       // setState((){
+      //       //   reload = !reload;
+      //       // });
+      //       Navigator.pop(context);
+      //       // widget.refresh();
+      //     }),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
