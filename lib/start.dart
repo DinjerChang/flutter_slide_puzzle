@@ -132,9 +132,37 @@ class _StartPageCustomForm extends State<StartPageCustomForm> {
                 Container(
                     // margin: EdgeInsets.only(bottom: _columnMargin),
                     child: Image.asset('assets/images/feet_win.gif',
-                        height: 120, width: 120)),
+                        height: 80, width: 80)),
                 Container(
-                  margin: EdgeInsets.only(top: _columnMargin),
+                    margin: EdgeInsets.only(
+                      left: 30,
+                      top: 40,
+                      bottom: 10,
+                    ),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Container(
+                              margin: EdgeInsets.only(
+                                right: 10,
+                              ),
+                              child: Image.asset(
+                                  'assets/images/player2_reminder.png',
+                                  height: 40,
+                                  width: 40)),
+                          Text(
+                            'Player1',
+                            style: TextStyle(
+                              fontFamily: 'Arial',
+                              fontSize: 18,
+                              color: Colors.white,
+                              height: 1,
+                            ),
+                            textAlign: TextAlign.start,
+                          ),
+                        ])),
+                Container(
+                  // margin: EdgeInsets.only(top: _columnMargin),
                   padding:
                       const EdgeInsets.symmetric(horizontal: 30, vertical: 0),
                   child: TextFormField(
@@ -142,24 +170,61 @@ class _StartPageCustomForm extends State<StartPageCustomForm> {
                     cursorColor: Colors.white,
                     style: TextStyle(color: Colors.white),
                     decoration: const InputDecoration(
-                        focusedBorder: const OutlineInputBorder(
-                          borderSide: const BorderSide(
-                              color: Color(0xfffacb5a), width: 2.0),
+                      contentPadding: EdgeInsets.only(
+                        left: 10,
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Color(0xfffacb5a), width: 2.0),
+                        borderRadius: const BorderRadius.all(
+                          const Radius.circular(10),
                         ),
-                        focusColor: Colors.white,
-                        hintText: 'Please enter your name',
-                        hintStyle: TextStyle(
-                          color: Color.fromARGB(255, 255, 243, 243),
+                      ),
+                      focusedBorder: const OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            color: Color(0xfffacb5a), width: 2.0),
+                        borderRadius: const BorderRadius.all(
+                          const Radius.circular(10),
                         ),
-                        labelText: 'Player1',
-                        labelStyle: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                        )),
+                      ),
+                      focusColor: Colors.white,
+                      hintText: 'Please enter your name',
+                      hintStyle: TextStyle(
+                        color: Color.fromARGB(255, 255, 243, 243),
+                      ),
+                    ),
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: _columnMargin),
+                    margin: EdgeInsets.only(
+                      left: 30,
+                      top: 30,
+                      bottom: 10,
+                    ),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Container(
+                              margin: EdgeInsets.only(
+                                right: 10,
+                              ),
+                              child: Image.asset(
+                                  'assets/images/player2_reminder.png',
+                                  height: 40,
+                                  width: 40)),
+                          Text(
+                            'Player2',
+                            style: TextStyle(
+                              fontFamily: 'Arial',
+                              fontSize: 18,
+                              color: Colors.white,
+                              height: 1,
+                            ),
+                            textAlign: TextAlign.start,
+                          ),
+                        ])),
+                Container(
+                  // margin: EdgeInsets.only(top: _columnMargin),
                   padding:
                       const EdgeInsets.symmetric(horizontal: 30, vertical: 0),
                   child: TextFormField(
@@ -167,26 +232,34 @@ class _StartPageCustomForm extends State<StartPageCustomForm> {
                     style: TextStyle(color: Colors.white),
                     cursorColor: Colors.white,
                     decoration: const InputDecoration(
+                      contentPadding: EdgeInsets.only(
+                        left: 10,
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Color(0xfffacb5a), width: 2.0),
+                        borderRadius: const BorderRadius.all(
+                          const Radius.circular(10),
+                        ),
+                      ),
                       focusedBorder: const OutlineInputBorder(
                         borderSide: const BorderSide(
                             color: Color(0xfffacb5a), width: 2.0),
+                        borderRadius: const BorderRadius.all(
+                          const Radius.circular(10),
+                        ),
                       ),
                       focusColor: Colors.white,
                       hintText: 'Please enter your name',
                       hintStyle: TextStyle(
                         color: Colors.white,
                       ),
-                      labelText: 'Player2',
-                      labelStyle: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                      ),
                     ),
                   ),
                 ),
                 Container(
                     margin: EdgeInsets.only(
-                      top: 80,
+                      top: 40,
                     ),
                     child: FractionallySizedBox(
                       // heightFactor: 1.2,
