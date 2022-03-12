@@ -10,9 +10,11 @@ class Carousel extends StatefulWidget {
 class _CarouselState extends State<Carousel> {
   late PageController _pageController;
   List<String> images = [
-    'assets/images/1.png',
-    'assets/images/1.png',
-    'assets/images/1.png',
+    'assets/images/howToPlay1.png',
+    'assets/images/howToPlay2.png',
+    'assets/images/howToPlay3.png',
+    'assets/images/howToPlay4.png',
+    'assets/images/howToPlay5.png',
   ];
 
   @override
@@ -26,24 +28,36 @@ class _CarouselState extends State<Carousel> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text('How to play'),
+        backgroundColor: Color(0xfffeb34c),
+        title: Text('How to play',
+            style: TextStyle(
+                color: Color.fromARGB(255, 0, 0, 0),
+                fontWeight: FontWeight.bold)),
       ),
       body: CarouselSlider(
-        options: CarouselOptions(height: 400.0),
-        items: [0, 1, 2].map((i) {
+        options: CarouselOptions(height: 800.0),
+        items: [0, 1, 2, 3, 4].map((i) {
           return Builder(builder: (BuildContext context) {
-            return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    // padding: EdgeInsets.only(top: 50),
-                    margin: EdgeInsets.symmetric(horizontal: 5.0),
-                    // decoration: BoxDecoration(color: Colors.amber),
-                    child: Image.asset(images[i], height: 300, width: 300),
-                  )
-                ]);
+            return Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage("assets/images/mobile-bg.png"),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                alignment: Alignment.center,
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        // padding: EdgeInsets.only(top: 50),
+                        margin: EdgeInsets.symmetric(horizontal: 5.0),
+                        // decoration: BoxDecoration(color: Colors.amber),
+                        child: Image.asset(images[i], height: 700, width: 300),
+                      )
+                    ]));
           });
         }).toList(),
       ),

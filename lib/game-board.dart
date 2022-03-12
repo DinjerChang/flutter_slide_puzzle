@@ -3,16 +3,6 @@ import 'package:flutter_slide_puzzle/game.dart';
 import 'package:flutter_slide_puzzle/win-modal.dart';
 import 'dart:async';
 import 'dart:math';
-// class GameBoard extends StatefulWidget {
-//   const GameBoard({Key? key}) : super(key: key);
-
-//   @override
-//   State<GameBoard> createState() => _GameBoardState();
-// }
-
-// class _GameBoardState extends State<GameBoard> {}
-
-// import 'dart:html';
 
 class GameBoard extends StatefulWidget {
   const GameBoard(
@@ -286,7 +276,7 @@ class _GameBoardState extends State<GameBoard> {
             style: TextStyle(
               fontFamily: 'Arial',
               fontSize: 18,
-              color: Colors.black,
+              color: Color.fromARGB(255, 255, 255, 255),
               height: 1,
             ),
             textAlign: TextAlign.center,
@@ -338,7 +328,6 @@ class _GameBoardState extends State<GameBoard> {
                               height: _height,
                               decoration: new BoxDecoration(
                                 image: new DecorationImage(
-
                                   image: (selected1 != 1)
                                       ? ExactAssetImage(
                                           'assets/images/DOG-DEFAULT.png')
@@ -399,7 +388,6 @@ class _GameBoardState extends State<GameBoard> {
                                           'assets/images/FEET-ACTIVE.png'),
                                   fit: BoxFit.fill,
                                 ),
-
                               )),
                         ),
                       ),

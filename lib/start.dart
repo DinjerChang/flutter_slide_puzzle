@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_slide_puzzle/carousel.dart';
 
 class StartPage extends StatefulWidget {
   const StartPage({Key? key}) : super(key: key);
@@ -15,8 +16,7 @@ class _StartPageState extends State<StartPage> {
       appBar: AppBar(
           backgroundColor: primaryColor,
           leading: IconButton(
-              icon:
-                  FaIcon(FontAwesomeIcons.puzzlePiece, color: Colors.blue[900]),
+              icon: Image.asset('assets/images/game_small_logo.png'),
               onPressed: () {}),
           title: Text('Pharaoh\'s bedroom',
               style: TextStyle(
@@ -24,26 +24,16 @@ class _StartPageState extends State<StartPage> {
                   fontWeight: FontWeight.bold)),
           actions: <Widget>[
             IconButton(
-              icon: FaIcon(FontAwesomeIcons.questionCircle,
-                  color: Colors.blue[900]),
+              icon: Image.asset('assets/images/Bar_key.png'),
               tooltip: "How to Play",
-              onPressed: () => showDialog<String>(
-                context: context,
-                builder: (BuildContext context) => AlertDialog(
-                  title: const Text(
-                    'How to Play',
-                    textAlign: TextAlign.center,
-                  ),
-                  content: const Text('Game Story Description'),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, 'OK'),
-                      child: const Text('OK',
-                          style: TextStyle(color: Colors.black)),
-                    ),
-                  ],
-                ),
-              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) {
+                    return Carousel();
+                  }),
+                );
+              },
             )
           ]),
       body: StartPageCustomForm(),
@@ -113,11 +103,36 @@ class _StartPageCustomForm extends State<StartPageCustomForm> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                // Container(
-                //     margin:
-                //         EdgeInsets.only(bottom: _columnMargin, top: _columnMargin),
-                //     child: Image.asset('assets/images/shutup.gif',
-                //         height: 200, width: 200)),
+                Container(
+                  margin: EdgeInsets.only(
+                    right: 50,
+                    top: 30,
+                  ),
+                  child: Text("Pharaoh\'s",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xfffacb5a),
+                        fontSize: 25,
+                      )),
+                ),
+                Container(
+                  margin: EdgeInsets.only(
+                    left: 115,
+                    top: 10,
+                  ),
+                  child: Text("Bedroom",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xfffacb5a),
+                        fontSize: 25,
+                      )),
+                ),
+                Container(
+                    // margin: EdgeInsets.only(bottom: _columnMargin),
+                    child: Image.asset('assets/images/feet_win.gif',
+                        height: 120, width: 120)),
                 Container(
                   margin: EdgeInsets.only(top: _columnMargin),
                   padding:
@@ -131,7 +146,11 @@ class _StartPageCustomForm extends State<StartPageCustomForm> {
                           borderSide: const BorderSide(
                               color: Color(0xfffacb5a), width: 2.0),
                         ),
+                        focusColor: Colors.white,
                         hintText: 'Please enter your name',
+                        hintStyle: TextStyle(
+                          color: Color.fromARGB(255, 255, 243, 243),
+                        ),
                         labelText: 'Player1',
                         labelStyle: TextStyle(
                           color: Colors.white,
@@ -152,7 +171,11 @@ class _StartPageCustomForm extends State<StartPageCustomForm> {
                         borderSide: const BorderSide(
                             color: Color(0xfffacb5a), width: 2.0),
                       ),
+                      focusColor: Colors.white,
                       hintText: 'Please enter your name',
+                      hintStyle: TextStyle(
+                        color: Colors.white,
+                      ),
                       labelText: 'Player2',
                       labelStyle: TextStyle(
                         color: Colors.white,
@@ -162,18 +185,24 @@ class _StartPageCustomForm extends State<StartPageCustomForm> {
                   ),
                 ),
                 Container(
-                    width: 10, // <-- Your width
-                    height: 30,
                     margin: EdgeInsets.only(
-                      top: 280,
+                      top: 80,
                     ),
-                    child: Container(
-                      // margin: EdgeInsets.only(top: 250),
+                    child: FractionallySizedBox(
+                      // heightFactor: 1.2,
+                      widthFactor: 0.4,
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            minimumSize: const Size(50, 50),
-                            // maximumSize: const Size(50, 50),
-                            // fixedSize: const Size(10, 10),
+                            primary: Color(
+                                0xfffacb5a), //change background color of button
+                            onPrimary: Color.fromARGB(255, 0, 0, 0),
+                            side: BorderSide(
+                              width: 2.0,
+                              color: Colors.white,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(30.0),
+                            ),
                           ),
                           onPressed: () {
                             player1 = Player1_Controller.text.toString();
