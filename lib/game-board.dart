@@ -96,6 +96,7 @@ class _GameBoardState extends State<GameBoard> {
   // dynamic obstacle_index = 1;
   dynamic round = 0;
   int random_index = 0;
+  int chance_triggered_times = 0;
   bool chance_triggered = false;
   // var random = Random();
   // while(true) {
@@ -134,10 +135,11 @@ class _GameBoardState extends State<GameBoard> {
         selected3 = false;
         // enable = true;
       });
-      await Future.delayed(const Duration(milliseconds: 500));
+      await Future.delayed(const Duration(milliseconds: 10));
       if(chance_triggered) {
         final temp_x = x_coordin[slipper_index];
         final temp_y = y_coordin[slipper_index];
+        await Future.delayed(const Duration(milliseconds: 10));
         setState(() {
           x_coordin[slipper_index] = x_coordin[random_index];
           y_coordin[slipper_index] = y_coordin[random_index];
@@ -181,6 +183,19 @@ class _GameBoardState extends State<GameBoard> {
         // selected3 = false;
         // enable = true;
       });
+      await Future.delayed(const Duration(milliseconds: 10));
+      if(chance_triggered) {
+        final temp_x = x_coordin[slipper_index];
+        final temp_y = y_coordin[slipper_index];
+        await Future.delayed(const Duration(milliseconds: 10));
+        setState(() {
+          x_coordin[slipper_index] = x_coordin[random_index];
+          y_coordin[slipper_index] = y_coordin[random_index];
+          x_coordin[random_index] = temp_x;
+          y_coordin[random_index] = temp_y;
+          // chance_triggered = false;
+        });
+      }
     }
     // if (x_coordin[4] == x_coordin[22] && y_coordin[4] == y_coordin[22]) {
     //   setState(() {
@@ -200,19 +215,19 @@ class _GameBoardState extends State<GameBoard> {
             round = round + 1;
           });
         }
-        else {
-          setState(() {
-            chance_triggered = false;
-          });
-        }
+        // else {
+        //   setState(() {
+        //     chance_triggered = false;
+        //   });
+        // }
         // print(bg_index);
       },
-      left: (selected1 != 0 && selected2) &&
+      left: !chance_triggered && (selected1 != 0 && selected2) &&
               (selected_pos2_x == x_coordin[index] &&
                   selected_pos2_y == y_coordin[index])
           ? selected_pos1_x
           : x_coordin[index],
-      top: (selected1 != 0 && selected2) &&
+      top: !chance_triggered && (selected1 != 0 && selected2) &&
               (selected_pos2_x == x_coordin[index] &&
                   selected_pos2_y == y_coordin[index])
           ? selected_pos1_y
@@ -229,26 +244,26 @@ class _GameBoardState extends State<GameBoard> {
             if ((index != widget.obstacle_index_1 || round < 6) 
             && (index != widget.obstacle_index_2 || round < 12)
             && (index != widget.obstacle_index_3 || round < 18)) {
-              if(index == widget.ANKH_index) {
+              if(index == widget.ANKH_index && round >= 10 && chance_triggered_times < 1) {
                 while(true) {
                   random_index = randomINT.nextInt(25);
-                  if(random_index != slipper_index) break;
+                  if(random_index != slipper_index && random_index != p1_index && random_index != p2_index) break;
                 }
-                // final temp_x = x_coordin[slipper_index];
-                // final temp_y = y_coordin[slipper_index];
                 setState(() {
                   selected_pos2_x = x_coordin[index];
                   selected_pos2_y = y_coordin[index];
                   selected2 = !selected2;
+                  // chance_triggered = true;
                   // enable = false;
                 });
                 await Future.delayed(const Duration(milliseconds: 300));
                 setState(() {
-                  // x_coordin[slipper_index] = x_coordin[random_index];
-                  // y_coordin[slipper_index] = y_coordin[random_index];
-                  // x_coordin[random_index] = temp_x;
-                  // y_coordin[random_index] = temp_y;
                   chance_triggered = true;
+                  // chance_triggered_times += 1;
+                });
+                await Future.delayed(const Duration(milliseconds: 300));
+                setState(() {
+                  chance_triggered_times += 1;
                 });
               }
               else if (index == 22 && selected1 == 1) {
@@ -257,6 +272,7 @@ class _GameBoardState extends State<GameBoard> {
                     selected_pos2_x = x_coordin[index];
                     selected_pos2_y = y_coordin[index];
                     selected2 = !selected2;
+                    chance_triggered = false;
                     // enable = false;
                   });
                   switch_times--;
@@ -266,6 +282,7 @@ class _GameBoardState extends State<GameBoard> {
                   selected_pos2_x = x_coordin[index];
                   selected_pos2_y = y_coordin[index];
                   selected2 = !selected2;
+                  chance_triggered = false;
                   // enable = false;
                 });
               }
@@ -284,8 +301,9 @@ class _GameBoardState extends State<GameBoard> {
                     || (index == widget.obstacle_index_2 && round >= 12) 
                     || (index == widget.obstacle_index_3 && round >= 18))
                         ? ExactAssetImage('assets/images/obstacle.png')
-                        : (index == widget.ANKH_index && round >= 10) 
-                          ? ExactAssetImage('assets/images/ANKH-DEFAULT.png')
+                        : (index == widget.ANKH_index && round >= 10 && chance_triggered_times < 1) 
+                          ? chance_triggered 
+                            ? ExactAssetImage('assets/images/ANKH-ACTIVE.png') : ExactAssetImage('assets/images/ANKH-DEFAULT.png')
                           : ExactAssetImage('assets/images/${bg_index[index] + 1}.png'),
                 fit: BoxFit.fitHeight,
               ),
