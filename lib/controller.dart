@@ -31,7 +31,7 @@ class _Player1State extends State<Player1> {
                           Border.all(width: 2.0, color: Color(0xfffacb5a)),
                       borderRadius: BorderRadius.all(Radius.circular(20))),
                   //             <--- BoxDecoration here
-                  child: Text(widget.playername,
+                  child: Text("  " + widget.playername,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -105,7 +105,7 @@ class _Player2State extends State<Player2> {
                             Border.all(width: 2.0, color: Color(0xfffacb5a)),
                         borderRadius: BorderRadius.all(Radius.circular(20))),
                     //             <--- BoxDecoration here
-                    child: Text(widget.playername,
+                    child: Text("  " + widget.playername,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
