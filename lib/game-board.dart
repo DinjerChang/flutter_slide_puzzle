@@ -9,13 +9,17 @@ class GameBoard extends StatefulWidget {
       {Key? key,
       required this.player1name,
       required this.player2name,
-      required this.obstacle_index,
+      required this.obstacle_index_1,
+      required this.obstacle_index_2,
+      required this.obstacle_index_3,
       required this.reload})
       : super(key: key);
   final String player1name;
   final String player2name;
   final bool reload;
-  final int obstacle_index;
+  final int obstacle_index_1;
+  final int obstacle_index_2;
+  final int obstacle_index_3;
   @override
   State<GameBoard> createState() => _GameBoardState();
 }
@@ -199,7 +203,9 @@ class _GameBoardState extends State<GameBoard> {
               (x_coordin[index] - selected_pos1_x).abs() +
                       (y_coordin[index] - selected_pos1_y).abs() ==
                   70) {
-            if (index != widget.obstacle_index || round < 10) {
+            if ((index != widget.obstacle_index_1 || round < 6) 
+            && (index != widget.obstacle_index_2 || round < 12)
+            && (index != widget.obstacle_index_3 || round < 18)) {
               if (index == 22 && selected1 == 1) {
                 if (switch_times > 0) {
                   setState(() {
@@ -229,7 +235,9 @@ class _GameBoardState extends State<GameBoard> {
               image: new DecorationImage(
                 image: index == 22
                     ? ExactAssetImage('assets/images/SLIPPER-DEFAULT.png')
-                    : (index == widget.obstacle_index && round >= 10)
+                    : ((index == widget.obstacle_index_1 && round >= 6) 
+                    || (index == widget.obstacle_index_2 && round >= 12) 
+                    || (index == widget.obstacle_index_3 && round >= 18))
                         ? ExactAssetImage('assets/images/obstacle.png')
                         : ExactAssetImage(
                             'assets/images/${bg_index[index] + 1}.png'),

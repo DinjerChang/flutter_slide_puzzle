@@ -19,7 +19,9 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
   String player1 = "player1";
   String player2 = "player2";
   bool reload = false;
-  dynamic obstacle_index;
+  dynamic obstacle_index_1;
+  dynamic obstacle_index_2;
+  dynamic obstacle_index_3;
   @override
   Widget build(BuildContext context) {
     final arguments = ModalRoute.of(context)?.settings.arguments as Map;
@@ -33,10 +35,24 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
 
     var random = Random();
     while (true) {
-      obstacle_index = random.nextInt(25);
+      obstacle_index_1 = random.nextInt(25);
 
-      print("obstacle_index = " + obstacle_index.toString());
-      if (obstacle_index != 0 && obstacle_index != 4 && obstacle_index != 22) {
+      // print("obstacle_index = " + obstacle_index.toString());
+      if (obstacle_index_1 != 0 && obstacle_index_1 != 4 && obstacle_index_1 != 22) {
+        break;
+      }
+    }
+    while (true) {
+      obstacle_index_2 = random.nextInt(25);
+      if (obstacle_index_2 != 0 && obstacle_index_2 != 4 && obstacle_index_2 != 22 
+      && obstacle_index_2 != obstacle_index_1) {
+        break;
+      }
+    }
+    while (true) {
+      obstacle_index_3 = random.nextInt(25);
+      if (obstacle_index_3 != 0 && obstacle_index_3 != 4 && obstacle_index_3 != 22 
+      && obstacle_index_3 != obstacle_index_1 && obstacle_index_3 != obstacle_index_2) {
         break;
       }
     }
@@ -109,7 +125,9 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
               GameBoard(
                   player1name: player1,
                   player2name: player2,
-                  obstacle_index: obstacle_index,
+                  obstacle_index_1: obstacle_index_1,
+                  obstacle_index_2: obstacle_index_2,
+                  obstacle_index_3: obstacle_index_3,
                   reload: reload),
               Player2(playername: player2),
               FloatingActionButton.extended(
