@@ -10,15 +10,18 @@ class StartPage extends StatefulWidget {
 class _StartPageState extends State<StartPage> {
   @override
   Widget build(BuildContext context) {
+    const primaryColor = Color(0xfffeb34c);
     return Scaffold(
       appBar: AppBar(
+          backgroundColor: primaryColor,
           leading: IconButton(
               icon:
                   FaIcon(FontAwesomeIcons.puzzlePiece, color: Colors.blue[900]),
               onPressed: () {}),
-          title: Text('Ancient Slide Puzzle',
+          title: Text('Pharaoh\'s bedroom',
               style: TextStyle(
-                  color: Colors.blue[900], fontWeight: FontWeight.bold)),
+                  color: Color.fromARGB(255, 0, 0, 0),
+                  fontWeight: FontWeight.bold)),
           actions: <Widget>[
             IconButton(
               icon: FaIcon(FontAwesomeIcons.questionCircle,
@@ -44,6 +47,7 @@ class _StartPageState extends State<StartPage> {
             )
           ]),
       body: StartPageCustomForm(),
+
       // Below code is deprecated, unused
       // floatingActionButton: FloatingActionButton.extended(
       //   label: Text('Let\'s Play'),
@@ -88,56 +92,101 @@ class _StartPageCustomForm extends State<StartPageCustomForm> {
 
   @override
   Widget build(BuildContext context) {
-    double _columnMargin = 10.0;
-    return Column(
-      // mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: <Widget>[
-        Container(
-          margin: EdgeInsets.only(bottom: _columnMargin, top: _columnMargin),
-          child: Image.asset('assets/images/shutup.gif',
-            height: 200, width: 200
-          )
-        ),
-        Container(
-          margin: EdgeInsets.only(bottom: _columnMargin, top: _columnMargin),
-          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 0),
-          child: TextFormField(
-            controller: Player1_Controller,
-            decoration: const InputDecoration(
-              border: UnderlineInputBorder(),
-              labelText: 'Enter Player1 username',
-            ),
+    double _columnMargin = 50.0;
+    return Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/mobile-bg.png"),
+            fit: BoxFit.cover,
           ),
         ),
-        Container(
-          margin: EdgeInsets.only(top: _columnMargin),
-          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 0),
-          child: TextFormField(
-            controller: Player2_Controller,
-            decoration: const InputDecoration(
-              border: UnderlineInputBorder(),
-              labelText: 'Enter Player2 username',
+        alignment: Alignment.center,
+        child: Container(
+            width: 300,
+            height: 600,
+            decoration: BoxDecoration(
+              color: Color(0xff21325e),
+              border: Border.all(width: 4.0, color: Color(0xfffacb5a)),
+              borderRadius: BorderRadius.circular(10),
             ),
-          ),
-        ),
-        Container(
-            width: 20,
-            margin: EdgeInsets.only(top: 250),
-            child: SizedBox( //不知道為什麼這裡 SizeBox沒效，要修一下 
-                height: 30,
-                width: 20,
-                child: ElevatedButton(
-                    style: ButtonStyle(),
-                    onPressed: () {
-                      player1 = Player1_Controller.text.toString();
-                      player2 = Player2_Controller.text.toString();
-                      Navigator.of(context).pushNamed('/game',
-                          arguments: {'Player1': player1, 'Player2': player2});
-                    },
-                    child: Text('Let\'s Play')))),
-      ],
-    );
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                // Container(
+                //     margin:
+                //         EdgeInsets.only(bottom: _columnMargin, top: _columnMargin),
+                //     child: Image.asset('assets/images/shutup.gif',
+                //         height: 200, width: 200)),
+                Container(
+                  margin: EdgeInsets.only(top: _columnMargin),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 30, vertical: 0),
+                  child: TextFormField(
+                    controller: Player1_Controller,
+                    cursorColor: Colors.white,
+                    style: TextStyle(color: Colors.white),
+                    decoration: const InputDecoration(
+                        focusedBorder: const OutlineInputBorder(
+                          borderSide: const BorderSide(
+                              color: Color(0xfffacb5a), width: 2.0),
+                        ),
+                        hintText: 'Please enter your name',
+                        labelText: 'Player1',
+                        labelStyle: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                        )),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: _columnMargin),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 30, vertical: 0),
+                  child: TextFormField(
+                    controller: Player2_Controller,
+                    style: TextStyle(color: Colors.white),
+                    cursorColor: Colors.white,
+                    decoration: const InputDecoration(
+                      focusedBorder: const OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            color: Color(0xfffacb5a), width: 2.0),
+                      ),
+                      hintText: 'Please enter your name',
+                      labelText: 'Player2',
+                      labelStyle: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                    width: 10, // <-- Your width
+                    height: 30,
+                    margin: EdgeInsets.only(
+                      top: 280,
+                    ),
+                    child: Container(
+                      // margin: EdgeInsets.only(top: 250),
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            minimumSize: const Size(50, 50),
+                            // maximumSize: const Size(50, 50),
+                            // fixedSize: const Size(10, 10),
+                          ),
+                          onPressed: () {
+                            player1 = Player1_Controller.text.toString();
+                            player2 = Player2_Controller.text.toString();
+                            Navigator.of(context).pushNamed('/game',
+                                arguments: {
+                                  'Player1': player1,
+                                  'Player2': player2
+                                });
+                          },
+                          child: Text('Start')),
+                    ))
+              ],
+            )));
   }
 }

@@ -32,6 +32,7 @@ class GameBoard extends StatefulWidget {
 
 bool player1_win = false; // 先在遊戲開始之前宣告，之後隨著遊戲狀態改變
 bool player2_win = false;
+var randomINT = Random();
 
 class _GameBoardState extends State<GameBoard> {
   final x_coordin = List<dynamic>.generate(
@@ -106,6 +107,9 @@ class _GameBoardState extends State<GameBoard> {
   //     break;
   //   }
   // }
+
+  final bg_index = List<int>.generate(25, (int index) => randomINT.nextInt(5),
+      growable: false);
 
   void _onEnd1() async {
     if (selected3 && selected1 == 2) {
@@ -184,6 +188,7 @@ class _GameBoardState extends State<GameBoard> {
           y_coordin[index] = selected_pos1_y;
           round = round + 1;
         });
+        print(bg_index);
       },
       left: (selected1 != 0 && selected2) &&
               (selected_pos2_x == x_coordin[index] &&
@@ -236,7 +241,8 @@ class _GameBoardState extends State<GameBoard> {
                     ? ExactAssetImage('assets/images/SLIPPER-DEFAULT.png')
                     : (index == widget.obstacle_index && round >= 10)
                         ? ExactAssetImage('assets/images/obstacle.png')
-                        : ExactAssetImage('assets/images/${index % 5 + 1}.png'),
+                        : ExactAssetImage(
+                            'assets/images/${bg_index[index] + 1}.png'),
                 fit: BoxFit.fitHeight,
               ),
             )),
@@ -332,30 +338,14 @@ class _GameBoardState extends State<GameBoard> {
                               height: _height,
                               decoration: new BoxDecoration(
                                 image: new DecorationImage(
-                                  image: ExactAssetImage(
-                                      'assets/images/DOG-DEFAULT.png'),
+
+                                  image: (selected1 != 1)
+                                      ? ExactAssetImage(
+                                          'assets/images/DOG-DEFAULT.png')
+                                      : ExactAssetImage(
+                                          'assets/images/DOG-ACTIVE.png'),
                                   fit: BoxFit.fitHeight,
                                 ),
-                                border: (selected1 != 1)
-                                    ? null
-                                    : Border(
-                                        top: BorderSide(
-                                            color: Color.fromARGB(
-                                                255, 255, 251, 0),
-                                            width: 3.0),
-                                        right: BorderSide(
-                                            color: Color.fromARGB(
-                                                255, 255, 251, 0),
-                                            width: 3.0),
-                                        bottom: BorderSide(
-                                            color: Color.fromARGB(
-                                                255, 255, 251, 0),
-                                            width: 3.0),
-                                        left: BorderSide(
-                                            color: Color.fromARGB(
-                                                255, 255, 251, 0),
-                                            width: 3.0),
-                                      ),
                               )),
                         ),
                       ),
@@ -402,30 +392,14 @@ class _GameBoardState extends State<GameBoard> {
                               height: _height,
                               decoration: new BoxDecoration(
                                 image: new DecorationImage(
-                                  image: ExactAssetImage(
-                                      'assets/images/FEET-DEFAULT.png'),
+                                  image: (selected1 != 2)
+                                      ? ExactAssetImage(
+                                          'assets/images/FEET-DEFAULT.png')
+                                      : ExactAssetImage(
+                                          'assets/images/FEET-ACTIVE.png'),
                                   fit: BoxFit.fill,
                                 ),
-                                border: (selected1 != 2)
-                                    ? null
-                                    : Border(
-                                        top: BorderSide(
-                                            color: Color.fromARGB(
-                                                255, 255, 251, 0),
-                                            width: 3.0),
-                                        right: BorderSide(
-                                            color: Color.fromARGB(
-                                                255, 255, 251, 0),
-                                            width: 3.0),
-                                        bottom: BorderSide(
-                                            color: Color.fromARGB(
-                                                255, 255, 251, 0),
-                                            width: 3.0),
-                                        left: BorderSide(
-                                            color: Color.fromARGB(
-                                                255, 255, 251, 0),
-                                            width: 3.0),
-                                      ),
+
                               )),
                         ),
                       ),
