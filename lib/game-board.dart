@@ -12,6 +12,7 @@ class GameBoard extends StatefulWidget {
       required this.obstacle_index_1,
       required this.obstacle_index_2,
       required this.obstacle_index_3,
+      required this.ANKH_index,
       required this.reload})
       : super(key: key);
   final String player1name;
@@ -20,6 +21,7 @@ class GameBoard extends StatefulWidget {
   final int obstacle_index_1;
   final int obstacle_index_2;
   final int obstacle_index_3;
+  final int ANKH_index;
   @override
   State<GameBoard> createState() => _GameBoardState();
 }
@@ -89,10 +91,12 @@ class _GameBoardState extends State<GameBoard> {
   dynamic selected_pos2_y = 0.0;
   final p1_index = 0;
   final p2_index = 4;
+  final slipper_index = 22;
   dynamic switch_times = 3;
   // dynamic obstacle_index = 1;
   dynamic round = 0;
-
+  int random_index = 0;
+  bool chance_triggered = false;
   // var random = Random();
   // while(true) {
   //   obstacle_index = random.nextInt(24);
@@ -130,6 +134,18 @@ class _GameBoardState extends State<GameBoard> {
         selected3 = false;
         // enable = true;
       });
+      await Future.delayed(const Duration(milliseconds: 500));
+      if(chance_triggered) {
+        final temp_x = x_coordin[slipper_index];
+        final temp_y = y_coordin[slipper_index];
+        setState(() {
+          x_coordin[slipper_index] = x_coordin[random_index];
+          y_coordin[slipper_index] = y_coordin[random_index];
+          x_coordin[random_index] = temp_x;
+          y_coordin[random_index] = temp_y;
+          // chance_triggered = false;
+        });
+      }
     }
   }
 
@@ -177,12 +193,19 @@ class _GameBoardState extends State<GameBoard> {
   Widget buildPiece(int index) {
     return (AnimatedPositioned(
       onEnd: () {
-        setState(() {
-          x_coordin[index] = selected_pos1_x;
-          y_coordin[index] = selected_pos1_y;
-          round = round + 1;
-        });
-        print(bg_index);
+        if(!chance_triggered) {
+          setState(() {
+            x_coordin[index] = selected_pos1_x;
+            y_coordin[index] = selected_pos1_y;
+            round = round + 1;
+          });
+        }
+        else {
+          setState(() {
+            chance_triggered = false;
+          });
+        }
+        // print(bg_index);
       },
       left: (selected1 != 0 && selected2) &&
               (selected_pos2_x == x_coordin[index] &&
@@ -197,7 +220,7 @@ class _GameBoardState extends State<GameBoard> {
       duration: const Duration(milliseconds: duration),
       curve: Curves.fastOutSlowIn,
       child: GestureDetector(
-        onTap: () {
+        onTap: () async {
           if (selected2 ||
               (selected1 == 0 && !selected2) ||
               (x_coordin[index] - selected_pos1_x).abs() +
@@ -206,7 +229,29 @@ class _GameBoardState extends State<GameBoard> {
             if ((index != widget.obstacle_index_1 || round < 6) 
             && (index != widget.obstacle_index_2 || round < 12)
             && (index != widget.obstacle_index_3 || round < 18)) {
-              if (index == 22 && selected1 == 1) {
+              if(index == widget.ANKH_index) {
+                while(true) {
+                  random_index = randomINT.nextInt(25);
+                  if(random_index != slipper_index) break;
+                }
+                // final temp_x = x_coordin[slipper_index];
+                // final temp_y = y_coordin[slipper_index];
+                setState(() {
+                  selected_pos2_x = x_coordin[index];
+                  selected_pos2_y = y_coordin[index];
+                  selected2 = !selected2;
+                  // enable = false;
+                });
+                await Future.delayed(const Duration(milliseconds: 300));
+                setState(() {
+                  // x_coordin[slipper_index] = x_coordin[random_index];
+                  // y_coordin[slipper_index] = y_coordin[random_index];
+                  // x_coordin[random_index] = temp_x;
+                  // y_coordin[random_index] = temp_y;
+                  chance_triggered = true;
+                });
+              }
+              else if (index == 22 && selected1 == 1) {
                 if (switch_times > 0) {
                   setState(() {
                     selected_pos2_x = x_coordin[index];
@@ -239,8 +284,9 @@ class _GameBoardState extends State<GameBoard> {
                     || (index == widget.obstacle_index_2 && round >= 12) 
                     || (index == widget.obstacle_index_3 && round >= 18))
                         ? ExactAssetImage('assets/images/obstacle.png')
-                        : ExactAssetImage(
-                            'assets/images/${bg_index[index] + 1}.png'),
+                        : (index == widget.ANKH_index && round >= 10) 
+                          ? ExactAssetImage('assets/images/ANKH-DEFAULT.png')
+                          : ExactAssetImage('assets/images/${bg_index[index] + 1}.png'),
                 fit: BoxFit.fitHeight,
               ),
             )),

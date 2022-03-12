@@ -22,6 +22,7 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
   dynamic obstacle_index_1;
   dynamic obstacle_index_2;
   dynamic obstacle_index_3;
+  dynamic ANKH_index;
   @override
   Widget build(BuildContext context) {
     final arguments = ModalRoute.of(context)?.settings.arguments as Map;
@@ -53,6 +54,13 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
       obstacle_index_3 = random.nextInt(25);
       if (obstacle_index_3 != 0 && obstacle_index_3 != 4 && obstacle_index_3 != 22 
       && obstacle_index_3 != obstacle_index_1 && obstacle_index_3 != obstacle_index_2) {
+        break;
+      }
+    }
+    while (true) {
+      ANKH_index = random.nextInt(25);
+      if (ANKH_index != 0 && ANKH_index != 4 && ANKH_index != 22 
+      && ANKH_index != obstacle_index_1 && ANKH_index != obstacle_index_2 && ANKH_index != obstacle_index_3) {
         break;
       }
     }
@@ -128,6 +136,7 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
                   obstacle_index_1: obstacle_index_1,
                   obstacle_index_2: obstacle_index_2,
                   obstacle_index_3: obstacle_index_3,
+                  ANKH_index: ANKH_index,
                   reload: reload),
               Player2(playername: player2),
               FloatingActionButton.extended(
