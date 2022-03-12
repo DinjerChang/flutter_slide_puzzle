@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_slide_puzzle/game-board.dart';
 import 'package:flutter_slide_puzzle/controller.dart';
 import 'package:flutter_slide_puzzle/win-modal.dart';
+import 'package:flutter_slide_puzzle/carousel.dart';
 import 'dart:math';
 
 class SlidePuzzlePage extends StatefulWidget {
@@ -59,10 +60,10 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
     player2_win = false;
 
     var random = Random();
-    while(true) {
-      obstacle_index = random.nextInt(24);
+    while (true) {
+      obstacle_index = random.nextInt(25);
       print("obstacle_index = " + obstacle_index.toString());
-      if(obstacle_index != 0 && obstacle_index != 4 && obstacle_index != 22) {
+      if (obstacle_index != 0 && obstacle_index != 4 && obstacle_index != 22) {
         break;
       }
     }
@@ -106,34 +107,28 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
               ),
             ),
             IconButton(
-              icon: FaIcon(FontAwesomeIcons.questionCircle,
-                  color: Colors.blue[900]),
-              tooltip: "How to Play",
-              onPressed: () => showDialog<String>(
-                context: context,
-                builder: (BuildContext context) => AlertDialog(
-                  title: const Text(
-                    'How to Play',
-                    textAlign: TextAlign.center,
-                  ),
-                  content: const Text('Game Story Description'),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, 'OK'),
-                      child: const Text('OK',
-                          style: TextStyle(color: Colors.black)),
-                    ),
-                  ],
-                ),
-              ),
-            )
+                icon: FaIcon(FontAwesomeIcons.questionCircle,
+                    color: Colors.blue[900]),
+                tooltip: "How to Play",
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) {
+                      return Carousel();
+                    }),
+                  );
+                })
           ]),
       body: SingleChildScrollView(
           child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           Player1(playername: player1),
-          GameBoard(player1name: player1, player2name: player2, obstacle_index: obstacle_index, reload: reload),
+          GameBoard(
+              player1name: player1,
+              player2name: player2,
+              obstacle_index: obstacle_index,
+              reload: reload),
           Player2(playername: player2),
         ],
       )),
