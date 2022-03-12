@@ -115,7 +115,7 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
               FloatingActionButton.extended(
                   icon: Image.asset("assets/images/restart_logo.png"),
                   backgroundColor: Color(0xfffacb5a),
-                  // extendedTextStyle: TextStyle(color: Color(0xff21325E)),
+                  // extendedTextStyle: TextStyle(color: Color(0xff21325E)),\
                   label: Text('Restart'),
                   onPressed: () {
                     Navigator.pop(context);
