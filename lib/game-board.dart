@@ -338,6 +338,7 @@ class _GameBoardState extends State<GameBoard> {
                               height: _height,
                               decoration: new BoxDecoration(
                                 image: new DecorationImage(
+
                                   image: (selected1 != 1)
                                       ? ExactAssetImage(
                                           'assets/images/DOG-DEFAULT.png')
@@ -398,6 +399,7 @@ class _GameBoardState extends State<GameBoard> {
                                           'assets/images/FEET-ACTIVE.png'),
                                   fit: BoxFit.fill,
                                 ),
+
                               )),
                         ),
                       ),

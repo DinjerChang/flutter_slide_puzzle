@@ -62,6 +62,7 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
     var random = Random();
     while (true) {
       obstacle_index = random.nextInt(25);
+
       print("obstacle_index = " + obstacle_index.toString());
       if (obstacle_index != 0 && obstacle_index != 4 && obstacle_index != 22) {
         break;
