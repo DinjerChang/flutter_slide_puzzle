@@ -16,8 +16,6 @@ class SlidePuzzlePage extends StatefulWidget {
 }
 
 class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
-  String player1 = "player1";
-  String player2 = "player2";
   bool reload = false;
   dynamic obstacle_index_1;
   dynamic obstacle_index_2;
@@ -27,8 +25,10 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
     final arguments = ModalRoute.of(context)?.settings.arguments as Map;
     if (arguments != null)
       print(arguments['Player1'] + ',' + arguments['Player2']);
-    final String player1 = arguments['Player1'];
-    final String player2 = arguments['Player2'];
+    String player1 = arguments['Player1'];
+    String player2 = arguments['Player2'];
+    if (player1.length == 0) {player1 = '  Player 1';}
+    if (player2.length == 0) {player2 = '  Player 2';}
 
     player1_win = false;
     player2_win = false;
@@ -38,21 +38,28 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
       obstacle_index_1 = random.nextInt(25);
 
       // print("obstacle_index = " + obstacle_index.toString());
-      if (obstacle_index_1 != 0 && obstacle_index_1 != 4 && obstacle_index_1 != 22) {
+      if (obstacle_index_1 != 0 &&
+          obstacle_index_1 != 4 &&
+          obstacle_index_1 != 22) {
         break;
       }
     }
     while (true) {
       obstacle_index_2 = random.nextInt(25);
-      if (obstacle_index_2 != 0 && obstacle_index_2 != 4 && obstacle_index_2 != 22 
-      && obstacle_index_2 != obstacle_index_1) {
+      if (obstacle_index_2 != 0 &&
+          obstacle_index_2 != 4 &&
+          obstacle_index_2 != 22 &&
+          obstacle_index_2 != obstacle_index_1) {
         break;
       }
     }
     while (true) {
       obstacle_index_3 = random.nextInt(25);
-      if (obstacle_index_3 != 0 && obstacle_index_3 != 4 && obstacle_index_3 != 22 
-      && obstacle_index_3 != obstacle_index_1 && obstacle_index_3 != obstacle_index_2) {
+      if (obstacle_index_3 != 0 &&
+          obstacle_index_3 != 4 &&
+          obstacle_index_3 != 22 &&
+          obstacle_index_3 != obstacle_index_1 &&
+          obstacle_index_3 != obstacle_index_2) {
         break;
       }
     }
@@ -66,37 +73,38 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
           leading: IconButton(
               icon: Image.asset('assets/images/game_small_logo.png'),
               onPressed: () {}),
-          title: Text('Pharaoh\'s bedroom',
+          centerTitle: false,
+          title:const Text('Pharaoh\'s bedroom',
               style: TextStyle(
                   color: Color.fromARGB(255, 0, 0, 0),
                   fontWeight: FontWeight.bold)),
           actions: <Widget>[
-            IconButton(
-              icon: FaIcon(FontAwesomeIcons.pause,
-                  color: Color.fromARGB(255, 0, 0, 0)),
-              tooltip: "Pause Game",
-              onPressed: () => showDialog<String>(
-                context: context,
-                builder: (BuildContext context) => AlertDialog(
-                  title: const Text(
-                    'Game is Paused',
-                    textAlign: TextAlign.center,
-                  ),
-                  //content: const Text('Game Story Description'),
-                  actions: <Widget>[
-                    Center(
-                      child: TextButton(
-                          onPressed: () => Navigator.pop(context, 'Resume'),
-                          child: const Text('Resume',
-                              style: TextStyle(color: Colors.black)),
-                          style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.all(Colors.yellow))),
-                    )
-                  ],
-                ),
-              ),
-            ),
+            // IconButton(
+            //   icon: FaIcon(FontAwesomeIcons.pause,
+            //       color: Color.fromARGB(255, 0, 0, 0)),
+            //   tooltip: "Pause Game",
+            //   onPressed: () => showDialog<String>(
+            //     context: context,
+            //     builder: (BuildContext context) => AlertDialog(
+            //       title: const Text(
+            //         'Game is Paused',
+            //         textAlign: TextAlign.center,
+            //       ),
+            //       //content: const Text('Game Story Description'),
+            //       actions: <Widget>[
+            //         Center(
+            //           child: TextButton(
+            //               onPressed: () => Navigator.pop(context, 'Resume'),
+            //               child: const Text('Resume',
+            //                   style: TextStyle(color: Colors.black)),
+            //               style: ButtonStyle(
+            //                   backgroundColor:
+            //                       MaterialStateProperty.all(Colors.yellow))),
+            //         )
+            //       ],
+            //     ),
+            //   ),
+            // ),
             IconButton(
                 icon: Image.asset('assets/images/Bar_key.png'),
                 tooltip: "How to Play",
@@ -130,14 +138,57 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
                   obstacle_index_3: obstacle_index_3,
                   reload: reload),
               Player2(playername: player2),
-              FloatingActionButton.extended(
-                  icon: Image.asset("assets/images/restart_logo.png"),
-                  backgroundColor: Color(0xfffacb5a),
-                  // extendedTextStyle: TextStyle(color: Color(0xff21325E)),\
-                  label: Text('Restart'),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  }),
+              Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  FloatingActionButton.extended(
+                      heroTag: "Pause",
+                      icon: FaIcon(FontAwesomeIcons.pauseCircle,
+                          color: Color.fromARGB(255, 0, 0, 0)),
+                      backgroundColor: Color.fromARGB(255, 255, 104, 53),
+                      shape: StadiumBorder(
+                        side: BorderSide(color: Colors.white, width: 2)),
+                      // extendedTextStyle: TextStyle(color: Color(0xff21325E)),\
+                      label: Text('Pause ', style: TextStyle(color: Colors.black,
+                              fontWeight: FontWeight.bold)),
+                      onPressed: () => showDialog<String>(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        title: const Text(
+                          'Game is Paused',
+                          textAlign: TextAlign.center,
+                        ),
+                        //content: const Text('Game Story Description'),
+                        actions: <Widget>[
+                          Center(
+                            child: TextButton(
+                                onPressed: () =>
+                                    Navigator.pop(context, 'Resume'),
+                                child: const Text('Resume',
+                                    style: TextStyle(color: Colors.black)),
+                                style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all(
+                                        Color.fromARGB(255, 255, 104, 53)))),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  FloatingActionButton.extended(
+                    heroTag:"Restart",
+                      icon: Image.asset("assets/images/restart_logo.png"),
+                      backgroundColor: Color(0xfffacb5a),
+                      shape: StadiumBorder(
+                          side: BorderSide(color: Colors.white, width: 2)),
+                      // extendedTextStyle: TextStyle(color: Color(0xff21325E)),\
+                      label: Text('Restart', style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold)),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      }),
+                ],
+              )
+              
             ],
           )),
       // floatingActionButton: FloatingActionButton.extended(
