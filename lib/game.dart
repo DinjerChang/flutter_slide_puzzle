@@ -136,20 +136,21 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              Player1(playername: player1),
+              Player1(playername: (player1 == "") ? "player1" : player1),
               GameBoard(
-                  player1name: player1,
-                  player2name: player2,
+                  player1name: (player1 == "") ? "player1" : player1,
+                  player2name: (player2 == "") ? "player2" : player2,
                   obstacle_index_1: obstacle_index_1,
                   obstacle_index_2: obstacle_index_2,
                   obstacle_index_3: obstacle_index_3,
                   ANKH_index: ANKH_index,
                   reload: reload),
-              Player2(playername: player2),
+              Player2(playername: (player2 == "") ? "player2" : player2),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   FloatingActionButton.extended(
+                    heroTag: "btn1",
                     icon: FaIcon(
                       FontAwesomeIcons.pause,
                       color: Color.fromARGB(255, 0, 0, 0),
@@ -187,18 +188,19 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
                   ),
                   SizedBox(width: 10),
                   FloatingActionButton.extended(
-                      icon: Image.asset("assets/images/restart_logo.png"),
-                      backgroundColor: Color(0xfffacb5a),
-                      foregroundColor: Color(0xff21325E),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                        side: BorderSide(
-                            color: Color.fromARGB(255, 255, 255, 255)),
-                      ),
-                      label: Text('Restart'),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      }),
+                    heroTag: "btn2",
+                    icon: Image.asset("assets/images/restart_logo.png"),
+                    backgroundColor: Color(0xfffacb5a),
+                    foregroundColor: Color(0xff21325E),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                      side: BorderSide(
+                          color: Color.fromARGB(255, 255, 255, 255)),
+                    ),
+                    label: Text('Restart'),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    }),
                 ],
               )
             ],

@@ -304,7 +304,11 @@ class _GameBoardState extends State<GameBoard> {
                         : (index == widget.ANKH_index && round >= 10 && chance_triggered_times < 1) 
                           ? chance_triggered 
                             ? ExactAssetImage('assets/images/ANKH-ACTIVE.png') : ExactAssetImage('assets/images/ANKH-DEFAULT.png')
-                          : ExactAssetImage('assets/images/${bg_index[index] + 1}.png'),
+                          : (selected_pos2_x == x_coordin[index] && selected_pos2_y == y_coordin[index])
+                            ? (selected1 == 1)
+                              ? ExactAssetImage('assets/images/TILE-${bg_index[index] + 1}-BLUE-DOG.png')
+                              : ExactAssetImage('assets/images/TILE-${bg_index[index] + 1}-RED-FEET.png')
+                            : ExactAssetImage('assets/images/${bg_index[index] + 1}.png'),
                 fit: BoxFit.fitHeight,
               ),
             )),
