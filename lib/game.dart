@@ -23,6 +23,9 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
   dynamic obstacle_index_2;
   dynamic obstacle_index_3;
   dynamic ANKH_index;
+  dynamic p1_index;
+  dynamic p2_index;
+  dynamic slipper_index;
   @override
   Widget build(BuildContext context) {
     final arguments = ModalRoute.of(context)?.settings.arguments as Map;
@@ -66,12 +69,75 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
     }
     while (true) {
       ANKH_index = random.nextInt(25);
-      if (ANKH_index != 0 && ANKH_index != 4 && ANKH_index != 22 
-      && ANKH_index != obstacle_index_1 && ANKH_index != obstacle_index_2 && ANKH_index != obstacle_index_3) {
+      if (ANKH_index != 0 &&
+          ANKH_index != 4 &&
+          ANKH_index != 22 &&
+          ANKH_index != obstacle_index_1 &&
+          ANKH_index != obstacle_index_2 &&
+          ANKH_index != obstacle_index_3) {
         break;
       }
     }
-
+    final order = [for (var i = 0; i < 25; i++) i];
+    int random_case = randomINT.nextInt(8);
+    switch(random_case) {
+      case 0: {
+        p1_index = 0;
+        p2_index = 4;
+        slipper_index = 22;
+      }
+      break;
+      case 1: {
+        p1_index = 4;
+        p2_index = 0;
+        slipper_index = 22;
+      }
+      break;
+      case 2: {
+        p1_index = 4;
+        p2_index = 24;
+        slipper_index = 10;
+      }
+      break;
+      case 3: {
+        p1_index = 24;
+        p2_index = 4;
+        slipper_index = 10;
+      }
+      break;
+      case 4: {
+        p1_index = 24;
+        p2_index = 20;
+        slipper_index = 2;
+      }
+      break;
+      case 5: {
+        p1_index = 20;
+        p2_index = 24;
+        slipper_index = 2;
+      }
+      break;
+      case 6: {
+        p1_index = 20;
+        p2_index = 0;
+        slipper_index = 14;
+      }
+      break;
+      case 7: {
+        p1_index = 0;
+        p2_index = 20;
+        slipper_index = 14;
+      }
+      break;
+      default: {
+        p1_index = 0;
+        p2_index = 4;
+        slipper_index = 22;
+      }
+      break;
+    }
+    order.remove(p1_index);
+    order.remove(p2_index);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -144,6 +210,10 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
                   obstacle_index_2: obstacle_index_2,
                   obstacle_index_3: obstacle_index_3,
                   ANKH_index: ANKH_index,
+                  p1_index: p1_index,
+                  p2_index: p2_index,
+                  slipper_index: slipper_index,
+                  order: order,
                   reload: reload),
               Player2(playername: (player2 == "") ? "player2" : player2),
               Row(
@@ -151,11 +221,12 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
                 children: [
                   FloatingActionButton.extended(
                     heroTag: "btn1",
-                    icon: FaIcon(
-                      FontAwesomeIcons.pause,
-                      color: Color.fromARGB(255, 0, 0, 0),
-                      size: 15,
-                    ),
+                    // icon: FaIcon(
+                    //   FontAwesomeIcons.pause,
+                    //   color: Color.fromARGB(255, 0, 0, 0),
+                    //   size: 15,
+                    // ),
+                    icon: Image.asset("assets/images/pause_logo.png"),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                         side: BorderSide(
@@ -188,19 +259,19 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
                   ),
                   SizedBox(width: 10),
                   FloatingActionButton.extended(
-                    heroTag: "btn2",
-                    icon: Image.asset("assets/images/restart_logo.png"),
-                    backgroundColor: Color(0xfffacb5a),
-                    foregroundColor: Color(0xff21325E),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      side: BorderSide(
-                          color: Color.fromARGB(255, 255, 255, 255)),
-                    ),
-                    label: Text('Restart'),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    }),
+                      heroTag: "btn2",
+                      icon: Image.asset("assets/images/restart_logo.png"),
+                      backgroundColor: Color(0xfffacb5a),
+                      foregroundColor: Color(0xff21325E),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        side: BorderSide(
+                            color: Color.fromARGB(255, 255, 255, 255)),
+                      ),
+                      label: Text('Restart'),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      }),
                 ],
               )
             ],

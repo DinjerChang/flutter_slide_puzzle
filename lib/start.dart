@@ -13,6 +13,7 @@ class _StartPageState extends State<StartPage> {
   Widget build(BuildContext context) {
     const primaryColor = Color(0xfffeb34c);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
           backgroundColor: primaryColor,
           leading: IconButton(
@@ -20,8 +21,10 @@ class _StartPageState extends State<StartPage> {
               onPressed: () {}),
           title: Text('Pharaoh\'s bedroom',
               style: TextStyle(
-                  color: Color.fromARGB(255, 0, 0, 0),
-                  fontWeight: FontWeight.bold)),
+                color: Color.fromARGB(255, 0, 0, 0),
+                fontWeight: FontWeight.bold,
+                // fontFamily: GoogleFonts.lato(),
+              )),
           actions: <Widget>[
             IconButton(
               icon: Image.asset('assets/images/Bar_key.png'),
@@ -152,8 +155,16 @@ class _StartPageCustomForm extends State<StartPageCustomForm> {
                                   width: 40)),
                           Text(
                             'Player1',
+                            // style: GoogleFonts.lato(
+                            //   textStyle: Theme.of(context).textTheme.headline4,
+                            //   fontSize: 48,
+                            //   fontWeight: FontWeight.w700,
+                            //   fontStyle: FontStyle.Roboto,
+                            // ),
                             style: TextStyle(
-                              fontFamily: 'Arial',
+                              // fontFamily: 'Arial',
+                              fontFamily: 'Roboto Condensed',
+                              fontWeight: FontWeight.w400,
                               fontSize: 18,
                               color: Colors.white,
                               height: 1,
@@ -208,14 +219,20 @@ class _StartPageCustomForm extends State<StartPageCustomForm> {
                               margin: EdgeInsets.only(
                                 right: 10,
                               ),
-                              child: Image.asset(
-                                  'assets/images/player1.png',
-                                  height: 40,
-                                  width: 40)),
+                              child: Image.asset('assets/images/player1.png',
+                                  height: 40, width: 40)),
                           Text(
                             'Player2',
+                            // style: TextStyle(
+                            //   fontFamily: 'Arial',
+                            //   fontSize: 18,
+                            //   color: Colors.white,
+                            //   height: 1,
+                            // ),
                             style: TextStyle(
-                              fontFamily: 'Arial',
+                              // fontFamily: 'Arial',
+                              fontFamily: 'Roboto Condensed',
+                              fontWeight: FontWeight.w400,
                               fontSize: 18,
                               color: Colors.white,
                               height: 1,
