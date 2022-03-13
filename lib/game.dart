@@ -184,7 +184,10 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
                               color: Colors.black,
                               fontWeight: FontWeight.bold)),
                       onPressed: () {
-                        Navigator.pop(context);
+                        Navigator.of(context).pushNamed('/game', arguments: {
+                          'Player1': player1,
+                          'Player2': player2
+                        });
                       }),
                 ],
               )
