@@ -66,8 +66,12 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
     }
     while (true) {
       ANKH_index = random.nextInt(25);
-      if (ANKH_index != 0 && ANKH_index != 4 && ANKH_index != 22 
-      && ANKH_index != obstacle_index_1 && ANKH_index != obstacle_index_2 && ANKH_index != obstacle_index_3) {
+      if (ANKH_index != 0 &&
+          ANKH_index != 4 &&
+          ANKH_index != 22 &&
+          ANKH_index != obstacle_index_1 &&
+          ANKH_index != obstacle_index_2 &&
+          ANKH_index != obstacle_index_3) {
         break;
       }
     }
@@ -188,19 +192,19 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
                   ),
                   SizedBox(width: 10),
                   FloatingActionButton.extended(
-                    heroTag: "btn2",
-                    icon: Image.asset("assets/images/restart_logo.png"),
-                    backgroundColor: Color(0xfffacb5a),
-                    foregroundColor: Color(0xff21325E),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      side: BorderSide(
-                          color: Color.fromARGB(255, 255, 255, 255)),
-                    ),
-                    label: Text('Restart'),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    }),
+                      heroTag: "btn2",
+                      icon: Image.asset("assets/images/restart_logo.png"),
+                      backgroundColor: Color(0xfffacb5a),
+                      foregroundColor: Color(0xff21325E),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        side: BorderSide(
+                            color: Color.fromARGB(255, 255, 255, 255)),
+                      ),
+                      label: Text('Restart'),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      }),
                 ],
               )
             ],
