@@ -15,7 +15,7 @@ class _Player1State extends State<Player1> {
   Widget build(BuildContext context) {
     return Row(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
       Container(
-          height: 55.0,
+          height: 57.0,
           width: 200.0,
           margin: EdgeInsets.all(_playerMargin),
           child: Stack(children: <Widget>[
@@ -94,7 +94,7 @@ class _Player2State extends State<Player2> {
   Widget build(BuildContext context) {
     return Row(mainAxisAlignment: MainAxisAlignment.end, children: <Widget>[
       Container(
-          height: 55.0,
+          height: 60.0,
           width: 200.0,
           margin: EdgeInsets.all(_playerMargin),
           child: Stack(children: <Widget>[

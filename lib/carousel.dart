@@ -28,6 +28,9 @@ class _CarouselState extends State<Carousel> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: Color(0xff21325E), //change your color here
+        ),
         backgroundColor: Color(0xfffeb34c),
         title: Text('How to play',
             style: TextStyle(
@@ -55,7 +58,7 @@ class _CarouselState extends State<Carousel> {
                         // padding: EdgeInsets.only(top: 50),
                         margin: EdgeInsets.symmetric(horizontal: 5.0),
                         // decoration: BoxDecoration(color: Colors.amber),
-                        child: Image.asset(images[i], height: 700, width: 300),
+                        child: Image.asset(images[i], height: 700, width: 350),
                       )
                     ]));
           });

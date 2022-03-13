@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slide_puzzle/start.dart';
 import 'package:flutter_slide_puzzle/game.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const SlidePuzzle());
@@ -23,4 +24,3 @@ class SlidePuzzle extends StatelessWidget {
     );
   }
 }
- 
