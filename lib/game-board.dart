@@ -13,6 +13,10 @@ class GameBoard extends StatefulWidget {
       required this.obstacle_index_2,
       required this.obstacle_index_3,
       required this.ANKH_index,
+      required this.p1_index,
+      required this.p2_index,
+      required this.slipper_index,
+      required this.order,
       required this.reload})
       : super(key: key);
   final String player1name;
@@ -22,12 +26,17 @@ class GameBoard extends StatefulWidget {
   final int obstacle_index_2;
   final int obstacle_index_3;
   final int ANKH_index;
+  final int p1_index;
+  final int p2_index;
+  final int slipper_index;
+  final List<int> order;
   @override
   State<GameBoard> createState() => _GameBoardState();
 }
 
 bool player1_win = false; // 先在遊戲開始之前宣告，之後隨著遊戲狀態改變
 bool player2_win = false;
+// bool starting = true;
 var randomINT = Random();
 
 class _GameBoardState extends State<GameBoard> {
@@ -37,40 +46,32 @@ class _GameBoardState extends State<GameBoard> {
   final y_coordin = List<dynamic>.generate(
       25, (int index) => (index ~/ 5) * 70.0 + 20.0,
       growable: false);
+  // final List<int> order = [
+  //   1,
+  //   2,
+  //   3,
+  //   5,
+  //   6,
+  //   7,
+  //   8,
+  //   9,
+  //   10,
+  //   11,
+  //   12,
+  //   13,
+  //   14,
+  //   15,
+  //   16,
+  //   17,
+  //   18,
+  //   19,
+  //   20,
+  //   21,
+  //   22,
+  //   23,
+  //   24
+  // ];
 
-  final List<int> order = [
-    1,
-    2,
-    3,
-    5,
-    6,
-    7,
-    8,
-    9,
-    10,
-    11,
-    12,
-    13,
-    14,
-    15,
-    16,
-    17,
-    18,
-    19,
-    20,
-    21,
-    22,
-    23,
-    24
-  ];
-  // void generateOrder() {
-  //   for (int i = 1; i < 25; i++) {
-  //     if (i == 7) {
-  //       continue;
-  //     }
-  //     order.add(i);
-  //   }
-  // }
   final _margin = 1.0;
   dynamic _color = 0xFFFFCCCC;
   final _width = 65.0;
@@ -84,28 +85,21 @@ class _GameBoardState extends State<GameBoard> {
   dynamic selected1 = 1.0;
   bool selected2 = false;
   bool selected3 = false;
-  bool enable = true;
+  bool enabled = true;
+  bool starting = true;
   dynamic selected_pos1_x = 10.0;
   dynamic selected_pos1_y = 20.0;
   dynamic selected_pos2_x = 0.0;
   dynamic selected_pos2_y = 0.0;
-  final p1_index = 0;
-  final p2_index = 4;
-  final slipper_index = 22;
+  int p1_index = 0;
+  int p2_index = 4;
+  int slipper_index = 22;
   dynamic switch_times = 3;
   // dynamic obstacle_index = 1;
   dynamic round = 0;
   int random_index = 0;
   int chance_triggered_times = 0;
   bool chance_triggered = false;
-  // var random = Random();
-  // while(true) {
-  //   obstacle_index = random.nextInt(24);
-  //   print("obstacle_index = " + obstacle_index.toString());
-  //   if(obstacle_index != 0 && obstacle_index != 4 && obstacle_index != 22) {
-  //     break;
-  //   }
-  // }
 
   final bg_index = List<int>.generate(25, (int index) => randomINT.nextInt(5),
       growable: false);
@@ -113,13 +107,12 @@ class _GameBoardState extends State<GameBoard> {
   void _onEnd1() async {
     if (selected3 && selected1 == 2) {
       setState(() {
-        x_coordin[p1_index] = selected_pos1_x;
-        y_coordin[p1_index] = selected_pos1_y;
+        x_coordin[widget.p1_index] = selected_pos1_x;
+        y_coordin[widget.p1_index] = selected_pos1_y;
         selected2 = false;
         selected3 = false;
         player1_win = true;
       });
-      // print("1");
     } else {
       await Future.delayed(const Duration(milliseconds: 10));
       setState(() {
@@ -127,82 +120,74 @@ class _GameBoardState extends State<GameBoard> {
       });
       await Future.delayed(const Duration(milliseconds: 10));
       setState(() {
-        x_coordin[p1_index] = selected_pos2_x;
-        y_coordin[p1_index] = selected_pos2_y;
+        x_coordin[widget.p1_index] = selected_pos2_x;
+        y_coordin[widget.p1_index] = selected_pos2_y;
         selected1 = 2;
-        selected_pos1_x = x_coordin[p2_index];
-        selected_pos1_y = y_coordin[p2_index];
+        selected_pos1_x = x_coordin[widget.p2_index];
+        selected_pos1_y = y_coordin[widget.p2_index];
         selected3 = false;
-        // enable = true;
       });
       await Future.delayed(const Duration(milliseconds: 10));
       if(chance_triggered) {
-        final temp_x = x_coordin[slipper_index];
-        final temp_y = y_coordin[slipper_index];
+        final temp_x = x_coordin[widget.slipper_index];
+        final temp_y = y_coordin[widget.slipper_index];
         await Future.delayed(const Duration(milliseconds: 10));
         setState(() {
-          x_coordin[slipper_index] = x_coordin[random_index];
-          y_coordin[slipper_index] = y_coordin[random_index];
+          x_coordin[widget.slipper_index] = x_coordin[random_index];
+          y_coordin[widget.slipper_index] = y_coordin[random_index];
           x_coordin[random_index] = temp_x;
           y_coordin[random_index] = temp_y;
-          // chance_triggered = false;
         });
       }
+      await Future.delayed(const Duration(milliseconds: 10));
+      enabled = true;
     }
   }
 
   void _onEnd2() async {
     if (selected3 && selected1 == 1) {
       setState(() {
-        x_coordin[p2_index] = selected_pos1_x;
-        y_coordin[p2_index] = selected_pos1_y;
+        x_coordin[widget.p2_index] = selected_pos1_x;
+        y_coordin[widget.p2_index] = selected_pos1_y;
         selected2 = false;
         selected3 = false;
         player1_win = true;
       });
-      // print("2");
     } else {
       await Future.delayed(const Duration(milliseconds: 10));
       setState(() {
         selected2 = false;
       });
       await Future.delayed(const Duration(milliseconds: 10));
-      if (x_coordin[p2_index] == x_coordin[22] &&
-          y_coordin[p2_index] == y_coordin[22]) {
+      if (x_coordin[widget.p2_index] == x_coordin[widget.slipper_index] &&
+          y_coordin[widget.p2_index] == y_coordin[widget.slipper_index]) {
         setState(() {
           player2_win = true;
         });
       }
       await Future.delayed(const Duration(milliseconds: 10));
       setState(() {
-        x_coordin[p2_index] = selected_pos2_x;
-        y_coordin[p2_index] = selected_pos2_y;
+        x_coordin[widget.p2_index] = selected_pos2_x;
+        y_coordin[widget.p2_index] = selected_pos2_y;
         selected1 = 1;
-        selected_pos1_x = x_coordin[p1_index];
-        selected_pos1_y = y_coordin[p1_index];
-        // selected3 = false;
-        // enable = true;
+        selected_pos1_x = x_coordin[widget.p1_index];
+        selected_pos1_y = y_coordin[widget.p1_index];
       });
       await Future.delayed(const Duration(milliseconds: 10));
       if(chance_triggered) {
-        final temp_x = x_coordin[slipper_index];
-        final temp_y = y_coordin[slipper_index];
+        final temp_x = x_coordin[widget.slipper_index];
+        final temp_y = y_coordin[widget.slipper_index];
         await Future.delayed(const Duration(milliseconds: 10));
         setState(() {
-          x_coordin[slipper_index] = x_coordin[random_index];
-          y_coordin[slipper_index] = y_coordin[random_index];
+          x_coordin[widget.slipper_index] = x_coordin[random_index];
+          y_coordin[widget.slipper_index] = y_coordin[random_index];
           x_coordin[random_index] = temp_x;
           y_coordin[random_index] = temp_y;
-          // chance_triggered = false;
         });
       }
+      await Future.delayed(const Duration(milliseconds: 10));
+      enabled = true;
     }
-    // if (x_coordin[4] == x_coordin[22] && y_coordin[4] == y_coordin[22]) {
-    //   setState(() {
-    //     player2_win = !player2_win;
-    //   });
-    // }
-    // print(player2_win);
   }
 
   Widget buildPiece(int index) {
@@ -215,12 +200,6 @@ class _GameBoardState extends State<GameBoard> {
             round = round + 1;
           });
         }
-        // else {
-        //   setState(() {
-        //     chance_triggered = false;
-        //   });
-        // }
-        // print(bg_index);
       },
       left: !chance_triggered && (selected1 != 0 && selected2) &&
               (selected_pos2_x == x_coordin[index] &&
@@ -235,7 +214,9 @@ class _GameBoardState extends State<GameBoard> {
       duration: const Duration(milliseconds: duration),
       curve: Curves.fastOutSlowIn,
       child: GestureDetector(
-        onTap: () async {
+        onTap: enabled ? () async {
+          // print(widget.order);
+          enabled = false;
           if (selected2 ||
               (selected1 == 0 && !selected2) ||
               (x_coordin[index] - selected_pos1_x).abs() +
@@ -247,33 +228,29 @@ class _GameBoardState extends State<GameBoard> {
               if(index == widget.ANKH_index && round >= 10 && chance_triggered_times < 1) {
                 while(true) {
                   random_index = randomINT.nextInt(25);
-                  if(random_index != slipper_index && random_index != p1_index && random_index != p2_index) break;
+                  if(random_index != widget.slipper_index && random_index != widget.p1_index && random_index != widget.p2_index) break;
                 }
                 setState(() {
                   selected_pos2_x = x_coordin[index];
                   selected_pos2_y = y_coordin[index];
                   selected2 = !selected2;
-                  // chance_triggered = true;
-                  // enable = false;
                 });
                 await Future.delayed(const Duration(milliseconds: 300));
                 setState(() {
                   chance_triggered = true;
-                  // chance_triggered_times += 1;
                 });
                 await Future.delayed(const Duration(milliseconds: 300));
                 setState(() {
                   chance_triggered_times += 1;
                 });
               }
-              else if (index == 22 && selected1 == 1) {
+              else if (index == widget.slipper_index && selected1 == 1) {
                 if (switch_times > 0) {
                   setState(() {
                     selected_pos2_x = x_coordin[index];
                     selected_pos2_y = y_coordin[index];
                     selected2 = !selected2;
                     chance_triggered = false;
-                    // enable = false;
                   });
                   switch_times--;
                 }
@@ -283,19 +260,18 @@ class _GameBoardState extends State<GameBoard> {
                   selected_pos2_y = y_coordin[index];
                   selected2 = !selected2;
                   chance_triggered = false;
-                  // enable = false;
                 });
               }
             }
           }
-        },
+        } : null,
         child: Container(
             margin: EdgeInsets.all(_margin),
             width: _width,
             height: _height,
             decoration: new BoxDecoration(
               image: new DecorationImage(
-                image: index == 22
+                image: index == widget.slipper_index
                     ? ExactAssetImage('assets/images/SLIPPER-DEFAULT.png')
                     : ((index == widget.obstacle_index_1 && round >= 6) 
                     || (index == widget.obstacle_index_2 && round >= 12) 
@@ -318,6 +294,7 @@ class _GameBoardState extends State<GameBoard> {
 
   @override
   Widget build(BuildContext context) {
+    // print(widget.order);
     if (player1_win == true) {
       //這裡就是根據布林值，帶入不同使用者的名字，並去呼叫 Winner 函示 (在 win-modal.dart)
       WidgetsBinding.instance?.addPostFrameCallback((_) {
@@ -330,20 +307,37 @@ class _GameBoardState extends State<GameBoard> {
         Winner(context, widget.player2name, player1_win);
       });
     }
-
-    // var random = Random();
-    // while(true) {
-    //   obstacle_index = random.nextInt(24);
-    //   print("obstacle_index = " + obstacle_index.toString());
-    //   if(obstacle_index != 0 && obstacle_index != 4 && obstacle_index != 22) {
-    //     break;
-    //   }
-    // }
-
+    // p1_index = widget.p1_index;
+    // p2_index = widget.p2_index;
+    if(starting == true) {
+      p1_index = widget.p1_index;
+      p2_index = widget.p2_index;
+      switch(widget.p1_index) {
+        case 0: {
+          selected_pos1_x = 10.0;
+          selected_pos1_y = 20.0;
+        }
+        break;
+        case 4: {
+          selected_pos1_x = 290.0;
+          selected_pos1_y = 20.0;
+        }
+        break;
+        case 20: {
+          selected_pos1_x = 10.0;
+          selected_pos1_y = 300.0;
+        }
+        break;
+        case 24: {
+          selected_pos1_x = 290.0;
+          selected_pos1_y = 300.0;
+        }
+        break;
+      }
+      starting = false;
+      // print(p1_index);
+    }
     return Stack(
-      // child: Text(
-      //   'SIGN UP',
-      // ),
       children: <Widget>[
         Container(
           padding: EdgeInsets.only(left: 10.0),
@@ -370,32 +364,28 @@ class _GameBoardState extends State<GameBoard> {
                       _onEnd1();
                     },
                     left: selected3 || (selected1 == 1) && selected2
-                        ? (selected3 ? x_coordin[p2_index] : selected_pos2_x)
-                        : x_coordin[p1_index],
+                        ? (selected3 ? x_coordin[widget.p2_index] : selected_pos2_x)
+                        : x_coordin[widget.p1_index],
                     top: selected3 || (selected1 == 1) && selected2
-                        ? (selected3 ? y_coordin[p2_index] : selected_pos2_y)
-                        : y_coordin[p1_index],
+                        ? (selected3 ? y_coordin[widget.p2_index] : selected_pos2_y)
+                        : y_coordin[widget.p1_index],
                     duration: const Duration(milliseconds: duration),
                     curve: Curves.fastOutSlowIn,
                     child: GestureDetector(
                       onTap: () {
-                        if ((x_coordin[p1_index] - selected_pos1_x).abs() +
-                                (y_coordin[p1_index] - selected_pos1_y).abs() ==
+                        if ((x_coordin[widget.p1_index] - selected_pos1_x).abs() +
+                                (y_coordin[widget.p1_index] - selected_pos1_y).abs() ==
                             70) {
                           setState(() {
-                            selected_pos2_x = x_coordin[p1_index];
-                            selected_pos2_y = y_coordin[p1_index];
+                            selected_pos2_x = x_coordin[widget.p1_index];
+                            selected_pos2_y = y_coordin[widget.p1_index];
                             selected2 = !selected2;
                             selected3 = !selected3;
-                            // enable = false;
                           });
                         }
                       },
                       child: Container(
                         margin: EdgeInsets.all(_margin),
-                        // color: (selected1 != 1)
-                        //     ? Color(0xFFFFCCCC)
-                        //     : Color.fromARGB(255, 255, 251, 0),
                         width: _width,
                         height: _height,
                         child: Center(
@@ -423,33 +413,28 @@ class _GameBoardState extends State<GameBoard> {
                       });
                     },
                     left: selected3 || ((selected1 == 2) && selected2)
-                        ? (selected3 ? x_coordin[p1_index] : selected_pos2_x)
-                        : x_coordin[p2_index],
+                        ? (selected3 ? x_coordin[widget.p1_index] : selected_pos2_x)
+                        : x_coordin[widget.p2_index],
                     top: selected3 || ((selected1 == 2) && selected2)
-                        ? (selected3 ? y_coordin[p1_index] : selected_pos2_y)
-                        : y_coordin[p2_index],
+                        ? (selected3 ? y_coordin[widget.p1_index] : selected_pos2_y)
+                        : y_coordin[widget.p2_index],
                     duration: const Duration(milliseconds: duration),
                     curve: Curves.fastOutSlowIn,
                     child: GestureDetector(
                       onTap: () {
-                        if ((x_coordin[p2_index] - selected_pos1_x).abs() +
-                                (y_coordin[p2_index] - selected_pos1_y).abs() ==
+                        if ((x_coordin[widget.p2_index] - selected_pos1_x).abs() +
+                                (y_coordin[widget.p2_index] - selected_pos1_y).abs() ==
                             70) {
                           setState(() {
-                            selected_pos2_x = x_coordin[p2_index];
-                            selected_pos2_y = y_coordin[p2_index];
+                            selected_pos2_x = x_coordin[widget.p2_index];
+                            selected_pos2_y = y_coordin[widget.p2_index];
                             selected2 = !selected2;
                             selected3 = !selected3;
-                            // enable = false;
                           });
                         }
                       },
                       child: Container(
                         margin: EdgeInsets.all(_margin),
-                        // color: (selected1 != 2)
-                        //     ? Color(0xFFFFCCCC)
-                        //     : Color.fromARGB(255, 255, 251, 0),
-                        // width: _width,
                         height: _height,
                         child: Center(
                           child: Container(
@@ -469,7 +454,7 @@ class _GameBoardState extends State<GameBoard> {
                       ),
                     ),
                   ),
-                  for (int item in order) buildPiece(item)
+                  for (int item in widget.order) buildPiece(item)
                 ],
               ),
             ))

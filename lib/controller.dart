@@ -49,7 +49,7 @@ class _Player1State extends State<Player1> {
                     child: Padding(
                         padding: const EdgeInsets.all(1.0),
                         child: ClipOval(
-                            child: Image.asset('assets/images/DOG-DEFAULT.png',
+                            child: Image.asset('assets/images/player2_reminder.png',
                                 height: 49, width: 49, fit: BoxFit.fill))))),
           ]) //這裡之後應該要改成 Image Widget
           )
