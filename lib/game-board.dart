@@ -321,13 +321,13 @@ class _GameBoardState extends State<GameBoard> {
     if (player1_win == true) {
       //這裡就是根據布林值，帶入不同使用者的名字，並去呼叫 Winner 函示 (在 win-modal.dart)
       WidgetsBinding.instance?.addPostFrameCallback((_) {
-        Winner(context, widget.player1name);
+        Winner(context, widget.player1name, player1_win);
       });
     }
 
     if (player2_win == true) {
       WidgetsBinding.instance?.addPostFrameCallback((_) {
-        Winner(context, widget.player2name);
+        Winner(context, widget.player2name, player1_win);
       });
     }
 
