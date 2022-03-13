@@ -156,8 +156,16 @@ class _StartPageCustomForm extends State<StartPageCustomForm> {
                                   width: 40)),
                           Text(
                             'Player1',
+                            // style: GoogleFonts.lato(
+                            //   textStyle: Theme.of(context).textTheme.headline4,
+                            //   fontSize: 48,
+                            //   fontWeight: FontWeight.w700,
+                            //   fontStyle: FontStyle.Roboto,
+                            // ),
                             style: TextStyle(
-                              fontFamily: 'Arial',
+                              // fontFamily: 'Arial',
+                              fontFamily: 'Roboto Condensed',
+                              fontWeight: FontWeight.w400,
                               fontSize: 18,
                               color: Colors.white,
                               height: 1,
@@ -216,8 +224,16 @@ class _StartPageCustomForm extends State<StartPageCustomForm> {
                                   height: 40, width: 40)),
                           Text(
                             'Player2',
+                            // style: TextStyle(
+                            //   fontFamily: 'Arial',
+                            //   fontSize: 18,
+                            //   color: Colors.white,
+                            //   height: 1,
+                            // ),
                             style: TextStyle(
-                              fontFamily: 'Arial',
+                              // fontFamily: 'Arial',
+                              fontFamily: 'Roboto Condensed',
+                              fontWeight: FontWeight.w400,
                               fontSize: 18,
                               color: Colors.white,
                               height: 1,
