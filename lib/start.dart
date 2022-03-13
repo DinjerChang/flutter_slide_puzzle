@@ -209,7 +209,7 @@ class _StartPageCustomForm extends State<StartPageCustomForm> {
                                 right: 10,
                               ),
                               child: Image.asset(
-                                  'assets/images/player2_reminder.png',
+                                  'assets/images/player1.png',
                                   height: 40,
                                   width: 40)),
                           Text(
