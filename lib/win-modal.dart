@@ -17,17 +17,15 @@ Future Winner(BuildContext context, String player1name, String player2name,
       context: context,
       builder: (BuildContext context) => AlertDialog(
             shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-            side: BorderSide(
-                width: 4,
-                color: Color(0xfffacb5a)),
+              borderRadius: BorderRadius.circular(10),
+              side: BorderSide(width: 4, color: Color(0xfffacb5a)),
             ),
             titlePadding: EdgeInsets.only(top: 0, bottom: 5),
             backgroundColor: Color.fromRGBO(250, 242, 222, 1),
             title: Center(
               child: Container(
                   width: MediaQuery.of(context).size.width,
-                  height: 60,
+                  height: 80,
                   color: Color(0xff21325e),
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -38,18 +36,17 @@ Future Winner(BuildContext context, String player1name, String player2name,
                             child: Padding(
                                 padding: const EdgeInsets.all(1.0),
                                 child: ClipOval(
-                                    child: 
-                                        player1_win ? 
-                                        Image.asset(
-                                        'assets/images/player2_reminder.png',
-                                        height: 45,
-                                        width: 45,
-                                        fit: BoxFit.fill) : 
-                                        Image.asset(
-                                        'assets/images/player1.png',
-                                        height: 45,
-                                        width: 45,
-                                        fit: BoxFit.fill)))),
+                                    child: player1_win
+                                        ? Image.asset(
+                                            'assets/images/player2_reminder.png',
+                                            height: 45,
+                                            width: 45,
+                                            fit: BoxFit.fill)
+                                        : Image.asset(
+                                            'assets/images/player1.png',
+                                            height: 45,
+                                            width: 45,
+                                            fit: BoxFit.fill)))),
                         Container(
                           margin: EdgeInsets.only(left: 5),
                           child: Text("$playername WIN !!",

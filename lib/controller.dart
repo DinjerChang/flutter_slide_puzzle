@@ -21,13 +21,13 @@ class _Player1State extends State<Player1> {
                 left: 35,
                 child: Container(
                     constraints: BoxConstraints(
-                      minWidth: 120,
+                      minWidth: 100,
                     ),
                     margin: const EdgeInsets.only(top: 5.0),
                     padding: const EdgeInsets.only(
                       top: 10,
                       left: 25,
-                      right: 5,
+                      right: 8,
                       bottom: 10,
                     ),
                     decoration: BoxDecoration(
@@ -51,8 +51,8 @@ class _Player1State extends State<Player1> {
                         child: ClipOval(
                             child: Image.asset(
                                 'assets/images/player2_reminder.png',
-                                height: 49,
-                                width: 49,
+                                height: 60,
+                                width: 60,
                                 fit: BoxFit.fill))))),
           ]))
     ]);
@@ -81,13 +81,13 @@ class _Player2State extends State<Player2> {
                 left: 105,
                 child: Container(
                     constraints: BoxConstraints(
-                      minWidth: 120,
+                      minWidth: 100,
                     ),
                     margin: const EdgeInsets.only(top: 5.0),
                     padding: const EdgeInsets.only(
                       top: 10,
-                      left: 23,
-                      right: 5,
+                      left: 26,
+                      right: 8,
                       bottom: 10,
                     ),
                     decoration: BoxDecoration(
@@ -110,7 +110,7 @@ class _Player2State extends State<Player2> {
                         padding: const EdgeInsets.all(1.0),
                         child: ClipOval(
                             child: Image.asset('assets/images/player1.png',
-                                height: 49, width: 49, fit: BoxFit.fill))))),
+                                height: 60, width: 60, fit: BoxFit.fill))))),
           ]))
     ]);
   }

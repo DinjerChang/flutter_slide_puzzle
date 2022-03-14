@@ -23,7 +23,7 @@ class _StartPageState extends State<StartPage> {
           title: Text('Pharaoh\'s Bedroom',
               style: TextStyle(
                 fontFamily: 'Roboto_Condensed',
-                color: Color.fromARGB(255, 0, 0, 0),
+                color: Color(0xff21325E),
                 fontWeight: FontWeight.bold,
               )),
           actions: <Widget>[
@@ -78,18 +78,12 @@ class _StartPageCustomForm extends State<StartPageCustomForm> {
   Widget build(BuildContext context) {
     double _columnMargin = 50.0;
     return Container(
-        // decoration: BoxDecoration(
-        //   image: DecorationImage(
-        //     image: AssetImage("assets/images/mobile-bg.png"),
-        //     fit: BoxFit.cover,
-        //   ),
-        // ),
         margin: EdgeInsets.only(
           top: 50,
         ),
         alignment: Alignment.center,
         child: Container(
-            width: 300,
+            width: 350,
             height: 600,
             decoration: BoxDecoration(
               color: Color(0xff21325e),
@@ -279,15 +273,16 @@ class _StartPageCustomForm extends State<StartPageCustomForm> {
                   ),
                 ),
                 Container(
+                    height: 47,
                     margin: EdgeInsets.only(
                       top: 40,
                     ),
                     child: FractionallySizedBox(
-                      widthFactor: 0.4,
+                      widthFactor: 0.28,
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            primary: Color(0xfffacb5a),
-                            onPrimary: Color.fromARGB(255, 0, 0, 0),
+                            primary: Color(0xfffeb34b),
+                            onPrimary: Color(0xff21325E),
                             side: BorderSide(
                               width: 2.0,
                               color: Colors.white,
@@ -307,6 +302,7 @@ class _StartPageCustomForm extends State<StartPageCustomForm> {
                           },
                           child: Text('Start',
                               style: TextStyle(
+                                fontWeight: FontWeight.bold,
                                 fontFamily: 'Roboto_Condensed',
                               ))),
                     ))
