@@ -11,13 +11,13 @@ class SlidePuzzle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Ancient Slide Puzzle',
+      title: 'Pharaoh\'s Bedroom',
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
       home: const StartPage(),
       routes: <String, WidgetBuilder>{
-        '/game': (_) => SlidePuzzlePage(title: 'Ancient Slide Puzzle'),
+        '/game': (_) => SlidePuzzlePage(title: 'Pharaoh\'s Bedroom'),
         '/start': (_) => StartPage(),
       },
     );
