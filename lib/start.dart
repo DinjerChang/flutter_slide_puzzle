@@ -13,22 +13,29 @@ class _StartPageState extends State<StartPage> {
   @override
   Widget build(BuildContext context) {
     const primaryColor = Color(0xfffeb34c);
+    dynamic page = MediaQuery.of(context);
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
+          toolbarHeight: page.size.height * 0.062,
           backgroundColor: primaryColor,
           leading: IconButton(
-              icon: Image.asset('assets/images/game_small_logo.png'),
+              icon: Image.asset('assets/images/game_small_logo.png',
+                  height: page.textScaleFactor * 40,
+                  width: page.textScaleFactor * 40),
               onPressed: () {}),
           title: Text('Pharaoh\'s Bedroom',
               style: TextStyle(
                 fontFamily: 'Roboto_Condensed',
                 color: Color(0xff21325E),
                 fontWeight: FontWeight.bold,
+                fontSize: page.textScaleFactor * 20,
               )),
           actions: <Widget>[
             IconButton(
-              icon: Image.asset('assets/images/Bar_key.png'),
+              icon: Image.asset('assets/images/Bar_key.png',
+                  height: page.textScaleFactor * 40,
+                  width: page.textScaleFactor * 40),
               tooltip: "How to Play",
               onPressed: () {
                 Navigator.push(
@@ -67,6 +74,7 @@ class _StartPageCustomForm extends State<StartPageCustomForm> {
 
   String player1 = "Player1";
   String player2 = "Player2";
+
   @override
   void dispose() {
     Player1_Controller.dispose();
@@ -76,15 +84,17 @@ class _StartPageCustomForm extends State<StartPageCustomForm> {
 
   @override
   Widget build(BuildContext context) {
-    double _columnMargin = 50.0;
+    dynamic page = MediaQuery.of(context);
+
+    double _columnMargin = page.textScaleFactor * 50.0;
     return Container(
         margin: EdgeInsets.only(
-          top: 50,
+          top: page.textScaleFactor * 50,
         ),
         alignment: Alignment.center,
         child: Container(
-            width: 350,
-            height: 600,
+            width: page.size.width * 0.8,
+            height: page.size.height * 0.7,
             decoration: BoxDecoration(
               color: Color(0xff21325e),
               border: Border.all(width: 4.0, color: Color(0xfffacb5a)),
@@ -96,8 +106,8 @@ class _StartPageCustomForm extends State<StartPageCustomForm> {
               children: <Widget>[
                 Container(
                   margin: EdgeInsets.only(
-                    right: 50,
-                    top: 30,
+                    right: page.textScaleFactor * 50,
+                    top: page.textScaleFactor * 30,
                   ),
                   child: Text("Pharaoh\'s",
                       textAlign: TextAlign.center,
@@ -105,13 +115,13 @@ class _StartPageCustomForm extends State<StartPageCustomForm> {
                         fontFamily: 'Roboto_Condensed',
                         fontWeight: FontWeight.bold,
                         color: Color(0xfffacb5a),
-                        fontSize: 25,
+                        fontSize: page.textScaleFactor * 25,
                       )),
                 ),
                 Container(
                   margin: EdgeInsets.only(
-                    left: 115,
-                    top: 10,
+                    left: page.textScaleFactor * 115,
+                    top: page.textScaleFactor * 10,
                   ),
                   child: Text("Bedroom",
                       textAlign: TextAlign.center,
@@ -119,17 +129,18 @@ class _StartPageCustomForm extends State<StartPageCustomForm> {
                         fontFamily: 'Roboto_Condensed',
                         fontWeight: FontWeight.bold,
                         color: Color(0xfffacb5a),
-                        fontSize: 25,
+                        fontSize: page.textScaleFactor * 25,
                       )),
                 ),
                 Container(
                     child: Image.asset('assets/images/feet_win.gif',
-                        height: 80, width: 80)),
+                        height: page.textScaleFactor * 80,
+                        width: page.textScaleFactor * 80)),
                 Container(
                     margin: EdgeInsets.only(
-                      left: 30,
-                      top: 40,
-                      bottom: 10,
+                      left: page.textScaleFactor * 30,
+                      top: page.textScaleFactor * 40,
+                      bottom: page.textScaleFactor * 10,
                     ),
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -140,14 +151,14 @@ class _StartPageCustomForm extends State<StartPageCustomForm> {
                               ),
                               child: Image.asset(
                                   'assets/images/player2_reminder.png',
-                                  height: 40,
-                                  width: 40)),
+                                  height: page.textScaleFactor * 40,
+                                  width: page.textScaleFactor * 40)),
                           Text(
                             'Player1',
                             style: TextStyle(
                               fontFamily: 'Roboto_Condensed',
                               fontWeight: FontWeight.w400,
-                              fontSize: 18,
+                              fontSize: page.textScaleFactor * 18,
                               color: Colors.white,
                               height: 1,
                             ),
@@ -202,9 +213,9 @@ class _StartPageCustomForm extends State<StartPageCustomForm> {
                 ),
                 Container(
                     margin: EdgeInsets.only(
-                      left: 30,
-                      top: 30,
-                      bottom: 10,
+                      left: page.textScaleFactor * 30,
+                      top: page.textScaleFactor * 30,
+                      bottom: page.textScaleFactor * 10,
                     ),
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -214,13 +225,14 @@ class _StartPageCustomForm extends State<StartPageCustomForm> {
                                 right: 10,
                               ),
                               child: Image.asset('assets/images/player1.png',
-                                  height: 40, width: 40)),
+                                  height: page.textScaleFactor * 40,
+                                  width: page.textScaleFactor * 40)),
                           Text(
                             'Player2',
                             style: TextStyle(
                               fontFamily: 'Roboto_Condensed',
                               fontWeight: FontWeight.w400,
-                              fontSize: 18,
+                              fontSize: page.textScaleFactor * 18,
                               color: Colors.white,
                               height: 1,
                             ),
@@ -273,12 +285,12 @@ class _StartPageCustomForm extends State<StartPageCustomForm> {
                   ),
                 ),
                 Container(
-                    height: 47,
+                    height: page.textScaleFactor * 47,
                     margin: EdgeInsets.only(
-                      top: 40,
+                      top: page.textScaleFactor * 40,
                     ),
                     child: FractionallySizedBox(
-                      widthFactor: 0.28,
+                      widthFactor: page.textScaleFactor * 0.28,
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             primary: Color(0xfffeb34b),
