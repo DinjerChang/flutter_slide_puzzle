@@ -38,46 +38,44 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
     player2_win = false;
 
     var random = Random();
-    while (true) {
-      obstacle_index_1 = random.nextInt(25);
-
-      // print("obstacle_index = " + obstacle_index.toString());
-      if (obstacle_index_1 != 0 &&
-          obstacle_index_1 != 4 &&
-          obstacle_index_1 != 22) {
-        break;
-      }
-    }
-    while (true) {
-      obstacle_index_2 = random.nextInt(25);
-      if (obstacle_index_2 != 0 &&
-          obstacle_index_2 != 4 &&
-          obstacle_index_2 != 22 &&
-          obstacle_index_2 != obstacle_index_1) {
-        break;
-      }
-    }
-    while (true) {
-      obstacle_index_3 = random.nextInt(25);
-      if (obstacle_index_3 != 0 &&
-          obstacle_index_3 != 4 &&
-          obstacle_index_3 != 22 &&
-          obstacle_index_3 != obstacle_index_1 &&
-          obstacle_index_3 != obstacle_index_2) {
-        break;
-      }
-    }
-    while (true) {
-      ANKH_index = random.nextInt(25);
-      if (ANKH_index != 0 &&
-          ANKH_index != 4 &&
-          ANKH_index != 22 &&
-          ANKH_index != obstacle_index_1 &&
-          ANKH_index != obstacle_index_2 &&
-          ANKH_index != obstacle_index_3) {
-        break;
-      }
-    }
+    // while (true) {
+    //   obstacle_index_1 = random.nextInt(25);
+    //   if (obstacle_index_1 != 0 &&
+    //       obstacle_index_1 != 4 &&
+    //       obstacle_index_1 != 22) {
+    //     break;
+    //   }
+    // }
+    // while (true) {
+    //   obstacle_index_2 = random.nextInt(25);
+    //   if (obstacle_index_2 != 0 &&
+    //       obstacle_index_2 != 4 &&
+    //       obstacle_index_2 != 22 &&
+    //       obstacle_index_2 != obstacle_index_1) {
+    //     break;
+    //   }
+    // }
+    // while (true) {
+    //   obstacle_index_3 = random.nextInt(25);
+    //   if (obstacle_index_3 != 0 &&
+    //       obstacle_index_3 != 4 &&
+    //       obstacle_index_3 != 22 &&
+    //       obstacle_index_3 != obstacle_index_1 &&
+    //       obstacle_index_3 != obstacle_index_2) {
+    //     break;
+    //   }
+    // }
+    // while (true) {
+    //   ANKH_index = random.nextInt(25);
+    //   if (ANKH_index != 0 &&
+    //       ANKH_index != 4 &&
+    //       ANKH_index != 22 &&
+    //       ANKH_index != obstacle_index_1 &&
+    //       ANKH_index != obstacle_index_2 &&
+    //       ANKH_index != obstacle_index_3) {
+    //     break;
+    //   }
+    // }
     final order = [for (var i = 0; i < 25; i++) i];
     int random_case = randomINT.nextInt(8);
     switch(random_case) {
@@ -138,6 +136,46 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
     }
     order.remove(p1_index);
     order.remove(p2_index);
+
+    while (true) {
+      obstacle_index_1 = random.nextInt(25);
+      if (obstacle_index_1 != p1_index &&
+          obstacle_index_1 != p2_index &&
+          obstacle_index_1 != slipper_index) {
+        break;
+      }
+    }
+    while (true) {
+      obstacle_index_2 = random.nextInt(25);
+      if (obstacle_index_2 != p1_index &&
+          obstacle_index_2 != p2_index &&
+          obstacle_index_2 != slipper_index &&
+          obstacle_index_2 != obstacle_index_1) {
+        break;
+      }
+    }
+    while (true) {
+      obstacle_index_3 = random.nextInt(25);
+      if (obstacle_index_3 != p1_index &&
+          obstacle_index_3 != p2_index &&
+          obstacle_index_3 != slipper_index &&
+          obstacle_index_3 != obstacle_index_1 &&
+          obstacle_index_3 != obstacle_index_2) {
+        break;
+      }
+    }
+    while (true) {
+      ANKH_index = random.nextInt(25);
+      if (ANKH_index != p1_index &&
+          ANKH_index != p2_index &&
+          ANKH_index != slipper_index &&
+          ANKH_index != obstacle_index_1 &&
+          ANKH_index != obstacle_index_2 &&
+          ANKH_index != obstacle_index_3) {
+        break;
+      }
+    }
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
