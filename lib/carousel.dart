@@ -25,9 +25,11 @@ class _CarouselState extends State<Carousel> {
 
   @override
   Widget build(BuildContext context) {
+    dynamic page = MediaQuery.of(context);
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
+        toolbarHeight: page.size.height * 0.062,
         iconTheme: IconThemeData(
           color: Color(0xff21325E),
         ),
@@ -47,6 +49,7 @@ class _CarouselState extends State<Carousel> {
                     fit: BoxFit.cover,
                   ),
                 ),
+                constraints: BoxConstraints.expand(),
                 alignment: Alignment.center,
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,

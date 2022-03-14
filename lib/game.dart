@@ -144,10 +144,11 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
         break;
       }
     }
-
+    dynamic page = MediaQuery.of(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
+          toolbarHeight: page.size.height * 0.062,
           backgroundColor: Color(0xfffeb34c),
           leading: IconButton(
               icon: Image.asset('assets/images/game_small_logo.png'),
