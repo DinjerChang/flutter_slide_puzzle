@@ -29,13 +29,12 @@ class _CarouselState extends State<Carousel> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         iconTheme: IconThemeData(
-          color: Color(0xff21325E), 
+          color: Color(0xff21325E),
         ),
         backgroundColor: Color(0xfffeb34c),
         title: Text('How to play',
             style: TextStyle(
-                color: Color.fromARGB(255, 0, 0, 0),
-                fontWeight: FontWeight.bold)),
+                color: Color(0xff21325E), fontWeight: FontWeight.bold)),
       ),
       body: CarouselSlider(
         options: CarouselOptions(height: 800.0),

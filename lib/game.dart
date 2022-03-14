@@ -157,7 +157,7 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
           title: Text('Pharaoh\'s Bedroom',
               style: TextStyle(
                   fontFamily: 'Roboto_Condensed',
-                  color: Color.fromARGB(255, 0, 0, 0),
+                  color: Color(0xff21325E),
                   fontWeight: FontWeight.bold)),
           actions: <Widget>[
             IconButton(
@@ -211,20 +211,29 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),
                             side: BorderSide(
-                                color: Color.fromARGB(255, 255, 255, 255))),
+                              width: 2.0,
+                              color: Colors.white,
+                            )),
                         backgroundColor: Color(0xffFF6835),
                         foregroundColor: Color(0xff21325E),
                         label: Text('Pause',
-                            style: TextStyle(fontFamily: 'Roboto_Condensed')),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'Roboto_Condensed')),
                         onPressed: () => showDialog<String>(
                           context: context,
                           builder: (BuildContext context) => AlertDialog(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                               side: BorderSide(
-                                  width: 4, color: Color(0xfffacb5a)),
+                                width: 2.0,
+                                color: Color(0xfffacb5a),
+                              ),
                             ),
                             backgroundColor: Color(0xff21325e),
+                            actionsPadding: EdgeInsets.only(
+                              bottom: 15,
+                            ),
                             title: const Text(
                               'Game is Paused',
                               textAlign: TextAlign.center,
@@ -238,10 +247,16 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
                                   child: TextButton(
                                       onPressed: () =>
                                           Navigator.pop(context, 'Resume'),
-                                      child: const Text('Resume',
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontFamily: 'Roboto_Condensed')),
+                                      child: Container(
+                                        width: 70,
+                                        child: Text('Resume',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                color: Color(0xff21325E),
+                                                fontWeight: FontWeight.bold,
+                                                fontFamily:
+                                                    'Roboto_Condensed')),
+                                      ),
                                       style: ButtonStyle(
                                         foregroundColor:
                                             MaterialStateProperty.all(
@@ -253,9 +268,10 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
                                             RoundedRectangleBorder(
                                                 borderRadius:
                                                     BorderRadius.circular(
-                                                        15.0))),
+                                                        30.0))),
                                         side: MaterialStateProperty.all(
                                             BorderSide(
+                                          width: 2.0,
                                           color: Colors.white,
                                         )),
                                       )))
@@ -270,12 +286,15 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
                           backgroundColor: Color(0xfffacb5a),
                           foregroundColor: Color(0xff21325E),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
-                            side: BorderSide(
-                                color: Color.fromARGB(255, 255, 255, 255)),
-                          ),
+                              borderRadius: BorderRadius.circular(30),
+                              side: BorderSide(
+                                width: 2.0,
+                                color: Colors.white,
+                              )),
                           label: Text('Restart',
-                              style: TextStyle(fontFamily: 'Roboto_Condensed')),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Roboto_Condensed')),
                           onPressed: () {
                             Navigator.pop(context);
                             Navigator.of(context).pushNamed('/game',
