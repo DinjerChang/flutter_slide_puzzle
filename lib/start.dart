@@ -19,11 +19,11 @@ class _StartPageState extends State<StartPage> {
           leading: IconButton(
               icon: Image.asset('assets/images/game_small_logo.png'),
               onPressed: () {}),
-          title: Text('Pharaoh\'s bedroom',
+          title: Text('Pharaoh\'s Bedroom',
               style: TextStyle(
+                fontFamily: 'Roboto_Condensed',
                 color: Color.fromARGB(255, 0, 0, 0),
                 fontWeight: FontWeight.bold,
-                // fontFamily: GoogleFonts.lato(),
               )),
           actions: <Widget>[
             IconButton(
@@ -114,6 +114,7 @@ class _StartPageCustomForm extends State<StartPageCustomForm> {
                   child: Text("Pharaoh\'s",
                       textAlign: TextAlign.center,
                       style: TextStyle(
+                        fontFamily: 'Roboto_Condensed',
                         fontWeight: FontWeight.bold,
                         color: Color(0xfffacb5a),
                         fontSize: 25,
@@ -127,6 +128,7 @@ class _StartPageCustomForm extends State<StartPageCustomForm> {
                   child: Text("Bedroom",
                       textAlign: TextAlign.center,
                       style: TextStyle(
+                        fontFamily: 'Roboto_Condensed',
                         fontWeight: FontWeight.bold,
                         color: Color(0xfffacb5a),
                         fontSize: 25,
@@ -163,7 +165,7 @@ class _StartPageCustomForm extends State<StartPageCustomForm> {
                             // ),
                             style: TextStyle(
                               // fontFamily: 'Arial',
-                              fontFamily: 'Roboto Condensed',
+                              fontFamily: 'Roboto_Condensed',
                               fontWeight: FontWeight.w400,
                               fontSize: 18,
                               color: Colors.white,
@@ -176,32 +178,43 @@ class _StartPageCustomForm extends State<StartPageCustomForm> {
                   // margin: EdgeInsets.only(top: _columnMargin),
                   padding:
                       const EdgeInsets.symmetric(horizontal: 30, vertical: 0),
-                  child: TextFormField(
-                    controller: Player1_Controller,
-                    cursorColor: Colors.white,
-                    style: TextStyle(color: Colors.white),
-                    decoration: const InputDecoration(
-                      contentPadding: EdgeInsets.only(
-                        left: 10,
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Color(0xfffacb5a), width: 2.0),
-                        borderRadius: const BorderRadius.all(
-                          const Radius.circular(10),
+                  child: Theme(
+                    data: ThemeData(
+                      textSelectionTheme: TextSelectionThemeData(
+                        cursorColor: Colors.white,
+                        selectionColor: Colors.white.withOpacity(0.5),
+                        selectionHandleColor: Colors.white,
+                      )
+                    ),
+                    child: TextFormField(
+                      controller: Player1_Controller,
+                      cursorColor: Colors.white,
+                      style: TextStyle(color: Colors.white),
+                      decoration: const InputDecoration(
+                        fillColor: Colors.white,
+                        contentPadding: EdgeInsets.only(
+                          left: 10,
                         ),
-                      ),
-                      focusedBorder: const OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: Color(0xfffacb5a), width: 2.0),
-                        borderRadius: const BorderRadius.all(
-                          const Radius.circular(10),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Color(0xfffacb5a), width: 2.0),
+                          borderRadius: const BorderRadius.all(
+                            const Radius.circular(10),
+                          ),
                         ),
-                      ),
-                      focusColor: Colors.white,
-                      hintText: 'Please enter your name',
-                      hintStyle: TextStyle(
-                        color: Color.fromARGB(255, 255, 243, 243),
+                        focusedBorder: const OutlineInputBorder(
+                          borderSide: const BorderSide(
+                              color: Color(0xfffacb5a), width: 2.0),
+                          borderRadius: const BorderRadius.all(
+                            const Radius.circular(10),
+                          ),
+                        ),
+                        focusColor: Colors.white,
+                        hintText: 'Please enter your name',
+                        hintStyle: TextStyle(
+                          fontFamily: 'Roboto_Condensed',
+                          color: Color.fromARGB(255, 255, 243, 243),
+                        ),
                       ),
                     ),
                   ),
@@ -231,7 +244,7 @@ class _StartPageCustomForm extends State<StartPageCustomForm> {
                             // ),
                             style: TextStyle(
                               // fontFamily: 'Arial',
-                              fontFamily: 'Roboto Condensed',
+                              fontFamily: 'Roboto_Condensed',
                               fontWeight: FontWeight.w400,
                               fontSize: 18,
                               color: Colors.white,
@@ -244,32 +257,42 @@ class _StartPageCustomForm extends State<StartPageCustomForm> {
                   // margin: EdgeInsets.only(top: _columnMargin),
                   padding:
                       const EdgeInsets.symmetric(horizontal: 30, vertical: 0),
-                  child: TextFormField(
-                    controller: Player2_Controller,
-                    style: TextStyle(color: Colors.white),
-                    cursorColor: Colors.white,
-                    decoration: const InputDecoration(
-                      contentPadding: EdgeInsets.only(
-                        left: 10,
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Color(0xfffacb5a), width: 2.0),
-                        borderRadius: const BorderRadius.all(
-                          const Radius.circular(10),
+                  child: Theme(
+                    data: ThemeData(
+                      textSelectionTheme: TextSelectionThemeData(
+                        cursorColor: Colors.white,
+                        selectionColor: Colors.white.withOpacity(0.5),
+                        selectionHandleColor: Colors.white,
+                      )
+                    ),
+                    child: TextFormField(
+                      controller: Player2_Controller,
+                      style: TextStyle(color: Colors.white),
+                      cursorColor: Colors.white,
+                      decoration: const InputDecoration(
+                        contentPadding: EdgeInsets.only(
+                          left: 10,
                         ),
-                      ),
-                      focusedBorder: const OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: Color(0xfffacb5a), width: 2.0),
-                        borderRadius: const BorderRadius.all(
-                          const Radius.circular(10),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Color(0xfffacb5a), width: 2.0),
+                          borderRadius: const BorderRadius.all(
+                            const Radius.circular(10),
+                          ),
                         ),
-                      ),
-                      focusColor: Colors.white,
-                      hintText: 'Please enter your name',
-                      hintStyle: TextStyle(
-                        color: Colors.white,
+                        focusedBorder: const OutlineInputBorder(
+                          borderSide: const BorderSide(
+                              color: Color(0xfffacb5a), width: 2.0),
+                          borderRadius: const BorderRadius.all(
+                            const Radius.circular(10),
+                          ),
+                        ),
+                        focusColor: Colors.white,
+                        hintText: 'Please enter your name',
+                        hintStyle: TextStyle(
+                          fontFamily: 'Roboto_Condensed',
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),
@@ -303,7 +326,10 @@ class _StartPageCustomForm extends State<StartPageCustomForm> {
                                   'Player2': player2
                                 });
                           },
-                          child: Text('Start')),
+                          child: Text('Start',
+                                style: TextStyle(
+                                  fontFamily: 'Roboto_Condensed',
+                                ))),
                     ))
               ],
             )));

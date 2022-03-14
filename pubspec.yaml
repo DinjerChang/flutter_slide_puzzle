@@ -92,8 +92,8 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
 
   fonts:
-    - family: Roboto Condensed
+    - family: Roboto_Condensed
       fonts:
-        - asset: fonts/Roboto_Condensed/RobotoCondensed-Regular.ttf
+        - asset: fonts/Roboto_Condensed/RobotoCondensed.ttf
 
 

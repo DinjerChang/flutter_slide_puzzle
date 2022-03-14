@@ -297,14 +297,20 @@ class _GameBoardState extends State<GameBoard> {
     // print(widget.order);
     if (player1_win == true) {
       //這裡就是根據布林值，帶入不同使用者的名字，並去呼叫 Winner 函示 (在 win-modal.dart)
+      // WidgetsBinding.instance?.addPostFrameCallback((_) {
+      //   Winner(context, widget.player1name, player1_win);
+      // });
       WidgetsBinding.instance?.addPostFrameCallback((_) {
-        Winner(context, widget.player1name, player1_win);
+        Winner(context, widget.player1name, widget.player2name, true);
       });
     }
 
     if (player2_win == true) {
+      // WidgetsBinding.instance?.addPostFrameCallback((_) {
+      //   Winner(context, widget.player2name, player1_win);
+      // });
       WidgetsBinding.instance?.addPostFrameCallback((_) {
-        Winner(context, widget.player2name, player1_win);
+        Winner(context, widget.player1name, widget.player2name, false);
       });
     }
     // p1_index = widget.p1_index;
@@ -342,9 +348,9 @@ class _GameBoardState extends State<GameBoard> {
         Container(
           padding: EdgeInsets.only(left: 10.0),
           child: Text(
-            'remaining switch times: ' + switch_times.toString(),
+            'Exchange Slipper times: ' + switch_times.toString(),
             style: TextStyle(
-              fontFamily: 'Arial',
+              fontFamily: 'Roboto_Condensed',
               fontSize: 18,
               color: Color.fromARGB(255, 255, 255, 255),
               height: 1,

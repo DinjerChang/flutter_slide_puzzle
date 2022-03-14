@@ -179,43 +179,18 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-          // Here we take the value from the SlidePuzzle object that was created by
-          // the App.build method, and use it to set our appbar title.
           backgroundColor: Color(0xfffeb34c),
           leading: IconButton(
               icon: Image.asset('assets/images/game_small_logo.png'),
-              onPressed: () {}),
-          title: Text('Pharaoh\'s bedroom',
+              onPressed: () {
+                Navigator.of(context).pushNamed('/start');
+              }),
+          title: Text('Pharaoh\'s Bedroom',
               style: TextStyle(
+                  fontFamily: 'Roboto_Condensed',
                   color: Color.fromARGB(255, 0, 0, 0),
                   fontWeight: FontWeight.bold)),
           actions: <Widget>[
-            // IconButton(
-            //   icon: FaIcon(FontAwesomeIcons.pause,
-            //       color: Color.fromARGB(255, 0, 0, 0)),
-            //   tooltip: "Pause Game",
-            //   onPressed: () => showDialog<String>(
-            //     context: context,
-            //     builder: (BuildContext context) => AlertDialog(
-            //       title: const Text(
-            //         'Game is Paused',
-            //         textAlign: TextAlign.center,
-            //       ),
-            //       //content: const Text('Game Story Description'),
-            //       actions: <Widget>[
-            //         Center(
-            //           child: TextButton(
-            //               onPressed: () => Navigator.pop(context, 'Resume'),
-            //               child: const Text('Resume',
-            //                   style: TextStyle(color: Colors.black)),
-            //               style: ButtonStyle(
-            //                   backgroundColor:
-            //                       MaterialStateProperty.all(Colors.yellow))),
-            //         )
-            //       ],
-            //     ),
-            //   ),
-            // ),
             IconButton(
                 icon: Image.asset('assets/images/Bar_key.png'),
                 tooltip: "How to Play",
@@ -259,11 +234,6 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
                 children: [
                   FloatingActionButton.extended(
                     heroTag: "btn1",
-                    // icon: FaIcon(
-                    //   FontAwesomeIcons.pause,
-                    //   color: Color.fromARGB(255, 0, 0, 0),
-                    //   size: 15,
-                    // ),
                     icon: Image.asset("assets/images/pause_logo.png"),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
@@ -271,13 +241,25 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
                             color: Color.fromARGB(255, 255, 255, 255))),
                     backgroundColor: Color(0xffFF6835),
                     foregroundColor: Color(0xff21325E),
-                    label: Text('Pause'),
+                    label: Text('Pause',
+                          style: TextStyle(fontFamily: 'Roboto_Condensed')),
                     onPressed: () => showDialog<String>(
                       context: context,
                       builder: (BuildContext context) => AlertDialog(
+                        shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        side: BorderSide(
+                            width: 4,
+                            color: Color(0xfffacb5a)),
+                        ),
+                        backgroundColor: Color(0xff21325e),
                         title: const Text(
                           'Game is Paused',
                           textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontFamily: 'Roboto_Condensed',
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
                         ),
                         //content: const Text('Game Story Description'),
                         actions: <Widget>[
@@ -286,10 +268,21 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
                                 onPressed: () =>
                                     Navigator.pop(context, 'Resume'),
                                 child: const Text('Resume',
-                                    style: TextStyle(color: Colors.black)),
+                                    style: TextStyle(color: Colors.black,
+                                                    fontFamily: 'Roboto_Condensed')),
                                 style: ButtonStyle(
+                                    foregroundColor: MaterialStateProperty.all(
+                                        Color(0xff21325E)),
                                     backgroundColor: MaterialStateProperty.all(
-                                        Colors.yellow))),
+                                        Color(0xffFEB34B)),
+                                    shape: MaterialStateProperty.all(
+                                      RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(15.0))),
+                                      side: MaterialStateProperty.all(
+                                        BorderSide(color: Colors.white,
+                                      )),
+                                    )
+                            )
                           )
                         ],
                       ),
@@ -306,9 +299,14 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
                         side: BorderSide(
                             color: Color.fromARGB(255, 255, 255, 255)),
                       ),
-                      label: Text('Restart'),
+                      label: Text('Restart',
+                            style: TextStyle(fontFamily: 'Roboto_Condensed')),
                       onPressed: () {
                         Navigator.pop(context);
+                        Navigator.of(context).pushNamed('/game', arguments: {
+                          'Player1': player1,
+                          'Player2': player2
+                        });
                       }),
                 ],
               )
