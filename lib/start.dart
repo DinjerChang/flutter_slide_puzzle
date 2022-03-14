@@ -93,8 +93,8 @@ class _StartPageCustomForm extends State<StartPageCustomForm> {
         ),
         alignment: Alignment.center,
         child: Container(
-            width: page.size.width * 0.8,
-            height: page.size.height * 0.7,
+            width: 350,
+            height: 600,
             decoration: BoxDecoration(
               color: Color(0xff21325e),
               border: Border.all(width: 4.0, color: Color(0xfffacb5a)),
