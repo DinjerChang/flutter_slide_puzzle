@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_slide_puzzle/carousel.dart';
+import 'package:flutter/services.dart';
 
 class StartPage extends StatefulWidget {
   const StartPage({Key? key}) : super(key: key);
@@ -40,24 +41,6 @@ class _StartPageState extends State<StartPage> {
             )
           ]),
       body: StartPageCustomForm(),
-
-      // Below code is deprecated, unused
-      // floatingActionButton: FloatingActionButton.extended(
-      //   label: Text('Let\'s Play'),
-      //   onPressed: () {
-      //     setState(() {
-      //       player1 = _StartPageCustomForm().Player1_Controller.text.toString();
-      //       print('player1: ' + player1);
-      //       Navigator.of(context).pushNamed('/game', arguments: {
-      //         'Player1':
-      //             _StartPageCustomForm().Player1_Controller.text.toString(),
-      //         'Player2':
-      //             _StartPageCustomForm().Player2_Controller.text.toString()
-      //       });
-      //     });
-      //   },
-      // ),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
@@ -77,7 +60,6 @@ class _StartPageCustomForm extends State<StartPageCustomForm> {
   String player2 = "Player2";
   @override
   void dispose() {
-    // Clean up the controller when the widget is disposed.
     Player1_Controller.dispose();
     Player2_Controller.dispose();
     super.dispose();
@@ -135,7 +117,6 @@ class _StartPageCustomForm extends State<StartPageCustomForm> {
                       )),
                 ),
                 Container(
-                    // margin: EdgeInsets.only(bottom: _columnMargin),
                     child: Image.asset('assets/images/feet_win.gif',
                         height: 80, width: 80)),
                 Container(
@@ -157,14 +138,7 @@ class _StartPageCustomForm extends State<StartPageCustomForm> {
                                   width: 40)),
                           Text(
                             'Player1',
-                            // style: GoogleFonts.lato(
-                            //   textStyle: Theme.of(context).textTheme.headline4,
-                            //   fontSize: 48,
-                            //   fontWeight: FontWeight.w700,
-                            //   fontStyle: FontStyle.Roboto,
-                            // ),
                             style: TextStyle(
-                              // fontFamily: 'Arial',
                               fontFamily: 'Roboto_Condensed',
                               fontWeight: FontWeight.w400,
                               fontSize: 18,
@@ -175,7 +149,6 @@ class _StartPageCustomForm extends State<StartPageCustomForm> {
                           ),
                         ])),
                 Container(
-                  // margin: EdgeInsets.only(top: _columnMargin),
                   padding:
                       const EdgeInsets.symmetric(horizontal: 30, vertical: 0),
                   child: Theme(
@@ -187,6 +160,9 @@ class _StartPageCustomForm extends State<StartPageCustomForm> {
                       )
                     ),
                     child: TextFormField(
+                      inputFormatters: [
+                        new LengthLimitingTextInputFormatter(12),
+                      ],
                       controller: Player1_Controller,
                       cursorColor: Colors.white,
                       style: TextStyle(color: Colors.white),
@@ -236,14 +212,7 @@ class _StartPageCustomForm extends State<StartPageCustomForm> {
                                   height: 40, width: 40)),
                           Text(
                             'Player2',
-                            // style: TextStyle(
-                            //   fontFamily: 'Arial',
-                            //   fontSize: 18,
-                            //   color: Colors.white,
-                            //   height: 1,
-                            // ),
                             style: TextStyle(
-                              // fontFamily: 'Arial',
                               fontFamily: 'Roboto_Condensed',
                               fontWeight: FontWeight.w400,
                               fontSize: 18,
@@ -254,7 +223,6 @@ class _StartPageCustomForm extends State<StartPageCustomForm> {
                           ),
                         ])),
                 Container(
-                  // margin: EdgeInsets.only(top: _columnMargin),
                   padding:
                       const EdgeInsets.symmetric(horizontal: 30, vertical: 0),
                   child: Theme(
@@ -266,6 +234,9 @@ class _StartPageCustomForm extends State<StartPageCustomForm> {
                       )
                     ),
                     child: TextFormField(
+                      inputFormatters: [
+                        new LengthLimitingTextInputFormatter(12),
+                      ],
                       controller: Player2_Controller,
                       style: TextStyle(color: Colors.white),
                       cursorColor: Colors.white,
@@ -302,12 +273,11 @@ class _StartPageCustomForm extends State<StartPageCustomForm> {
                       top: 40,
                     ),
                     child: FractionallySizedBox(
-                      // heightFactor: 1.2,
                       widthFactor: 0.4,
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             primary: Color(
-                                0xfffacb5a), //change background color of button
+                                0xfffacb5a), 
                             onPrimary: Color.fromARGB(255, 0, 0, 0),
                             side: BorderSide(
                               width: 2.0,

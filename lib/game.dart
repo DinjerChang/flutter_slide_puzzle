@@ -29,8 +29,6 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
   @override
   Widget build(BuildContext context) {
     final arguments = ModalRoute.of(context)?.settings.arguments as Map;
-    if (arguments != null)
-      print(arguments['Player1'] + ',' + arguments['Player2']);
     final String player1 = arguments['Player1'];
     final String player2 = arguments['Player2'];
 
@@ -38,44 +36,6 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
     player2_win = false;
 
     var random = Random();
-    // while (true) {
-    //   obstacle_index_1 = random.nextInt(25);
-    //   if (obstacle_index_1 != 0 &&
-    //       obstacle_index_1 != 4 &&
-    //       obstacle_index_1 != 22) {
-    //     break;
-    //   }
-    // }
-    // while (true) {
-    //   obstacle_index_2 = random.nextInt(25);
-    //   if (obstacle_index_2 != 0 &&
-    //       obstacle_index_2 != 4 &&
-    //       obstacle_index_2 != 22 &&
-    //       obstacle_index_2 != obstacle_index_1) {
-    //     break;
-    //   }
-    // }
-    // while (true) {
-    //   obstacle_index_3 = random.nextInt(25);
-    //   if (obstacle_index_3 != 0 &&
-    //       obstacle_index_3 != 4 &&
-    //       obstacle_index_3 != 22 &&
-    //       obstacle_index_3 != obstacle_index_1 &&
-    //       obstacle_index_3 != obstacle_index_2) {
-    //     break;
-    //   }
-    // }
-    // while (true) {
-    //   ANKH_index = random.nextInt(25);
-    //   if (ANKH_index != 0 &&
-    //       ANKH_index != 4 &&
-    //       ANKH_index != 22 &&
-    //       ANKH_index != obstacle_index_1 &&
-    //       ANKH_index != obstacle_index_2 &&
-    //       ANKH_index != obstacle_index_3) {
-    //     break;
-    //   }
-    // }
     final order = [for (var i = 0; i < 25; i++) i];
     int random_case = randomINT.nextInt(8);
     switch(random_case) {
@@ -203,8 +163,8 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
                   );
                 })
           ]),
-      // body: SingleChildScrollView(
       body: Container(
+          padding: EdgeInsets.only(right: 8),
           decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/images/mobile-bg.png"),
@@ -261,7 +221,6 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
                             color: Colors.white,
                             fontWeight: FontWeight.bold),
                         ),
-                        //content: const Text('Game Story Description'),
                         actions: <Widget>[
                           Center(
                             child: TextButton(
@@ -312,23 +271,6 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
               )
             ],
           )),
-      // floatingActionButton: FloatingActionButton.extended(
-      //     icon: Restart(),
-      //     label: Text('Restart'),
-      //     onPressed: () {
-      //       // 這裡我來不及研究怎麼只 refresh GameBoard() Widget，Sorry ;)
-      //       // Navigator.pushReplacement(
-      //       //     context,
-      //       //     MaterialPageRoute(
-      //       //         builder: (BuildContext context) => super.widget));
-      //       // ;
-      //       // setState((){
-      //       //   reload = !reload;
-      //       // });
-      //       Navigator.pop(context);
-      //       // widget.refresh();
-      //     }),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
