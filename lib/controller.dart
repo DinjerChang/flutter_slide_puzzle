@@ -16,22 +16,28 @@ class _Player1State extends State<Player1> {
     return Row(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
       Container(
           height: 57.0,
-          width: 200.0,
+          width: 240.0,
+          // constraints: BoxConstraints(
+          //   minWidth: 200,
+          // ),
           margin: EdgeInsets.all(_playerMargin),
           child: Stack(children: <Widget>[
             Positioned(
                 left: 35,
                 child: Container(
-                    width: 100,
+                    // width: 100,
+                    constraints: BoxConstraints(
+                      minWidth: 120,
+                    ),
                     margin: const EdgeInsets.only(top: 5.0),
                     padding: const EdgeInsets.only(
                       top: 10,
-                      left: 20,
+                      left: 25,
                       right: 5,
                       bottom: 10,
                     ),
                     decoration: BoxDecoration(
-                        color: Color(0xffB4452E),
+                        color: Color(0xff394A83),
                         border:
                             Border.all(width: 2.0, color: Color(0xfffacb5a)),
                         borderRadius: BorderRadius.all(Radius.circular(20))),
@@ -39,6 +45,7 @@ class _Player1State extends State<Player1> {
                     child: Text("  " + widget.playername,
                         textAlign: TextAlign.center,
                         style: TextStyle(
+                            fontFamily: 'Roboto_Condensed',
                             fontWeight: FontWeight.bold,
                             color: Colors.white)))),
             Positioned(
@@ -95,17 +102,20 @@ class _Player2State extends State<Player2> {
     return Row(mainAxisAlignment: MainAxisAlignment.end, children: <Widget>[
       Container(
           height: 60.0,
-          width: 200.0,
+          width: 240.0,
           margin: EdgeInsets.all(_playerMargin),
           child: Stack(children: <Widget>[
             Positioned(
-                left: 100,
+                left: 105,
                 child: Container(
-                    width: 100,
+                    // width: 100,
+                    constraints: BoxConstraints(
+                      minWidth: 120,
+                    ),
                     margin: const EdgeInsets.only(top: 5.0),
                     padding: const EdgeInsets.only(
                       top: 10,
-                      left: 20,
+                      left: 25,
                       right: 5,
                       bottom: 10,
                     ),
@@ -118,17 +128,18 @@ class _Player2State extends State<Player2> {
                     child: Text("  " + widget.playername,
                         textAlign: TextAlign.center,
                         style: TextStyle(
+                            fontFamily: 'Roboto_Condensed',
                             fontWeight: FontWeight.bold,
                             color: Colors.white)))),
             Positioned(
-                left: 75,
+                left: 80,
                 child: CircleAvatar(
                     radius: 28,
                     backgroundColor: Color(0xfffacb5a),
                     child: Padding(
                         padding: const EdgeInsets.all(1.0),
                         child: ClipOval(
-                            child: Image.asset('assets/images/FEET-DEFAULT.png',
+                            child: Image.asset('assets/images/player1.png',
                                 height: 49, width: 49, fit: BoxFit.fill))))),
           ]) //這裡之後應該要改成 Image Widget
           )
