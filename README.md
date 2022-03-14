@@ -23,9 +23,9 @@ To follow that hint, you're starting to explore this Pharaoh's room step and ste
 
 ## Authors
 
-- Jason Chen - Software
-- Henry Chung - Software
-- Dinjer Chang - Software
+- Jason Chen - Software engineer
+- Henry Chung - Software engineer
+- Dinjer Chang - Software engineer
 - Jessie Yu - UI / UX designer
 - Misho Lee - Graphic designer / Video creater
 
