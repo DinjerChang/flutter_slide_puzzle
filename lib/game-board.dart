@@ -34,9 +34,8 @@ class GameBoard extends StatefulWidget {
   State<GameBoard> createState() => _GameBoardState();
 }
 
-bool player1_win = false; // 先在遊戲開始之前宣告，之後隨著遊戲狀態改變
+bool player1_win = false; 
 bool player2_win = false;
-// bool starting = true;
 var randomINT = Random();
 
 class _GameBoardState extends State<GameBoard> {
@@ -46,31 +45,6 @@ class _GameBoardState extends State<GameBoard> {
   final y_coordin = List<dynamic>.generate(
       25, (int index) => (index ~/ 5) * 70.0 + 20.0,
       growable: false);
-  // final List<int> order = [
-  //   1,
-  //   2,
-  //   3,
-  //   5,
-  //   6,
-  //   7,
-  //   8,
-  //   9,
-  //   10,
-  //   11,
-  //   12,
-  //   13,
-  //   14,
-  //   15,
-  //   16,
-  //   17,
-  //   18,
-  //   19,
-  //   20,
-  //   21,
-  //   22,
-  //   23,
-  //   24
-  // ];
 
   final _margin = 1.0;
   dynamic _color = 0xFFFFCCCC;
@@ -95,7 +69,6 @@ class _GameBoardState extends State<GameBoard> {
   int p2_index = 4;
   int slipper_index = 22;
   dynamic switch_times = 3;
-  // dynamic obstacle_index = 1;
   dynamic round = 0;
   int random_index = 0;
   int chance_triggered_times = 0;
@@ -215,7 +188,6 @@ class _GameBoardState extends State<GameBoard> {
       curve: Curves.fastOutSlowIn,
       child: GestureDetector(
         onTap: enabled ? () async {
-          // print(widget.order);
           enabled = false;
           if (selected2 ||
               (selected1 == 0 && !selected2) ||
@@ -294,27 +266,17 @@ class _GameBoardState extends State<GameBoard> {
 
   @override
   Widget build(BuildContext context) {
-    // print(widget.order);
     if (player1_win == true) {
-      //這裡就是根據布林值，帶入不同使用者的名字，並去呼叫 Winner 函示 (在 win-modal.dart)
-      // WidgetsBinding.instance?.addPostFrameCallback((_) {
-      //   Winner(context, widget.player1name, player1_win);
-      // });
       WidgetsBinding.instance?.addPostFrameCallback((_) {
         Winner(context, widget.player1name, widget.player2name, true);
       });
     }
 
     if (player2_win == true) {
-      // WidgetsBinding.instance?.addPostFrameCallback((_) {
-      //   Winner(context, widget.player2name, player1_win);
-      // });
       WidgetsBinding.instance?.addPostFrameCallback((_) {
         Winner(context, widget.player1name, widget.player2name, false);
       });
     }
-    // p1_index = widget.p1_index;
-    // p2_index = widget.p2_index;
     if(starting == true) {
       p1_index = widget.p1_index;
       p2_index = widget.p2_index;
@@ -341,7 +303,6 @@ class _GameBoardState extends State<GameBoard> {
         break;
       }
       starting = false;
-      // print(p1_index);
     }
     return Stack(
       children: <Widget>[

@@ -29,7 +29,7 @@ class _CarouselState extends State<Carousel> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         iconTheme: IconThemeData(
-          color: Color(0xff21325E), //change your color here
+          color: Color(0xff21325E), 
         ),
         backgroundColor: Color(0xfffeb34c),
         title: Text('How to play',
@@ -55,9 +55,7 @@ class _CarouselState extends State<Carousel> {
                     children: [
                       Container(
                         width: MediaQuery.of(context).size.width,
-                        // padding: EdgeInsets.only(top: 50),
                         margin: EdgeInsets.symmetric(horizontal: 5.0),
-                        // decoration: BoxDecoration(color: Colors.amber),
                         child: Image.asset(images[i], height: 700, width: 350),
                       )
                     ]));
