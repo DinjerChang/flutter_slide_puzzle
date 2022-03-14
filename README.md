@@ -9,11 +9,11 @@ To follow that hint, you're starting to explore this Pharaoh's room step and ste
 
 ## How To Play!!
 
-![howToPlay1](https://user-images.githubusercontent.com/49644422/158150462-30a48476-9049-4302-8e2d-84e9b8c01351.png)
-![howToPlay2](https://user-images.githubusercontent.com/49644422/158150469-bcd7fbf0-ace4-497e-b6e6-4c37c2e44df1.png)
-![howToPlay3](https://user-images.githubusercontent.com/49644422/158150473-ba3d5a85-7c2b-4c1d-a20a-d4879c4d25e6.png)
-![howToPlay4](https://user-images.githubusercontent.com/49644422/158150474-94f0b4de-1de9-4e0d-8482-e53440d56aee.png)
-![howToPlay5](https://user-images.githubusercontent.com/49644422/158150476-52b89a94-0d23-442a-8f3c-8ebbd638a9aa.png)
+![howToPlay1](https://user-images.githubusercontent.com/49644422/158155272-06351fa9-b757-46d2-8ce3-160951388750.png)
+![howToPlay2](https://user-images.githubusercontent.com/49644422/158155278-b48b24fa-9922-4fa8-a776-e5eb5b3e6924.png)
+![howToPlay3](https://user-images.githubusercontent.com/49644422/158155280-5c84f840-df86-4f61-a3be-44054832231f.png)
+![howToPlay4](https://user-images.githubusercontent.com/49644422/158155283-c090a4d3-2534-41d2-905d-c2b4bd948048.png)
+![howToPlay5](https://user-images.githubusercontent.com/49644422/158155288-50d4366b-1824-4ccc-bf1a-c4b81e1a5170.png)
 
 ## Requirement
 
