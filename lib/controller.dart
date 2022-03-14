@@ -9,7 +9,7 @@ class Player1 extends StatefulWidget {
 }
 
 class _Player1State extends State<Player1> {
-  final double _playerMargin = 20.0;
+  final double _playerMargin = 10.0;
   Widget build(BuildContext context) {
     return Row(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
       Container(
@@ -49,12 +49,13 @@ class _Player1State extends State<Player1> {
                     child: Padding(
                         padding: const EdgeInsets.all(1.0),
                         child: ClipOval(
-                            child: Image.asset('assets/images/player2_reminder.png',
-                                height: 49, width: 49, fit: BoxFit.fill))))),
-          ]) 
-          )
+                            child: Image.asset(
+                                'assets/images/player2_reminder.png',
+                                height: 49,
+                                width: 49,
+                                fit: BoxFit.fill))))),
+          ]))
     ]);
-    
   }
 }
 
@@ -66,13 +67,15 @@ class Player2 extends StatefulWidget {
 }
 
 class _Player2State extends State<Player2> {
-  final double _playerMargin = 20.0;
+  final double _playerMargin = 10.0;
   Widget build(BuildContext context) {
     return Row(mainAxisAlignment: MainAxisAlignment.end, children: <Widget>[
       Container(
           height: 60.0,
           width: 240.0,
-          margin: EdgeInsets.all(_playerMargin),
+          margin: EdgeInsets.only(
+            bottom: 30,
+          ),
           child: Stack(children: <Widget>[
             Positioned(
                 left: 105,
@@ -83,7 +86,7 @@ class _Player2State extends State<Player2> {
                     margin: const EdgeInsets.only(top: 5.0),
                     padding: const EdgeInsets.only(
                       top: 10,
-                      left: 25,
+                      left: 23,
                       right: 5,
                       bottom: 10,
                     ),
@@ -108,8 +111,7 @@ class _Player2State extends State<Player2> {
                         child: ClipOval(
                             child: Image.asset('assets/images/player1.png',
                                 height: 49, width: 49, fit: BoxFit.fill))))),
-          ])
-          )
+          ]))
     ]);
   }
 }

@@ -14,7 +14,7 @@ class _StartPageState extends State<StartPage> {
   Widget build(BuildContext context) {
     const primaryColor = Color(0xfffeb34c);
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
           backgroundColor: primaryColor,
           leading: IconButton(
@@ -40,7 +40,16 @@ class _StartPageState extends State<StartPage> {
               },
             )
           ]),
-      body: StartPageCustomForm(),
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/mobile-bg.png"),
+            fit: BoxFit.cover,
+          ),
+        ),
+        constraints: BoxConstraints.expand(),
+        child: SingleChildScrollView(child: StartPageCustomForm()),
+      ),
     );
   }
 }
@@ -69,11 +78,14 @@ class _StartPageCustomForm extends State<StartPageCustomForm> {
   Widget build(BuildContext context) {
     double _columnMargin = 50.0;
     return Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/images/mobile-bg.png"),
-            fit: BoxFit.cover,
-          ),
+        // decoration: BoxDecoration(
+        //   image: DecorationImage(
+        //     image: AssetImage("assets/images/mobile-bg.png"),
+        //     fit: BoxFit.cover,
+        //   ),
+        // ),
+        margin: EdgeInsets.only(
+          top: 50,
         ),
         alignment: Alignment.center,
         child: Container(
@@ -153,12 +165,11 @@ class _StartPageCustomForm extends State<StartPageCustomForm> {
                       const EdgeInsets.symmetric(horizontal: 30, vertical: 0),
                   child: Theme(
                     data: ThemeData(
-                      textSelectionTheme: TextSelectionThemeData(
-                        cursorColor: Colors.white,
-                        selectionColor: Colors.white.withOpacity(0.5),
-                        selectionHandleColor: Colors.white,
-                      )
-                    ),
+                        textSelectionTheme: TextSelectionThemeData(
+                      cursorColor: Colors.white,
+                      selectionColor: Colors.white.withOpacity(0.5),
+                      selectionHandleColor: Colors.white,
+                    )),
                     child: TextFormField(
                       inputFormatters: [
                         new LengthLimitingTextInputFormatter(12),
@@ -227,12 +238,11 @@ class _StartPageCustomForm extends State<StartPageCustomForm> {
                       const EdgeInsets.symmetric(horizontal: 30, vertical: 0),
                   child: Theme(
                     data: ThemeData(
-                      textSelectionTheme: TextSelectionThemeData(
-                        cursorColor: Colors.white,
-                        selectionColor: Colors.white.withOpacity(0.5),
-                        selectionHandleColor: Colors.white,
-                      )
-                    ),
+                        textSelectionTheme: TextSelectionThemeData(
+                      cursorColor: Colors.white,
+                      selectionColor: Colors.white.withOpacity(0.5),
+                      selectionHandleColor: Colors.white,
+                    )),
                     child: TextFormField(
                       inputFormatters: [
                         new LengthLimitingTextInputFormatter(12),
@@ -276,8 +286,7 @@ class _StartPageCustomForm extends State<StartPageCustomForm> {
                       widthFactor: 0.4,
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            primary: Color(
-                                0xfffacb5a), 
+                            primary: Color(0xfffacb5a),
                             onPrimary: Color.fromARGB(255, 0, 0, 0),
                             side: BorderSide(
                               width: 2.0,
@@ -297,9 +306,9 @@ class _StartPageCustomForm extends State<StartPageCustomForm> {
                                 });
                           },
                           child: Text('Start',
-                                style: TextStyle(
-                                  fontFamily: 'Roboto_Condensed',
-                                ))),
+                              style: TextStyle(
+                                fontFamily: 'Roboto_Condensed',
+                              ))),
                     ))
               ],
             )));

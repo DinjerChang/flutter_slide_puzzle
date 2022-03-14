@@ -38,61 +38,70 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
     var random = Random();
     final order = [for (var i = 0; i < 25; i++) i];
     int random_case = randomINT.nextInt(8);
-    switch(random_case) {
-      case 0: {
-        p1_index = 0;
-        p2_index = 4;
-        slipper_index = 22;
-      }
-      break;
-      case 1: {
-        p1_index = 4;
-        p2_index = 0;
-        slipper_index = 22;
-      }
-      break;
-      case 2: {
-        p1_index = 4;
-        p2_index = 24;
-        slipper_index = 10;
-      }
-      break;
-      case 3: {
-        p1_index = 24;
-        p2_index = 4;
-        slipper_index = 10;
-      }
-      break;
-      case 4: {
-        p1_index = 24;
-        p2_index = 20;
-        slipper_index = 2;
-      }
-      break;
-      case 5: {
-        p1_index = 20;
-        p2_index = 24;
-        slipper_index = 2;
-      }
-      break;
-      case 6: {
-        p1_index = 20;
-        p2_index = 0;
-        slipper_index = 14;
-      }
-      break;
-      case 7: {
-        p1_index = 0;
-        p2_index = 20;
-        slipper_index = 14;
-      }
-      break;
-      default: {
-        p1_index = 0;
-        p2_index = 4;
-        slipper_index = 22;
-      }
-      break;
+    switch (random_case) {
+      case 0:
+        {
+          p1_index = 0;
+          p2_index = 4;
+          slipper_index = 22;
+        }
+        break;
+      case 1:
+        {
+          p1_index = 4;
+          p2_index = 0;
+          slipper_index = 22;
+        }
+        break;
+      case 2:
+        {
+          p1_index = 4;
+          p2_index = 24;
+          slipper_index = 10;
+        }
+        break;
+      case 3:
+        {
+          p1_index = 24;
+          p2_index = 4;
+          slipper_index = 10;
+        }
+        break;
+      case 4:
+        {
+          p1_index = 24;
+          p2_index = 20;
+          slipper_index = 2;
+        }
+        break;
+      case 5:
+        {
+          p1_index = 20;
+          p2_index = 24;
+          slipper_index = 2;
+        }
+        break;
+      case 6:
+        {
+          p1_index = 20;
+          p2_index = 0;
+          slipper_index = 14;
+        }
+        break;
+      case 7:
+        {
+          p1_index = 0;
+          p2_index = 20;
+          slipper_index = 14;
+        }
+        break;
+      default:
+        {
+          p1_index = 0;
+          p2_index = 4;
+          slipper_index = 22;
+        }
+        break;
     }
     order.remove(p1_index);
     order.remove(p2_index);
@@ -189,86 +198,94 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
                   order: order,
                   reload: reload),
               Player2(playername: (player2 == "") ? "player2" : player2),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  FloatingActionButton.extended(
-                    heroTag: "btn1",
-                    icon: Image.asset("assets/images/pause_logo.png"),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                        side: BorderSide(
-                            color: Color.fromARGB(255, 255, 255, 255))),
-                    backgroundColor: Color(0xffFF6835),
-                    foregroundColor: Color(0xff21325E),
-                    label: Text('Pause',
-                          style: TextStyle(fontFamily: 'Roboto_Condensed')),
-                    onPressed: () => showDialog<String>(
-                      context: context,
-                      builder: (BuildContext context) => AlertDialog(
-                        shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        side: BorderSide(
-                            width: 4,
-                            color: Color(0xfffacb5a)),
-                        ),
-                        backgroundColor: Color(0xff21325e),
-                        title: const Text(
-                          'Game is Paused',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontFamily: 'Roboto_Condensed',
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
-                        ),
-                        actions: <Widget>[
-                          Center(
-                            child: TextButton(
-                                onPressed: () =>
-                                    Navigator.pop(context, 'Resume'),
-                                child: const Text('Resume',
-                                    style: TextStyle(color: Colors.black,
-                                                    fontFamily: 'Roboto_Condensed')),
-                                style: ButtonStyle(
-                                    foregroundColor: MaterialStateProperty.all(
-                                        Color(0xff21325E)),
-                                    backgroundColor: MaterialStateProperty.all(
-                                        Color(0xffFEB34B)),
-                                    shape: MaterialStateProperty.all(
-                                      RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(15.0))),
-                                      side: MaterialStateProperty.all(
-                                        BorderSide(color: Colors.white,
-                                      )),
-                                    )
-                            )
-                          )
-                        ],
-                      ),
-                    ),
+              Container(
+                  padding: EdgeInsets.only(
+                    bottom: 50,
                   ),
-                  SizedBox(width: 10),
-                  FloatingActionButton.extended(
-                      heroTag: "btn2",
-                      icon: Image.asset("assets/images/restart_logo.png"),
-                      backgroundColor: Color(0xfffacb5a),
-                      foregroundColor: Color(0xff21325E),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                        side: BorderSide(
-                            color: Color.fromARGB(255, 255, 255, 255)),
-                      ),
-                      label: Text('Restart',
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      FloatingActionButton.extended(
+                        heroTag: "btn1",
+                        icon: Image.asset("assets/images/pause_logo.png"),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                            side: BorderSide(
+                                color: Color.fromARGB(255, 255, 255, 255))),
+                        backgroundColor: Color(0xffFF6835),
+                        foregroundColor: Color(0xff21325E),
+                        label: Text('Pause',
                             style: TextStyle(fontFamily: 'Roboto_Condensed')),
-                      onPressed: () {
-                        Navigator.pop(context);
-                        Navigator.of(context).pushNamed('/game', arguments: {
-                          'Player1': player1,
-                          'Player2': player2
-                        });
-                      }),
-                ],
-              )
+                        onPressed: () => showDialog<String>(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              side: BorderSide(
+                                  width: 4, color: Color(0xfffacb5a)),
+                            ),
+                            backgroundColor: Color(0xff21325e),
+                            title: const Text(
+                              'Game is Paused',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontFamily: 'Roboto_Condensed',
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            actions: <Widget>[
+                              Center(
+                                  child: TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(context, 'Resume'),
+                                      child: const Text('Resume',
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontFamily: 'Roboto_Condensed')),
+                                      style: ButtonStyle(
+                                        foregroundColor:
+                                            MaterialStateProperty.all(
+                                                Color(0xff21325E)),
+                                        backgroundColor:
+                                            MaterialStateProperty.all(
+                                                Color(0xffFEB34B)),
+                                        shape: MaterialStateProperty.all(
+                                            RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        15.0))),
+                                        side: MaterialStateProperty.all(
+                                            BorderSide(
+                                          color: Colors.white,
+                                        )),
+                                      )))
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 10),
+                      FloatingActionButton.extended(
+                          heroTag: "btn2",
+                          icon: Image.asset("assets/images/restart_logo.png"),
+                          backgroundColor: Color(0xfffacb5a),
+                          foregroundColor: Color(0xff21325E),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                            side: BorderSide(
+                                color: Color.fromARGB(255, 255, 255, 255)),
+                          ),
+                          label: Text('Restart',
+                              style: TextStyle(fontFamily: 'Roboto_Condensed')),
+                          onPressed: () {
+                            Navigator.pop(context);
+                            Navigator.of(context).pushNamed('/game',
+                                arguments: {
+                                  'Player1': player1,
+                                  'Player2': player2
+                                });
+                          }),
+                    ],
+                  ))
             ],
           )),
     );
