@@ -23,11 +23,11 @@ To follow that hint, you're starting to explore this Pharaoh's room step and ste
 
 ## Authors
 
-- Jason Chen
-- Henry Chung
-- Dinjer Chang
-- Jessie Yu
-- Misho Lee
+- Jason Chen - software
+- Henry Chung - software
+- Dinjer Chang - software
+- Jessie Yu - UI / UX experience designer
+- Misho Lee - Graphic designer / video creater
 
 ## Getting Started
 
