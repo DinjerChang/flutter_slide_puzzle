@@ -29,8 +29,8 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
   @override
   Widget build(BuildContext context) {
     final arguments = ModalRoute.of(context)?.settings.arguments as Map;
-    if (arguments != null)
-      print(arguments['Player1'] + ',' + arguments['Player2']);
+    // if (arguments != null)
+    //   print(arguments['Player1'] + ',' + arguments['Player2']);
     final String player1 = arguments['Player1'];
     final String player2 = arguments['Player2'];
 
@@ -205,6 +205,7 @@ class _SlidePuzzlePageState extends State<SlidePuzzlePage> {
           ]),
       // body: SingleChildScrollView(
       body: Container(
+          padding: EdgeInsets.only(right: 8),
           decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/images/mobile-bg.png"),

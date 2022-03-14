@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_slide_puzzle/carousel.dart';
+import 'package:flutter/services.dart';
 
 class StartPage extends StatefulWidget {
   const StartPage({Key? key}) : super(key: key);
@@ -187,6 +188,9 @@ class _StartPageCustomForm extends State<StartPageCustomForm> {
                       )
                     ),
                     child: TextFormField(
+                      inputFormatters: [
+                        new LengthLimitingTextInputFormatter(12),
+                      ],
                       controller: Player1_Controller,
                       cursorColor: Colors.white,
                       style: TextStyle(color: Colors.white),
@@ -266,6 +270,9 @@ class _StartPageCustomForm extends State<StartPageCustomForm> {
                       )
                     ),
                     child: TextFormField(
+                      inputFormatters: [
+                        new LengthLimitingTextInputFormatter(12),
+                      ],
                       controller: Player2_Controller,
                       style: TextStyle(color: Colors.white),
                       cursorColor: Colors.white,
